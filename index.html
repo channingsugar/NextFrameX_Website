@@ -3,11 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="NextFrame - 胶片暗房级的数字冲印工具，支持哈苏扫描件、Raw翻拍件的自动校色，智能去色罩，批量处理，16bit导出" />
     <title>NextFrame — 胶片暗房级的数字冲印</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -17,8 +18,11 @@
         --fg: #0f172a;
         --muted: #475569;
         --accent: #111827;
+        --accent-hover: #1f2937;
         --border: #e2e8f0;
         --card: #ffffff;
+        --success: #10b981;
+        --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       }
       @media (prefers-color-scheme: dark) {
         :root {
@@ -26,108 +30,339 @@
           --fg: #f8fafc;
           --muted: #94a3b8;
           --accent: #f8fafc;
+          --accent-hover: #e2e8f0;
           --border: #1e293b;
           --card: #0f172a;
+          --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
       }
       * {
         box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
       body {
-        margin: 0;
         font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
         background: var(--bg);
         color: var(--fg);
         line-height: 1.6;
         min-height: 100vh;
-        display: flex;
-        flex-direction: column;
       }
-      main {
-        width: min(960px, 100%);
+      .container {
+        max-width: 1200px;
         margin: 0 auto;
-        padding: 32px clamp(16px, 4vw, 48px);
+        padding: 0 clamp(16px, 4vw, 32px);
       }
-      header {
-        padding: clamp(48px, 10vw, 96px) 0 clamp(32px, 6vw, 64px);
+      
+      /* Hero Section */
+      .hero {
         text-align: center;
+        padding: clamp(60px, 12vw, 120px) 0 clamp(40px, 8vw, 80px);
         border-bottom: 1px solid var(--border);
       }
-      header h1 {
-        margin: 0 0 16px;
-        font-size: clamp(2.4rem, 7vw, 4rem);
+      .hero h1 {
+        font-size: clamp(2.5rem, 8vw, 5rem);
+        font-weight: 700;
         letter-spacing: -0.04em;
+        margin-bottom: 24px;
+        background: var(--gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
       }
-      header p {
-        margin: 0 0 32px;
+      .hero .subtitle {
+        font-size: clamp(1.1rem, 3vw, 1.5rem);
         color: var(--muted);
-        font-size: clamp(1rem, 3vw, 1.25rem);
+        margin-bottom: 40px;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
       }
       .cta {
         display: inline-flex;
         align-items: center;
         gap: 12px;
-        padding: 14px 36px;
-        border: 1px solid transparent;
+        padding: 16px 40px;
+        border: none;
         border-radius: 999px;
         font-weight: 600;
+        font-size: 1.1rem;
         background: var(--accent);
         color: var(--bg);
         text-decoration: none;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transition: all 0.3s ease;
+        cursor: pointer;
       }
       .cta:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 15px 40px -20px var(--accent);
-      }
-      .markdown-card {
-        margin: clamp(40px, 6vw, 72px) auto;
-        padding: clamp(24px, 4vw, 48px);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        background: var(--card);
-        font-family: "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
-        font-size: 0.95rem;
-        line-height: 1.7;
-        box-shadow: 0 25px 70px -60px rgba(15, 23, 42, 0.8);
-      }
-      .markdown-card h2 {
-        margin: 24px 0 12px;
-        font-size: 1.2rem;
-      }
-      .markdown-card h2:first-child {
-        margin-top: 0;
-      }
-      .markdown-card ul {
-        padding-left: 1.2em;
-      }
-      footer {
-        text-align: center;
-        padding: 32px 16px 48px;
-        color: var(--muted);
-        font-size: 0.9rem;
+        transform: translateY(-2px);
+        box-shadow: 0 20px 40px -15px var(--accent);
       }
       .badges {
         display: flex;
         flex-wrap: wrap;
         gap: 12px;
         justify-content: center;
-        margin-top: 18px;
-        font-size: 0.85rem;
-        color: var(--muted);
+        margin-top: 32px;
+        font-size: 0.9rem;
       }
       .badge {
         border: 1px solid var(--border);
         border-radius: 999px;
-        padding: 6px 14px;
+        padding: 8px 16px;
+        background: var(--card);
+      }
+
+      /* Features Grid */
+      .features {
+        padding: clamp(60px, 10vw, 100px) 0;
+      }
+      .section-title {
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 60px;
+        letter-spacing: -0.02em;
+      }
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        margin-bottom: 60px;
+      }
+      .feature-card {
+        padding: 32px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: var(--card);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .feature-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
+      }
+      .feature-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+        font-weight: 600;
+      }
+      .feature-card p {
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      /* Comparison Section */
+      .comparison {
+        padding: clamp(60px, 10vw, 100px) 0;
+        background: var(--card);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+      .comparison-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+        margin-top: 40px;
+      }
+      .comparison-item {
+        text-align: center;
+      }
+      .comparison-item h3 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        color: var(--muted);
+      }
+      .image-placeholder {
+        width: 100%;
+        aspect-ratio: 4/3;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      /* Workflow Section */
+      .workflow {
+        padding: clamp(60px, 10vw, 100px) 0;
+      }
+      .workflow-item {
+        margin-bottom: 60px;
+      }
+      .workflow-item h3 {
+        font-size: 1.8rem;
+        margin-bottom: 40px;
+        font-weight: 600;
+      }
+      .workflow-steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 24px;
+      }
+      .workflow-step {
+        text-align: center;
+        padding: 24px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--card);
+      }
+      .workflow-step .step-number {
+        display: inline-block;
+        width: 48px;
+        height: 48px;
+        line-height: 48px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: var(--bg);
+        font-weight: 700;
+        font-size: 1.2rem;
+        margin-bottom: 16px;
+      }
+      .workflow-step h4 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+      .workflow-step p {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      /* Gallery Section */
+      .gallery {
+        padding: clamp(60px, 10vw, 100px) 0;
+        background: var(--card);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 24px;
+        margin-top: 40px;
+      }
+      .gallery-item {
+        aspect-ratio: 1;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      /* FAQ Section */
+      .faq {
+        padding: clamp(60px, 10vw, 100px) 0;
+      }
+      .faq-item {
+        margin-bottom: 32px;
+        padding: 24px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--card);
+      }
+      .faq-item h3 {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+        font-weight: 600;
+      }
+      .faq-item p {
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      /* Purchase Section */
+      .purchase {
+        padding: clamp(60px, 10vw, 100px) 0;
+        background: var(--card);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+      .purchase-info {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 40px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: var(--bg);
+      }
+      .purchase-info h3 {
+        font-size: 1.5rem;
+        margin-bottom: 24px;
+        font-weight: 600;
+      }
+      .purchase-info ul {
+        list-style: none;
+        padding: 0;
+      }
+      .purchase-info li {
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border);
+        color: var(--muted);
+      }
+      .purchase-info li:last-child {
+        border-bottom: none;
+      }
+      .purchase-info strong {
+        color: var(--fg);
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      /* Update Log */
+      .update-log {
+        padding: clamp(60px, 10vw, 100px) 0;
+      }
+      .update-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: var(--card);
+      }
+      .update-content h3 {
+        font-size: 1.5rem;
+        margin-bottom: 24px;
+        font-weight: 600;
+      }
+      .update-content p {
+        color: var(--muted);
+        line-height: 1.8;
+        margin-bottom: 20px;
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 60px 16px;
+        color: var(--muted);
+        border-top: 1px solid var(--border);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+        .workflow-steps {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
   <body>
-    <main>
-      <header>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
         <h1>NextFrame</h1>
-        <p>为胶片摄影师而生的数字暗房。轻松完成去色罩、色偏矫正、裁切与16bit导出。</p>
+        <p class="subtitle">为胶片摄影师而生的数字暗房。轻松完成去色罩、色偏矫正、裁切与16bit导出。</p>
         <a class="cta" href="https://example.com/download/NextFrameX.dmg">
           立即下载 macOS 版本
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -141,52 +376,241 @@
           </svg>
         </a>
         <div class="badges">
-          <span class="badge">macOS 12+</span>
-          <span class="badge">Apple Silicon &amp; Intel</span>
-          <span class="badge">版本 1.0.0</span>
-          <span class="badge">上次更新：2025-02-01</span>
+          <span class="badge">macOS 13+</span>
+          <span class="badge">Apple Silicon & Intel</span>
+          <span class="badge">版本 2.0</span>
         </div>
-      </header>
+      </div>
+    </section>
 
-      <section class="markdown-card" aria-label="Markdown 风格功能描述">
-        <h2># 为什么是 NextFrame X？</h2>
-        <p>
-          > 胶片冲扫工作流程里最费时的几件事：边框识别、色罩去除、色偏修复、亮度补偿。NextFrame X 通过 Metal 与
-          CoreImage 管线，把这些步骤自动化，同时保留能让暗房玩家满意的手动控制。
-        </p>
+    <!-- Features Section -->
+    <section class="features">
+      <div class="container">
+        <h2 class="section-title">核心功能</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <h3>🎯 自动校色</h3>
+            <p>支持哈苏扫描件、Raw翻拍件的自动校色，导入即可自动去色罩，无需手动对齐色阶</p>
+          </div>
+          <div class="feature-card">
+            <h3>✂️ 智能识别</h3>
+            <p>智能识别画面主体，无需裁切胶片边缘，无惧边框齿孔，免去裁切的体力活</p>
+          </div>
+          <div class="feature-card">
+            <h3>📋 参数复制</h3>
+            <p>支持复制粘贴参数，无需一张一张调整，批量粘贴参数，避免重复处理</p>
+          </div>
+          <div class="feature-card">
+            <h3>🎨 16bit 导出</h3>
+            <p>输出支持16bit tiff文件，300DPI，Adobe RGB色彩空间，最大程度保留底片信息</p>
+          </div>
+          <div class="feature-card">
+            <h3>🔄 批量处理</h3>
+            <p>支持批量镜像、自动裁切等功能，提升翻拍效率</p>
+          </div>
+          <div class="feature-card">
+            <h3>⌨️ 快捷键操作</h3>
+            <p>快捷键流畅操作，无需鼠标即可完成大部分操作，提升工作效率</p>
+          </div>
+          <div class="feature-card">
+            <h3>🎛️ 手动微调</h3>
+            <p>可手动调整R/G/B通道，拖动滑块即可调整色阶裁切风格，满足独特色彩偏好</p>
+          </div>
+          <div class="feature-card">
+            <h3>👥 账号系统</h3>
+            <p>新增账号系统，支持3台设备共享，方便多设备使用</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <h2>## 功能速览</h2>
-        <ul>
-          <li><strong>智能色罩/色偏去除</strong> ：阶调检测 + 三通道独立校正，支持手动微调。</li>
-          <li><strong>边框/裁切自动识别</strong> ：支持 35mm、120 以及自定义画幅，键盘 <code>A</code> 即可框选。</li>
-          <li><strong>一键亮度修复</strong> ：基于直方图分位的亮度补偿，暗卷也能恢复层次。</li>
-          <li><strong>批处理与参数快照</strong> ：可对整卷胶片批量推送调整，随时撤销/恢复。</li>
-          <li><strong>16-bit 导出</strong> ：保持 Linear sRGB 工作空间，最大程度保留底片信息。</li>
-        </ul>
+    <!-- Comparison Section -->
+    <section class="comparison">
+      <div class="container">
+        <h2 class="section-title">导入自动校正色偏</h2>
+        <div class="comparison-grid">
+          <div class="comparison-item">
+            <h3>色偏纠正前</h3>
+            <div class="image-placeholder">[色偏纠正前效果图]</div>
+          </div>
+          <div class="comparison-item">
+            <h3>色偏纠正后</h3>
+            <div class="image-placeholder">[色偏纠正后效果图]</div>
+          </div>
+        </div>
+        <div style="margin-top: 60px;">
+          <h2 class="section-title">一键调整色彩和对比度</h2>
+          <div class="comparison-grid">
+            <div class="comparison-item">
+              <h3>调整前</h3>
+              <div class="image-placeholder">[调整前效果图]</div>
+            </div>
+            <div class="comparison-item">
+              <h3>调整后</h3>
+              <div class="image-placeholder">[调整后效果图]</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <h2>## 斋戒般的工作界面</h2>
-        <ul>
-          <li><code>⇧ + Enter</code> ：全屏预览，对比前后。</li>
-          <li><code>[ / ]</code> ：在七档风格之间快速切换。</li>
-          <li><code>Command + C / V</code> ：复制/粘贴整套调整。</li>
-          <li>任何一步都可以撤销，真正的「所见即所得」。</li>
-        </ul>
+    <!-- Workflow Section -->
+    <section class="workflow">
+      <div class="container">
+        <h2 class="section-title">工作流程</h2>
+        
+        <div class="workflow-item">
+          <h3>哈苏X5扫描件工作流</h3>
+          <div class="workflow-steps">
+            <div class="workflow-step">
+              <div class="step-number">01</div>
+              <h4>裁切</h4>
+              <p>使用「FFFSplitter」裁切哈苏扫描件</p>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number">02</div>
+              <h4>自动处理</h4>
+              <p>导入裁切后的Tiff</p>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number">03</div>
+              <h4>检查&微调</h4>
+              <p>检查色偏效果，进行微调</p>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number">04</div>
+              <h4>完成</h4>
+              <p>导出最终结果</p>
+            </div>
+          </div>
+        </div>
 
-        <h2>## 下载与安装</h2>
-        <ol>
-          <li>点击顶部「立即下载」，获取最新签名版 <code>.dmg</code>。</li>
-          <li>安装后首次打开若出现「来自未识别开发者」提示，请在「系统设置 ▸ 隐私与安全」允许。</li>
-          <li>若你使用 Windows，请邮件联系 <code>team@nextframe.app</code> 获取测试版。</li>
-        </ol>
-      </section>
-    </main>
+        <div class="workflow-item">
+          <h3>翻拍工作流</h3>
+          <div class="workflow-steps">
+            <div class="workflow-step">
+              <div class="step-number">01</div>
+              <h4>自动处理</h4>
+              <p>导入Raw文件（部分尼康、松下的raw格式需要转为DNG后导入）</p>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number">02</div>
+              <h4>检查&微调</h4>
+              <p>检查色偏效果，进行微调</p>
+            </div>
+            <div class="workflow-step">
+              <div class="step-number">03</div>
+              <h4>输出结果</h4>
+              <p>导出tiff & jpg</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- Gallery Section -->
+    <section class="gallery">
+      <div class="container">
+        <h2 class="section-title">样片参考</h2>
+        <div class="gallery-grid">
+          <div class="gallery-item">全能400 (Expired)</div>
+          <div class="gallery-item">Contax T2</div>
+          <div class="gallery-item">Lomo800 (Expired)</div>
+          <div class="gallery-item">Pentax 67</div>
+          <div class="gallery-item">5219</div>
+          <div class="gallery-item">Contax TVS 3</div>
+          <div class="gallery-item">5207</div>
+          <div class="gallery-item">Pentax 17</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Purchase Section -->
+    <section class="purchase">
+      <div class="container">
+        <h2 class="section-title">购买须知</h2>
+        <div class="purchase-info">
+          <ul>
+            <li>
+              <strong>授权形式：</strong>
+              电子激活码
+            </li>
+            <li>
+              <strong>交付方式：</strong>
+              拍下后自动/人工发送激活码与下载链接
+            </li>
+            <li>
+              <strong>使用环境：</strong>
+              MacOS 13以上，同时支持intel/M芯片
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+      <div class="container">
+        <h2 class="section-title">常见问题</h2>
+        
+        <div class="faq-item">
+          <h3>1. 新版NextFrame的去色罩原理是什么？</h3>
+          <p>和我们在Captureone里去色罩一样，找黑白场，并校正色偏到中性，只是这个过程被算法简化了，省去了你手动操作的时间。</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>2. 新版NextFrame去色罩会更快吗？</h3>
+          <p>我设计了一整套快捷键系统+批量操作系统，就和玩游戏中熟记的WASD等按键一样，减少不必要的鼠标操作，而且可以一次性完成批量旋转、镜像等操作，自然更快。</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>3. 为什么把直方图的调整显性化了？</h3>
+          <p>因为胶片后期是很依赖主观审美的工作，算法只能给你建议，80%的摄影师自己还需要采纳或者修正。所以我使用了大多数人更习惯的且科学的直方图，你可以在算法建议的基础上微调，而不是每张图都从0开始调整。</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>4. 会比NLP更好吗？</h3>
+          <p>个人认为是的，因为NLP的调整是不透明的，而NextFrame的调整是透明的，直接给你展示了直方图参数，你可以在NextFrame中随时修正算法的建议，在NLP里你只能修正算法的结果。</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>5. Raw和tiff都支持吗？</h3>
+          <p>主流的raw格式都支持，除了部分尼康和松下的raw文件。但如果转换为DNG，都可以导入NextFrame进行处理。</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>6. 对翻拍友好吗？</h3>
+          <p>绝对友好，NextFrame有批量镜像功能，别提多爽了。</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>7. 关于导出画质</h3>
+          <p>NextFrame支持无损导出，导入tiff文件通常为16bit，导出也会保持16bit，所以你如果只想用作负片预处理的工具，其他的步骤交给PS完成，也完全没问题，批量处理后导出tiff即可！</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Update Log -->
+    <section class="update-log">
+      <div class="container">
+        <div class="update-content">
+          <h3>版本更新</h3>
+          <p>又过去了2个月，NextFrame终于完成了一轮重大的迭代…不对，是完全重构。</p>
+          <p>新版的App去色罩的颜色更漂亮。在处理性能、展示清晰度、导出速度上有200%以上的提升。在调整自由度上，也都有了质的飞跃。</p>
+          <p>因为去色罩并不是一项简单的工作，依赖经验、审美、技巧，每个人也有自己以往的习惯。所以我准备了一些QA，或许能解决你的一些疑惑。</p>
+          <p style="margin-top: 24px; color: var(--fg); font-weight: 500;">希望NextFrame能帮大家处理胶片更轻松，也希望大家多多支持 🌹</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-      © <span id="year"></span> NextFrame Studio — we build tools for film photographers.
+      <div class="container">
+        <p>© <span id="year"></span> NextFrame Studio — we build tools for film photographers.</p>
+      </div>
       <script>
         document.getElementById("year").textContent = new Date().getFullYear();
       </script>
     </footer>
   </body>
 </html>
-
