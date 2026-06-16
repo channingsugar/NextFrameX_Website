@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="description" content="NextFrame - 胶片暗房级的数字冲印工具，支持哈苏扫描件、Raw翻拍件的自动校色，智能去色罩，批量处理，16bit导出" />
     <title>NextFrame — Digital Darkroom for Film</title>
+    <link rel="preload" as="image" href="assets/imgs/opt/hero-01.webp" fetchpriority="high" />
     <style>
       :root {
         --bg: #ffffff;
@@ -300,7 +301,7 @@
       .download-section.snap-page {
         padding: 0;
         box-sizing: border-box;
-        background: url("assets/imgs/downloadbg.png") center / cover no-repeat;
+        background: url("assets/imgs/opt/downloadbg.webp") center / cover no-repeat;
       }
       .download-section .download-panel {
         padding-top: var(--nav-h);
@@ -796,7 +797,7 @@
           <a href="#" class="nav-logo" id="navLogo">
             <img
               class="nav-icon"
-              src="assets/imgs/icon_128x128@2x.png"
+              src="assets/imgs/opt/icon.webp"
               alt=""
               width="28"
               height="28"
@@ -820,46 +821,46 @@
     <section class="hero-banner snap-page is-active">
       <div class="hero-gallery page-zoom-target" id="heroGallery">
         <div class="hero-gallery-item">
-          <img src="assets/imgs/样片_全能400_01.png" alt="全能400" />
+          <img src="assets/imgs/opt/hero-01.webp" alt="" decoding="async" fetchpriority="high" />
         </div>
         <div class="hero-gallery-item">
-          <img src="assets/imgs/样片_全能400_02.png" alt="全能400" />
+          <img src="assets/imgs/opt/hero-02.webp" alt="" loading="lazy" decoding="async" />
         </div>
         <div class="hero-gallery-item">
-          <img src="assets/imgs/样片_全能400_03.png" alt="全能400" />
+          <img src="assets/imgs/opt/hero-03.webp" alt="" loading="lazy" decoding="async" />
         </div>
         <div class="hero-gallery-item">
-          <img src="assets/imgs/样片_Lomo800_01.png" alt="Lomo800" />
+          <img src="assets/imgs/opt/hero-04.webp" alt="" loading="lazy" decoding="async" />
         </div>
         <div class="hero-gallery-item">
-          <img src="assets/imgs/样片_Lomo800_02.png" alt="Lomo800" />
+          <img src="assets/imgs/opt/hero-05.webp" alt="" loading="lazy" decoding="async" />
         </div>
         <div class="hero-gallery-item">
-          <img src="assets/imgs/样片_Lomo800_03.png" alt="Lomo800" />
+          <img src="assets/imgs/opt/hero-06.webp" alt="" loading="lazy" decoding="async" />
         </div>
         <div class="hero-gallery-item">
-          <img src="assets/imgs/样片_5219_01.png" alt="5219" />
+          <img src="assets/imgs/opt/hero-07.webp" alt="" loading="lazy" decoding="async" />
         </div>
         <div class="hero-gallery-item">
-          <img src="assets/imgs/样片_5219_02.png" alt="5219" />
+          <img src="assets/imgs/opt/hero-08.webp" alt="" loading="lazy" decoding="async" />
         </div>
         <div class="hero-gallery-item">
-          <img src="assets/imgs/样片_5219_03.png" alt="5219" />
+          <img src="assets/imgs/opt/hero-09.webp" alt="" loading="lazy" decoding="async" />
         </div>
         <div class="hero-gallery-item">
-          <img src="assets/imgs/样片_5207_01.png" alt="5207" />
+          <img src="assets/imgs/opt/hero-10.webp" alt="" loading="lazy" decoding="async" />
         </div>
         <div class="hero-gallery-item">
-          <img src="assets/imgs/样片_5207_02.png" alt="5207" />
+          <img src="assets/imgs/opt/hero-11.webp" alt="" loading="lazy" decoding="async" />
         </div>
         <div class="hero-gallery-item">
-          <img src="assets/imgs/样片_5207_03.png" alt="5207" />
+          <img src="assets/imgs/opt/hero-12.webp" alt="" loading="lazy" decoding="async" />
         </div>
         <div class="hero-gallery-item">
-          <img src="assets/imgs/样片_欠曝样片_01.png" alt="欠曝样片" />
+          <img src="assets/imgs/opt/hero-13.webp" alt="" loading="lazy" decoding="async" />
         </div>
         <div class="hero-gallery-item">
-          <img src="assets/imgs/样片_欠曝样片_02.png" alt="欠曝样片" />
+          <img src="assets/imgs/opt/hero-14.webp" alt="" loading="lazy" decoding="async" />
         </div>
       </div>
       <div class="hero-content">
@@ -885,15 +886,19 @@
             <div class="compare-slider" id="compareSlider">
               <img
                 class="compare-after"
-                src="assets/imgs/feature-positive.png"
+                src="assets/imgs/opt/feature-positive.webp"
                 alt="正片效果"
+                loading="lazy"
+                decoding="async"
               />
               <div class="compare-before-wrap" id="compareBeforeWrap">
                 <img
                   class="compare-before"
-                  src="assets/imgs/feature-negative.png"
+                  src="assets/imgs/opt/feature-negative.webp"
                   alt="负片效果"
                   id="compareBeforeImg"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div class="compare-handle" id="compareHandle"></div>
@@ -913,13 +918,17 @@
             <div class="hover-swap" id="hasselbladHover">
               <img
                 class="hover-base"
-                src="assets/imgs/feature-hasselblad-1.png"
+                src="assets/imgs/opt/feature-hasselblad-1.webp"
                 alt="哈苏扫描件导入"
+                loading="lazy"
+                decoding="async"
               />
               <img
                 class="hover-overlay"
-                src="assets/imgs/feature-hasselblad-3.png"
+                src="assets/imgs/opt/feature-hasselblad-3.webp"
                 alt="哈苏扫描件裁切"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </div>
@@ -936,13 +945,17 @@
             <div class="hover-swap" id="borderHover">
               <img
                 class="hover-base"
-                src="assets/imgs/feature-border-no-margin.png"
+                src="assets/imgs/opt/feature-border-no-margin.webp"
                 alt="原图"
+                loading="lazy"
+                decoding="async"
               />
               <img
                 class="hover-overlay"
-                src="assets/imgs/feature-border-with-margin.png"
+                src="assets/imgs/opt/feature-border-with-margin.webp"
                 alt="齿孔留白"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </div>
@@ -956,7 +969,7 @@
         <h2 class="feature-heading" data-i18n="f4">Adjust CMY Like Enlarge In The Darkroom</h2>
         <div class="display-area reveal page-zoom-target">
           <div class="reveal-inner">
-            <img src="assets/imgs/feature-keyboard.png" alt="快捷键设计" />
+            <img src="assets/imgs/opt/feature-keyboard.webp" alt="快捷键设计" loading="lazy" decoding="async" />
           </div>
         </div>
       </div>
@@ -968,7 +981,7 @@
         <h2 class="feature-heading" data-i18n="f5">Custom Film EXIF Info, One-Click HDR Export</h2>
         <div class="display-area reveal page-zoom-target">
           <div class="reveal-inner">
-            <img src="assets/imgs/feature-exif-hdr.png" alt="EXIF与HDR导出" />
+            <img src="assets/imgs/opt/feature-exif-hdr.webp" alt="EXIF与HDR导出" loading="lazy" decoding="async" />
           </div>
         </div>
       </div>
@@ -980,7 +993,7 @@
         <h2 class="feature-heading" data-i18n="f6">Copy &amp; Paste Settings Across Your Roll</h2>
         <div class="display-area reveal page-zoom-target">
           <div class="reveal-inner">
-            <img src="assets/imgs/feature-copy-paste.png" alt="复制粘贴参数" />
+            <img src="assets/imgs/opt/feature-copy-paste.webp" alt="复制粘贴参数" loading="lazy" decoding="async" />
           </div>
         </div>
       </div>
