@@ -6,6 +6,8 @@
     <meta name="description" content="NextFrame - 胶片暗房级的数字冲印工具，支持哈苏扫描件、Raw翻拍件的自动校色，智能去色罩，批量处理，16bit导出" />
     <title>NextFrame — Digital Darkroom for Film</title>
     <link rel="preload" as="image" href="assets/imgs/opt/hero-01.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="assets/imgs/opt/feature-positive.webp" />
+    <link rel="preload" as="image" href="assets/imgs/opt/feature-negative.webp" />
     <style>
       :root {
         --bg: #ffffff;
@@ -379,8 +381,15 @@
         width: 100%;
         height: 100%;
         opacity: 0;
-        transform: translate3d(0, 44px, 0);
-        will-change: transform, opacity;
+        transition: opacity 0.4s ease, transform 0.4s ease;
+      }
+      .snap-page.is-active .reveal-inner {
+        opacity: 1;
+        transform: none;
+      }
+      .snap-page.is-active .reveal-inner--compact {
+        transform: scale(0.88);
+        transform-origin: center center;
       }
       .reveal-inner .hover-swap,
       .reveal-inner .compare-slider {
@@ -761,7 +770,7 @@
         :root {
           --page-x: 24px;
           --page-head-space: 100px;
-          --nav-h: 84px;
+          --nav-h: 92px;
         }
         .site-nav {
           height: auto;
@@ -771,16 +780,18 @@
           flex-wrap: wrap;
           height: auto;
           align-items: center;
-          padding: 8px 16px 10px;
-          row-gap: 6px;
+          padding: 10px 16px 12px;
+          row-gap: 0;
         }
         .nav-logo {
           flex: 0 0 100%;
+          margin-bottom: 6px;
         }
         .nav-menu {
           flex: 0 0 100%;
           justify-content: space-between;
           gap: 12px;
+          margin-top: 16px;
         }
         .nav-links {
           gap: 16px;
@@ -931,18 +942,16 @@
             <div class="compare-slider" id="compareSlider">
               <img
                 class="compare-after"
-                src="assets/imgs/opt/feature-positive.webp"
+                data-src="assets/imgs/opt/feature-positive.webp"
                 alt="正片效果"
-                loading="lazy"
                 decoding="async"
               />
               <div class="compare-before-wrap" id="compareBeforeWrap">
                 <img
                   class="compare-before"
-                  src="assets/imgs/opt/feature-negative.webp"
+                  data-src="assets/imgs/opt/feature-negative.webp"
                   alt="负片效果"
                   id="compareBeforeImg"
-                  loading="lazy"
                   decoding="async"
                 />
               </div>
@@ -963,16 +972,14 @@
             <div class="hover-swap" id="hasselbladHover">
               <img
                 class="hover-base"
-                src="assets/imgs/opt/feature-hasselblad-1.webp"
+                data-src="assets/imgs/opt/feature-hasselblad-1.webp"
                 alt="哈苏扫描件导入"
-                loading="lazy"
                 decoding="async"
               />
               <img
                 class="hover-overlay"
-                src="assets/imgs/opt/feature-hasselblad-3.webp"
+                data-src="assets/imgs/opt/feature-hasselblad-3.webp"
                 alt="哈苏扫描件裁切"
-                loading="lazy"
                 decoding="async"
               />
             </div>
@@ -990,16 +997,14 @@
             <div class="hover-swap" id="borderHover">
               <img
                 class="hover-base"
-                src="assets/imgs/opt/feature-border-no-margin.webp"
+                data-src="assets/imgs/opt/feature-border-no-margin.webp"
                 alt="原图"
-                loading="lazy"
                 decoding="async"
               />
               <img
                 class="hover-overlay"
-                src="assets/imgs/opt/feature-border-with-margin.webp"
+                data-src="assets/imgs/opt/feature-border-with-margin.webp"
                 alt="齿孔留白"
-                loading="lazy"
                 decoding="async"
               />
             </div>
@@ -1014,7 +1019,7 @@
         <h2 class="feature-heading" data-i18n="f4">Adjust CMY Like Enlarge In The Darkroom</h2>
         <div class="display-area reveal page-zoom-target">
           <div class="reveal-inner">
-            <img src="assets/imgs/opt/feature-keyboard.webp" alt="快捷键设计" loading="lazy" decoding="async" />
+            <img data-src="assets/imgs/opt/feature-keyboard.webp" alt="快捷键设计" decoding="async" />
           </div>
         </div>
       </div>
@@ -1026,7 +1031,7 @@
         <h2 class="feature-heading" data-i18n="f5">Custom Film EXIF Info, One-Click HDR Export</h2>
         <div class="display-area reveal page-zoom-target">
           <div class="reveal-inner">
-            <img src="assets/imgs/opt/feature-exif-hdr.webp" alt="EXIF与HDR导出" loading="lazy" decoding="async" />
+            <img data-src="assets/imgs/opt/feature-exif-hdr.webp" alt="EXIF与HDR导出" decoding="async" />
           </div>
         </div>
       </div>
@@ -1038,7 +1043,7 @@
         <h2 class="feature-heading" data-i18n="f6">Copy &amp; Paste Settings Across Your Roll</h2>
         <div class="display-area reveal page-zoom-target">
           <div class="reveal-inner">
-            <img src="assets/imgs/opt/feature-copy-paste.webp" alt="复制粘贴参数" loading="lazy" decoding="async" />
+            <img data-src="assets/imgs/opt/feature-copy-paste.webp" alt="复制粘贴参数" decoding="async" />
           </div>
         </div>
       </div>
@@ -1460,6 +1465,7 @@
             const darkNav = index === 0 || index === pages.length - 1;
             pageNav.classList.toggle("on-hero", darkNav);
             window.__headingHighlight?.playForPage(pages[index]);
+            window.__loadPageImages?.(pages[index], index);
             window.__updateParallax?.();
             window.__syncHeroGallery?.(window.scrollY);
           }
@@ -1477,6 +1483,10 @@
               const target = page.querySelector(".page-zoom-target");
               if (!target) return;
               if (page.classList.contains("hero-banner")) {
+                target.style.transform = "scale(1)";
+                return;
+              }
+              if (page.classList.contains("is-active")) {
                 target.style.transform = "scale(1)";
                 return;
               }
@@ -1611,6 +1621,40 @@
           window.__updatePageZoom = updatePageZoom;
         })();
 
+        // 按屏加载功能图（避免 lazy + scroll-snap 导致图片不加载）
+        (function initPageImages() {
+          const pages = document.querySelectorAll(".snap-page");
+          const loaded = new WeakSet();
+
+          function hydrateImages(root) {
+            root.querySelectorAll("img[data-src]").forEach((img) => {
+              const url = img.getAttribute("data-src");
+              if (!url || img.getAttribute("src")) return;
+              img.setAttribute("src", url);
+            });
+          }
+
+          function loadPage(page) {
+            if (!page || loaded.has(page)) return;
+            loaded.add(page);
+            hydrateImages(page);
+            window.__refreshCompareSlider?.();
+          }
+
+          function preloadAdjacent(index) {
+            [index - 1, index + 1].forEach((i) => {
+              if (pages[i]) loadPage(pages[i]);
+            });
+          }
+
+          window.__loadPageImages = (page, index) => {
+            loadPage(page);
+            if (typeof index === "number") preloadAdjacent(index);
+          };
+
+          loadPage(pages[1]);
+        })();
+
         // 负片/正片对比滑块
         (function initCompareSlider() {
           const slider = document.getElementById("compareSlider");
@@ -1653,6 +1697,10 @@
           }, { passive: true });
           window.addEventListener("mouseup", () => { dragging = false; });
           window.addEventListener("touchend", () => { dragging = false; });
+
+          window.__refreshCompareSlider = () => {
+            setPosition(parseFloat(handle.style.left) || 50);
+          };
         })();
 
         // 视差渐现 + 鼠标滚轮顺滑翻页
@@ -1667,23 +1715,19 @@
               if (!inner) return;
               const page = area.closest(".snap-page");
               const isActivePage = page && page.classList.contains("is-active");
-              const compact = inner.classList.contains("reveal-inner--compact");
-              const scale = compact ? 0.88 : 1;
 
               if (isActivePage) {
-                inner.style.opacity = "1";
-                inner.style.transform = "translate3d(0, 0, 0) scale(" + scale + ")";
+                inner.style.removeProperty("opacity");
+                inner.style.removeProperty("transform");
                 return;
               }
 
               const rect = area.getBoundingClientRect();
               const progress = Math.max(0, Math.min(1, (vh - rect.top) / (vh * 0.85)));
-              const offset = (1 - progress) * 40;
 
               if (area.classList.contains("is-visible")) {
                 inner.style.opacity = String(Math.min(1, progress * 1.2));
-                inner.style.transform =
-                  "translate3d(0, " + offset + "px, 0) scale(" + scale + ")";
+                inner.style.removeProperty("transform");
               }
             });
             ticking = false;
@@ -1721,18 +1765,33 @@
           window.__updateParallax = updateParallax;
         })();
 
-        // 移动端 hover-swap 点击切换
+        // 移动端 hover-swap 点击切换，2 秒后恢复
         (function initHoverSwapTap() {
           if (!window.matchMedia("(pointer: coarse)").matches) return;
+          const timers = new WeakMap();
           document.querySelectorAll(".hover-swap").forEach((el) => {
             el.addEventListener("click", (e) => {
               e.stopPropagation();
-              const on = el.classList.toggle("is-active");
-              if (on) {
-                document.querySelectorAll(".hover-swap.is-active").forEach((other) => {
-                  if (other !== el) other.classList.remove("is-active");
-                });
-              }
+              const prev = timers.get(el);
+              if (prev) clearTimeout(prev);
+
+              el.classList.add("is-active");
+              document.querySelectorAll(".hover-swap.is-active").forEach((other) => {
+                if (other !== el) {
+                  other.classList.remove("is-active");
+                  const t = timers.get(other);
+                  if (t) clearTimeout(t);
+                  timers.delete(other);
+                }
+              });
+
+              timers.set(
+                el,
+                setTimeout(() => {
+                  el.classList.remove("is-active");
+                  timers.delete(el);
+                }, 2000)
+              );
             });
           });
         })();
