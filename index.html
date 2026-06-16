@@ -471,8 +471,14 @@
         opacity: 0;
         transition: opacity 0.35s ease;
       }
-      .hover-swap:hover .hover-overlay {
+      .hover-swap:hover .hover-overlay,
+      .hover-swap.is-active .hover-overlay {
         opacity: 1;
+      }
+      @media (pointer: coarse) {
+        .hover-swap {
+          cursor: pointer;
+        }
       }
 
       /* Download Section */
@@ -1175,25 +1181,48 @@
         document.getElementById("footerDownload").href = DOWNLOAD_URL;
         applyLanguage(currentLang);
 
-        // Hero 鼠标横向滑动
-        const banner = document.querySelector(".hero-banner");
-        const gallery = document.getElementById("heroGallery");
-        let rafId = null;
-        let targetScroll = 0;
+        // Hero 横向样片：桌面 hover，移动端随上划进度滚动
+        (function initHeroGallery() {
+          const banner = document.querySelector(".hero-banner");
+          const gallery = document.getElementById("heroGallery");
+          const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+          let rafId = null;
+          let targetScroll = 0;
 
-        function updateGalleryScroll() {
-          gallery.scrollLeft = targetScroll;
-          rafId = null;
-        }
+          function maxGalleryScroll() {
+            return Math.max(0, gallery.scrollWidth - gallery.clientWidth);
+          }
 
-        banner.addEventListener("mousemove", (e) => {
-          const rect = banner.getBoundingClientRect();
-          const mouseX = e.clientX - rect.left;
-          const percentage = Math.max(0, Math.min(1, mouseX / rect.width));
-          const maxScroll = gallery.scrollWidth - gallery.offsetWidth;
-          targetScroll = percentage * maxScroll;
-          if (!rafId) rafId = requestAnimationFrame(updateGalleryScroll);
-        });
+          function setGalleryScroll(x) {
+            gallery.scrollLeft = x;
+          }
+
+          function updateGalleryScroll() {
+            setGalleryScroll(targetScroll);
+            rafId = null;
+          }
+
+          if (!isTouchDevice) {
+            banner.addEventListener("mousemove", (e) => {
+              const rect = banner.getBoundingClientRect();
+              const percentage = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+              targetScroll = percentage * maxGalleryScroll();
+              if (!rafId) rafId = requestAnimationFrame(updateGalleryScroll);
+            });
+          }
+
+          window.__syncHeroGallery = function (scrollY) {
+            if (!isTouchDevice) return;
+            const pages = document.querySelectorAll(".snap-page");
+            if (pages.length < 2) return;
+            const heroTop = pages[0].offsetTop;
+            const nextTop = pages[1].offsetTop;
+            const range = nextTop - heroTop;
+            if (range <= 0) return;
+            const progress = Math.max(0, Math.min(1, (scrollY - heroTop) / range));
+            setGalleryScroll(progress * maxGalleryScroll());
+          };
+        })();
 
         // 整页翻页：跟手滑动，松手/停滚后吸附到最近一屏
         (function initFullPageScroll() {
@@ -1302,6 +1331,7 @@
             window.scrollTo(0, next);
             updatePageZoom();
             highlightNav(nearestIndex(window.scrollY));
+            window.__syncHeroGallery?.(window.scrollY);
           }
 
           function animateToIndex(index, onDone) {
@@ -1333,6 +1363,7 @@
               const eased = easeOutQuint(p);
               window.scrollTo(0, startY + dist * eased);
               updatePageZoom();
+              window.__syncHeroGallery?.(window.scrollY);
               if (p < 1) {
                 scrollRaf = requestAnimationFrame(frame);
               } else {
@@ -1340,6 +1371,7 @@
                 animating = false;
                 window.scrollTo(0, targetY);
                 updatePageZoom();
+                window.__syncHeroGallery?.(window.scrollY);
                 setActivePage(index);
                 if (isPageChange) startWheelCooldown();
                 onDone?.();
@@ -1389,6 +1421,8 @@
             const darkNav = index === 0 || index === pages.length - 1;
             pageNav.classList.toggle("on-hero", darkNav);
             window.__headingHighlight?.playForPage(pages[index]);
+            window.__updateParallax?.();
+            window.__syncHeroGallery?.(window.scrollY);
           }
 
           function highlightNav(index) {
@@ -1592,11 +1626,20 @@
             areas.forEach((area) => {
               const inner = area.querySelector(".reveal-inner");
               if (!inner) return;
+              const page = area.closest(".snap-page");
+              const isActivePage = page && page.classList.contains("is-active");
+              const compact = inner.classList.contains("reveal-inner--compact");
+              const scale = compact ? 0.88 : 1;
+
+              if (isActivePage) {
+                inner.style.opacity = "1";
+                inner.style.transform = "translate3d(0, 0, 0) scale(" + scale + ")";
+                return;
+              }
+
               const rect = area.getBoundingClientRect();
               const progress = Math.max(0, Math.min(1, (vh - rect.top) / (vh * 0.85)));
               const offset = (1 - progress) * 40;
-              const compact = inner.classList.contains("reveal-inner--compact");
-              const scale = compact ? 0.88 : 1;
 
               if (area.classList.contains("is-visible")) {
                 inner.style.opacity = String(Math.min(1, progress * 1.2));
@@ -1636,6 +1679,23 @@
           );
           window.addEventListener("resize", updateParallax);
           updateParallax();
+          window.__updateParallax = updateParallax;
+        })();
+
+        // 移动端 hover-swap 点击切换
+        (function initHoverSwapTap() {
+          if (!window.matchMedia("(pointer: coarse)").matches) return;
+          document.querySelectorAll(".hover-swap").forEach((el) => {
+            el.addEventListener("click", (e) => {
+              e.stopPropagation();
+              const on = el.classList.toggle("is-active");
+              if (on) {
+                document.querySelectorAll(".hover-swap.is-active").forEach((other) => {
+                  if (other !== el) other.classList.remove("is-active");
+                });
+              }
+            });
+          });
         })();
       </script>
   </body>
