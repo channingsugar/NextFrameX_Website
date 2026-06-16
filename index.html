@@ -391,6 +391,11 @@
         transform: scale(0.88);
         transform-origin: center center;
       }
+      .display-area.scroll-zoom .reveal-inner {
+        transition: none;
+        transform-origin: center center;
+        will-change: transform, opacity;
+      }
       .reveal-inner .hover-swap,
       .reveal-inner .compare-slider {
         width: 100%;
@@ -1017,7 +1022,7 @@
     <section class="feature-section snap-page">
       <div class="detail-container">
         <h2 class="feature-heading" data-i18n="f4">Adjust CMY Like Enlarge In The Darkroom</h2>
-        <div class="display-area reveal page-zoom-target">
+        <div class="display-area reveal scroll-zoom">
           <div class="reveal-inner">
             <img data-src="assets/imgs/opt/feature-keyboard.webp" alt="快捷键设计" decoding="async" />
           </div>
@@ -1041,7 +1046,7 @@
     <section class="feature-section snap-page">
       <div class="detail-container">
         <h2 class="feature-heading" data-i18n="f6">Copy &amp; Paste Settings Across Your Roll</h2>
-        <div class="display-area reveal page-zoom-target">
+        <div class="display-area reveal scroll-zoom">
           <div class="reveal-inner">
             <img data-src="assets/imgs/opt/feature-copy-paste.webp" alt="复制粘贴参数" decoding="async" />
           </div>
@@ -1476,12 +1481,34 @@
             });
           }
 
+          function updateScrollZoom() {
+            const vh = window.innerHeight;
+            const scrollY = window.scrollY;
+            const MIN_SCALE = 0.78;
+            const MAX_SCALE = 1;
+
+            document.querySelectorAll(".display-area.scroll-zoom").forEach((area) => {
+              const inner = area.querySelector(".reveal-inner");
+              const page = area.closest(".snap-page");
+              if (!inner || !page) return;
+
+              const pageTop = page.offsetTop;
+              const t = Math.max(0, Math.min(1, 1 - Math.abs(scrollY - pageTop) / vh));
+              const scale = MIN_SCALE + (MAX_SCALE - MIN_SCALE) * t;
+              const opacity = 0.45 + t * 0.55;
+
+              inner.style.transform = "scale(" + scale + ")";
+              inner.style.opacity = String(opacity);
+            });
+          }
+
           function updatePageZoom() {
             const vh = window.innerHeight;
             const scrollY = window.scrollY;
             pages.forEach((page) => {
               const target = page.querySelector(".page-zoom-target");
               if (!target) return;
+              if (page.querySelector(".display-area.scroll-zoom")) return;
               if (page.classList.contains("hero-banner")) {
                 target.style.transform = "scale(1)";
                 return;
@@ -1495,6 +1522,7 @@
               const scale = 0.9 + progress * 0.1;
               target.style.transform = "scale(" + scale + ")";
             });
+            updateScrollZoom();
           }
 
           function isScrollBlockedTarget(el) {
@@ -1711,6 +1739,8 @@
           function updateParallax() {
             const vh = window.innerHeight;
             areas.forEach((area) => {
+              if (area.classList.contains("scroll-zoom")) return;
+
               const inner = area.querySelector(".reveal-inner");
               if (!inner) return;
               const page = area.closest(".snap-page");
