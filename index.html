@@ -4,31 +4,160 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="description" content="NextFrame - 胶片暗房级的数字冲印工具，支持哈苏扫描件、Raw翻拍件的自动校色，智能去色罩，批量处理，16bit导出" />
-    <title>NextFrame — 胶片暗房级的数字冲印</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <title>NextFrame — Digital Darkroom for Film</title>
     <style>
       :root {
         --bg: #ffffff;
         --fg: #000000;
         --muted: #666666;
         --border: #e5e5e5;
+        --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+          "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+        --nav-h: 56px;
       }
       * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
       }
+      html {
+        scroll-behavior: auto;
+      }
       body {
-        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        font-family: var(--font-ui);
         background: var(--bg);
         color: var(--fg);
         line-height: 1.6;
         min-height: 100vh;
+        overscroll-behavior-y: none;
+      }
+      .snap-page {
+        scroll-snap-align: start;
+        height: 100vh;
+        min-height: 100vh;
+        max-height: 100vh;
+        overflow: hidden;
+      }
+      .page-zoom-target {
+        transform-origin: center center;
+        will-change: transform;
+      }
+      /* Page side nav */
+      .page-nav {
+        position: fixed;
+        right: clamp(14px, 2vw, 28px);
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 90;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        pointer-events: auto;
+      }
+      .page-nav-item {
+        width: 3px;
+        height: 22px;
+        padding: 0;
+        border: none;
+        border-radius: 2px;
+        background: rgba(0, 0, 0, 0.14);
+        cursor: pointer;
+        transition: background 0.25s, height 0.25s, transform 0.25s;
+      }
+      .page-nav-item:hover {
+        background: rgba(0, 0, 0, 0.35);
+      }
+      .page-nav-item.active {
+        height: 30px;
+        background: rgba(0, 0, 0, 0.72);
+      }
+      .page-nav.on-hero .page-nav-item {
+        background: rgba(255, 255, 255, 0.28);
+      }
+      .page-nav.on-hero .page-nav-item:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+      .page-nav.on-hero .page-nav-item.active {
+        background: rgba(255, 255, 255, 0.92);
+      }
+
+      /* Site Nav */
+      .site-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        height: var(--nav-h);
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      }
+      .nav-inner {
+        height: 100%;
+        padding: 0 clamp(20px, 4vw, 48px);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .nav-left {
+        display: flex;
+        align-items: center;
+        gap: clamp(16px, 3vw, 36px);
+      }
+      .nav-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 17px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        color: var(--fg);
+        text-decoration: none;
+      }
+      .nav-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 7px;
+        flex-shrink: 0;
+        display: block;
+      }
+      .nav-link {
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--fg);
+        text-decoration: none;
+        opacity: 0.72;
+        transition: opacity 0.2s;
+      }
+      .nav-link:hover {
+        opacity: 1;
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 14px;
+      }
+      .lang-btn {
+        background: none;
+        border: none;
+        padding: 4px 2px;
+        font-family: var(--font-ui);
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--muted);
+        cursor: pointer;
+      }
+      .lang-btn.active {
+        color: var(--fg);
+        font-weight: 500;
+      }
+      .lang-sep {
+        color: var(--border);
+        user-select: none;
       }
       .container {
         max-width: 900px;
@@ -70,19 +199,6 @@
         height: 100%;
         object-fit: cover;
       }
-      .hero-gallery-label {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(0, 0, 0, 0.6);
-        color: white;
-        padding: 8px 20px;
-        border-radius: 20px;
-        font-size: 0.9rem;
-        font-weight: 500;
-        backdrop-filter: blur(10px);
-      }
       .hero-content {
         position: absolute;
         top: 0;
@@ -98,33 +214,51 @@
         background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.1), rgba(0,0,0,0.3));
         pointer-events: none;
         color: white;
+        padding: calc(var(--nav-h) + 8px) 24px 24px;
       }
       .hero-content > * {
         pointer-events: auto;
       }
+      .hero-title-group {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: min(92vw, 680px);
+      }
       .hero-content h1 {
-        font-size: 5rem;
+        font-family: var(--font-ui);
+        font-size: clamp(2rem, 5vw, 3.5rem);
         font-weight: 700;
-        letter-spacing: -0.02em;
-        margin-bottom: 20px;
+        letter-spacing: 0.05em;
+        line-height: 1.15;
+        margin-bottom: 0;
         color: white !important;
-        text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+        text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        white-space: nowrap;
+        text-align: center;
       }
       .hero-content .subtitle {
-        font-size: 1.2rem;
+        font-family: var(--font-ui);
+        font-size: clamp(0.95rem, 1.8vw, 1.35rem);
+        font-weight: 300;
+        letter-spacing: 0.04em;
         color: rgba(255, 255, 255, 0.95) !important;
-        margin-bottom: 40px;
-        text-shadow: 0 1px 10px rgba(0,0,0,0.5);
+        margin-top: 6px;
+        margin-bottom: 16px;
+        text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
+        width: 100%;
+        text-align: center;
       }
       .cta {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        padding: 14px 32px;
+        padding: 11px 26px;
         border: 1px solid white;
         border-radius: 6px;
-        font-weight: 600;
-        font-size: 1rem;
+        font-family: var(--font-ui);
+        font-weight: 500;
+        font-size: 0.95rem;
         background: white;
         color: var(--fg);
         text-decoration: none;
@@ -147,83 +281,268 @@
         text-shadow: 0 1px 5px rgba(0,0,0,0.5);
       }
 
-      /* Feature List */
-      .feature-list {
-        padding: 50px 0;
+      /* Detail Sections */
+      :root {
+        --page-x: 300px;
+        --page-head-space: 88px;
+        --compact-scale: 0.88;
+        --content-offset: calc(var(--nav-h) + var(--page-head-space));
       }
-      .feature-list h2 {
-        font-size: 60px;
-        font-weight: 700;
-        margin-bottom: 40px;
-        letter-spacing: -0.01em;
+      .feature-section.snap-page:not(.download-section) {
+        display: grid;
+        grid-template-rows: 1fr auto auto 1fr;
+        row-gap: 20px;
+        align-items: start;
+        justify-items: center;
+        padding: var(--nav-h) var(--page-x) 0;
+        box-sizing: border-box;
       }
-      .feature-list ul {
-        list-style: none;
+      .download-section.snap-page {
+        padding: 0;
+        box-sizing: border-box;
+        background: url("assets/imgs/downloadbg.png") center / cover no-repeat;
+      }
+      .download-section .download-panel {
+        padding-top: var(--nav-h);
+      }
+      .feature-section--sub.snap-page:not(.download-section) {
+        grid-template-rows: 1fr auto auto auto 1fr;
+      }
+      .detail-container {
+        display: contents;
+      }
+      .feature-heading {
+        grid-row: 2;
+        grid-column: 1;
+        width: min(100%, calc(100vw - var(--page-x) * 2));
+        font-family: var(--font-ui);
+        font-size: 32px;
+        font-weight: 400;
+        font-synthesis: none;
+        text-align: center;
+        letter-spacing: 0.1em;
+        line-height: 1.4;
+        margin: 0;
+      }
+      .feature-heading .heading-token {
+        color: inherit;
+        transition: color 0.18s ease;
+      }
+      .feature-heading .heading-token.is-lit {
+        color: #888888;
+      }
+      .feature-subheading {
+        grid-row: 3;
+        grid-column: 1;
+        width: min(100%, calc(100vw - var(--page-x) * 2));
+        font-family: var(--font-ui);
+        font-size: 24px;
+        font-weight: 300;
+        font-synthesis: none;
+        text-align: center;
+        color: var(--fg);
+        margin: 0;
+        line-height: 1.5;
+        letter-spacing: 0.04em;
+      }
+      .feature-section--sub .display-area {
+        grid-row: 4;
+      }
+      .feature-section--sub {
+        --page-head-space: 120px;
+      }
+      .display-area {
+        grid-row: 3;
+        grid-column: 1;
+        position: relative;
+        max-height: calc(100vh - var(--content-offset) - 48px);
+        max-width: calc(100vw - var(--page-x) * 2);
+        width: min(
+          calc(100vw - var(--page-x) * 2),
+          calc((100vh - var(--content-offset) - 48px) * 1055 / 892)
+        );
+        aspect-ratio: 1055 / 892;
+        flex-shrink: 0;
+        overflow: hidden;
+        background: transparent;
+      }
+      .reveal-inner {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transform: translate3d(0, 44px, 0);
+        will-change: transform, opacity;
+      }
+      .reveal-inner .hover-swap,
+      .reveal-inner .compare-slider {
+        width: 100%;
+        height: 100%;
+      }
+      .reveal-inner img,
+      .hover-swap img,
+      .compare-slider img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+      .compare-slider img {
+        object-fit: cover;
+      }
+
+      /* Compare Slider */
+      .compare-slider {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        cursor: ew-resize;
+        user-select: none;
+        touch-action: none;
+      }
+      .compare-slider .compare-after {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .compare-slider .compare-before-wrap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 50%;
+        overflow: hidden;
+        will-change: width;
+      }
+      .compare-slider .compare-before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        max-width: none;
+        object-fit: cover;
+        object-position: center;
+      }
+      .compare-handle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 1px;
+        background: rgba(255, 255, 255, 0.8);
+        transform: translateX(-50%);
+        z-index: 2;
+      }
+      .compare-handle::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+      }
+      .compare-handle::after {
+        content: "◀ ▶";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 7px;
+        letter-spacing: -2px;
+        color: rgba(0, 0, 0, 0.55);
+        white-space: nowrap;
+      }
+
+      /* Hover Swap */
+      .hover-swap {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+      .hover-swap .hover-overlay {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 0.35s ease;
+      }
+      .hover-swap:hover .hover-overlay {
+        opacity: 1;
+      }
+
+      /* Download Section */
+      .download-panel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        gap: 0;
+      }
+      .download-wrap {
+        display: flex;
+        justify-content: center;
         padding: 0;
       }
-      .feature-list li {
-        padding: 12px 0;
-        font-size: 1.1rem;
-        line-height: 1.8;
+      .download-section footer {
+        margin-top: 24px;
+        padding: 0;
+        color: rgba(255, 255, 255, 0.72);
       }
-
-      /* Section */
-      .section {
-        padding: 50px 0;
-      }
-      .section-title {
-        font-size: 60px;
-        font-weight: 700;
-        margin-bottom: 24px;
-        letter-spacing: -0.01em;
-      }
-      .section-description {
-        font-size: 1.1rem;
-        color: var(--muted);
-        margin-bottom: 32px;
-        line-height: 1.7;
-      }
-
-      /* Comparison Images */
-      .comparison-images {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 24px;
-        margin-top: 32px;
-      }
-      .comparison-item {
-        text-align: center;
-      }
-      .comparison-item h3 {
-        font-size: 1rem;
+      .download-section .download-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 18px 48px;
+        font-family: var(--font-ui);
+        font-size: 20px;
         font-weight: 500;
-        margin-bottom: 16px;
-        color: var(--muted);
-      }
-      .comparison-item img {
-        width: 100%;
-        height: auto;
+        letter-spacing: 0.05em;
+        color: #111013;
+        background: #ffffff;
+        border: none;
         border-radius: 8px;
+        text-decoration: none;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.22);
+      }
+      .download-section .download-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+      }
+      .download-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 18px 48px;
+        font-family: var(--font-ui);
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        color: #fff;
+        background: #111013;
+        border: none;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      }
+      .download-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
       }
 
-      /* Feature Image */
-      .feature-image {
-        width: 100%;
-        max-width: 900px;
-        height: auto;
-        margin: 32px 0;
-        border-radius: 8px;
-      }
-      .feature-images-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-        margin: 32px 0;
-      }
-      .feature-images-grid img {
-        width: 100%;
-        height: auto;
-        border-radius: 8px;
+      /* Section (FAQ) */
+      .section-title {
+        font-family: var(--font-ui);
+        font-size: 32px;
+        font-weight: 400;
+        margin-bottom: 24px;
+        letter-spacing: 0.1em;
       }
 
       /* Workflow */
@@ -411,29 +730,39 @@
       /* Footer */
       footer {
         text-align: center;
-        padding: 60px 0;
+        padding: 0;
         color: var(--muted);
         font-size: 0.9rem;
         border-top: none;
       }
 
       /* Responsive */
+      @media (max-width: 1200px) {
+        :root {
+          --page-x: 80px;
+        }
+      }
       @media (max-width: 768px) {
+        :root {
+          --page-x: 24px;
+          --page-head-space: 100px;
+        }
+        .feature-section--sub {
+          --page-head-space: 100px;
+        }
         .hero-content h1 {
-          font-size: 3.5rem;
+          font-size: clamp(1.75rem, 8vw, 2.75rem);
           color: white !important;
         }
-        .section-title,
-        .workflow-title,
-        .gallery-title,
-        .feature-list h2 {
-          font-size: 36px;
+        .feature-heading {
+          font-size: 22px;
+          letter-spacing: 0.1em;
         }
-        .comparison-images {
-          grid-template-columns: 1fr;
+        .feature-subheading {
+          font-size: 16px;
         }
-        .workflow-container {
-          grid-template-columns: 1fr;
+        .section-title {
+          font-size: 22px;
         }
         .hero-banner {
           height: 70vh;
@@ -442,78 +771,104 @@
         .hero-content .subtitle {
           color: rgba(255, 255, 255, 0.95) !important;
         }
-        .feature-images-grid {
-          grid-template-columns: 1fr;
+        .download-btn {
+          font-size: 16px;
+          padding: 14px 32px;
+        }
+        .page-nav {
+          right: 10px;
+          gap: 6px;
+        }
+        .page-nav-item {
+          width: 2px;
+          height: 18px;
+        }
+        .page-nav-item.active {
+          height: 24px;
         }
       }
     </style>
   </head>
   <body>
+    <header class="site-nav" id="siteNav">
+      <div class="nav-inner">
+        <div class="nav-left">
+          <a href="#" class="nav-logo" id="navLogo">
+            <img
+              class="nav-icon"
+              src="assets/imgs/icon_128x128@2x.png"
+              alt=""
+              width="28"
+              height="28"
+            />
+            NextFrame
+          </a>
+          <a href="#intro" class="nav-link" data-i18n="navIntro">Introduction</a>
+          <a href="#download" class="nav-link" data-i18n="navDownload">Download</a>
+        </div>
+        <div class="nav-right">
+          <button type="button" class="lang-btn active" data-lang="en" aria-label="English">EN</button>
+          <span class="lang-sep">/</span>
+          <button type="button" class="lang-btn" data-lang="zh" aria-label="中文">中文</button>
+        </div>
+      </div>
+    </header>
+
+    <nav class="page-nav on-hero" id="pageNav" aria-label="Page sections"></nav>
+
     <!-- Hero Banner with Gallery -->
-    <section class="hero-banner">
-      <div class="hero-gallery" id="heroGallery">
+    <section class="hero-banner snap-page is-active">
+      <div class="hero-gallery page-zoom-target" id="heroGallery">
         <div class="hero-gallery-item">
           <img src="assets/imgs/样片_全能400_01.png" alt="全能400" />
-          <div class="hero-gallery-label">全能400 (Expired)</div>
         </div>
         <div class="hero-gallery-item">
           <img src="assets/imgs/样片_全能400_02.png" alt="全能400" />
-          <div class="hero-gallery-label">全能400 (Expired)</div>
         </div>
         <div class="hero-gallery-item">
           <img src="assets/imgs/样片_全能400_03.png" alt="全能400" />
-          <div class="hero-gallery-label">全能400 (Expired)</div>
         </div>
         <div class="hero-gallery-item">
           <img src="assets/imgs/样片_Lomo800_01.png" alt="Lomo800" />
-          <div class="hero-gallery-label">Lomo800 (Expired)</div>
         </div>
         <div class="hero-gallery-item">
           <img src="assets/imgs/样片_Lomo800_02.png" alt="Lomo800" />
-          <div class="hero-gallery-label">Lomo800 (Expired)</div>
         </div>
         <div class="hero-gallery-item">
           <img src="assets/imgs/样片_Lomo800_03.png" alt="Lomo800" />
-          <div class="hero-gallery-label">Lomo800 (Expired)</div>
         </div>
         <div class="hero-gallery-item">
           <img src="assets/imgs/样片_5219_01.png" alt="5219" />
-          <div class="hero-gallery-label">5219</div>
         </div>
         <div class="hero-gallery-item">
           <img src="assets/imgs/样片_5219_02.png" alt="5219" />
-          <div class="hero-gallery-label">5219</div>
         </div>
         <div class="hero-gallery-item">
           <img src="assets/imgs/样片_5219_03.png" alt="5219" />
-          <div class="hero-gallery-label">5219</div>
         </div>
         <div class="hero-gallery-item">
           <img src="assets/imgs/样片_5207_01.png" alt="5207" />
-          <div class="hero-gallery-label">5207</div>
         </div>
         <div class="hero-gallery-item">
           <img src="assets/imgs/样片_5207_02.png" alt="5207" />
-          <div class="hero-gallery-label">5207</div>
         </div>
         <div class="hero-gallery-item">
           <img src="assets/imgs/样片_5207_03.png" alt="5207" />
-          <div class="hero-gallery-label">5207</div>
         </div>
         <div class="hero-gallery-item">
           <img src="assets/imgs/样片_欠曝样片_01.png" alt="欠曝样片" />
-          <div class="hero-gallery-label">Pentax 17</div>
         </div>
         <div class="hero-gallery-item">
           <img src="assets/imgs/样片_欠曝样片_02.png" alt="欠曝样片" />
-          <div class="hero-gallery-label">Pentax 17</div>
         </div>
       </div>
       <div class="hero-content">
-        <h1>NextFrame</h1>
-        <p class="subtitle">为胶片摄影师而生的数字暗房</p>
-        <a class="cta" href="https://example.com/download/NextFrameX.dmg">
-          立即体验
+        <div class="hero-title-group">
+          <h1>NextFrame</h1>
+          <p class="subtitle" data-i18n="heroSubtitle">Negative Processing, Fast, Easy</p>
+        </div>
+        <a class="cta" id="heroDownload" href="https://apps.apple.com/fr/app/nextframe-digital-darkroom/id6749921585?mt=12" target="_blank" rel="noopener noreferrer">
+          <span data-i18n="heroCta">Try Now</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -521,183 +876,754 @@
       </div>
     </section>
 
-    <!-- Feature List -->
-    <section class="feature-list">
-      <div class="container">
-        <h2>NextFrame - 你的数字暗房</h2>
-        <ul>
-          <li>支持哈苏扫描件、Raw翻拍件的自动校色</li>
-          <li>导入即可自动去色罩，无需手动对齐色阶</li>
-          <li>智能识别画面主体，无需裁切胶片边缘</li>
-          <li>支持复制粘贴参数，无需一张一张调整</li>
-          <li>输出支持16bit tiff文件, 300DPI, adobe RGB色彩空间</li>
-          <li>支持批量镜像、自动裁切等功能</li>
-          <li>快捷键流畅操作，无需鼠标即可完成大部分操作</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- Color Cast Correction -->
-    <section class="section">
-      <div class="container">
-        <h2 class="section-title">导入自动校正色偏</h2>
-        <div class="comparison-images">
-          <div class="comparison-item">
-            <h3>色偏纠正前</h3>
-            <img src="assets/imgs/色偏纠正前.png" alt="色偏纠正前" />
-          </div>
-          <div class="comparison-item">
-            <h3>色偏纠正后</h3>
-            <img src="assets/imgs/色偏纠正后.png" alt="色偏纠正后" />
+    <!-- Feature: Density Inversion -->
+    <section class="feature-section snap-page" id="intro">
+      <div class="detail-container">
+        <h2 class="feature-heading" data-i18n="f1">Convert Negatives In Density Way</h2>
+        <div class="display-area reveal page-zoom-target">
+          <div class="reveal-inner reveal-inner--compact">
+            <div class="compare-slider" id="compareSlider">
+              <img
+                class="compare-after"
+                src="assets/imgs/feature-positive.png"
+                alt="正片效果"
+              />
+              <div class="compare-before-wrap" id="compareBeforeWrap">
+                <img
+                  class="compare-before"
+                  src="assets/imgs/feature-negative.png"
+                  alt="负片效果"
+                  id="compareBeforeImg"
+                />
+              </div>
+              <div class="compare-handle" id="compareHandle"></div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Border Detection -->
-    <section class="section">
-      <div class="container">
-        <h2 class="section-title">带着边框齿孔也能处理</h2>
-        <p class="section-description">免去裁切的体力活</p>
-        <img src="assets/imgs/无惧边框齿孔 免去裁切的体力活 图2.png" alt="无惧边框齿孔 图2" class="feature-image" />
-      </div>
-    </section>
-
-    <!-- Batch Processing -->
-    <section class="section">
-      <div class="container">
-        <h2 class="section-title">批量镜像、旋转</h2>
-        <p class="section-description">提升翻拍效率</p>
-        <img src="assets/imgs/批量镜像、旋转 提升翻拍效率.png" alt="批量镜像旋转" class="feature-image" />
-      </div>
-    </section>
-
-    <!-- Manual Adjustment -->
-    <section class="section">
-      <div class="container">
-        <h2 class="section-title">轻轻一滑调整去色罩风格</h2>
-        <p class="section-description">拖动滑块即可，无需手动对齐色阶</p>
-        <img src="assets/imgs/拖动滑块即可调整色阶裁切风格.png" alt="拖动滑块调整" class="feature-image" />
-        <p class="section-description">可手动调整各个通道参数</p>
-        <img src="assets/imgs/支持手动微调.png" alt="支持手动微调" class="feature-image" />
-      </div>
-    </section>
-
-    <!-- Color Adjustment -->
-    <section class="section">
-      <div class="container">
-        <h2 class="section-title">一键调整色彩和对比度</h2>
-        <img src="assets/imgs/一键调整色彩和对比度 - 控件特写.png" alt="控件特写" class="feature-image" />
-        <div class="comparison-images" style="margin-top: 32px;">
-          <div class="comparison-item">
-            <h3>调整前</h3>
-            <img src="assets/imgs/一键调整色彩和对比度 调整前.png" alt="调整前" />
-          </div>
-          <div class="comparison-item">
-            <h3>调整后</h3>
-            <img src="assets/imgs/一键调整色彩和对比度 调整后.png" alt="调整后" />
+    <!-- Feature: Hasselblad Import -->
+    <section class="feature-section feature-section--sub snap-page">
+      <div class="detail-container">
+        <h2 class="feature-heading" data-i18n="f2">Direct Hasselblad Scan Import With Auto Cropping</h2>
+        <p class="feature-subheading" data-i18n="f2sub">Also Supports RAW Imports And EPSON/Nikon Scanner Formats</p>
+        <div class="display-area reveal page-zoom-target">
+          <div class="reveal-inner">
+            <div class="hover-swap" id="hasselbladHover">
+              <img
+                class="hover-base"
+                src="assets/imgs/feature-hasselblad-1.png"
+                alt="哈苏扫描件导入"
+              />
+              <img
+                class="hover-overlay"
+                src="assets/imgs/feature-hasselblad-3.png"
+                alt="哈苏扫描件裁切"
+              />
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Batch Paste -->
-    <section class="section">
-      <div class="container">
-        <h2 class="section-title">设定偏好，批量粘贴参数</h2>
-        <p class="section-description">提升直出效果，避免重复处理</p>
-        <img src="assets/imgs/批量粘贴参数 避免重复处理.png" alt="批量粘贴参数" class="feature-image" />
-        <img src="assets/imgs/设定偏好 提升直出效果.png" alt="设定偏好" class="feature-image" />
-      </div>
-    </section>
-
-
-
-    <!-- Update & FAQ -->
-    <section class="faq">
-      <div class="container">
-        <h2 class="section-title">版本更新</h2>
-        <div class="faq-intro">
-          <p>又过去了2个月，NextFrame终于完成了一轮重大的迭代…不对，是完全重构。</p>
-          <p style="margin-top: 16px;">新版的App去色罩的颜色更漂亮。在处理性能、展示清晰度、导出速度上有200%以上的提升。在调整自由度上，也都有了质的飞跃。</p>
-          <p style="margin-top: 16px;">因为去色罩并不是一项简单的工作，依赖经验、审美、技巧，每个人也有自己以往的习惯。所以我准备了一些QA，或许能解决你的一些疑惑：</p>
-        </div>
-
-        <div class="faq-item">
-          <h3>1、新版NextFrame的去色罩原理是什么？</h3>
-          <p>答：和我们在Captureone里去色罩一样，找黑白场，并校正色偏到中性，只是这个过程被算法简化了，省去了你手动操作的时间。</p>
-        </div>
-
-        <div class="faq-item">
-          <h3>2、新版NextFrame去色罩会更快吗？</h3>
-          <p>答：我设计了一整套快捷键系统+批量操作系统，就和玩游戏中熟记的WASD等按键一样，减少不必要的鼠标操作，而且可以一次性完成批量旋转、镜像等操作，自然更快。</p>
-        </div>
-
-        <div class="faq-item">
-          <h3>3、为什么把直方图的调整显性化了？</h3>
-          <p>答：因为胶片后期是很依赖主观审美的工作，算法只能给你建议，80%的摄影师自己还需要采纳或者修正。所以我使用了大多数人更习惯的且科学的直方图，你可以在算法建议的基础上微调，而不是每张图都从0开始调整。</p>
-        </div>
-
-        <div class="faq-item">
-          <h3>4、会比NLP更好吗？</h3>
-          <p>答：个人认为是的，因为NLP的调整是不透明的，而NextFrame的调整是透明的，直接给你展示了直方图参数，你可以在NextFrame中随时修正算法的建议，在NLP里你只能修正算法的结果。</p>
-        </div>
-
-        <div class="faq-item">
-          <h3>5、Raw和tiff都支持吗？</h3>
-          <p>主流的raw格式都支持，除了部分尼康和松下的raw文件。但如果转换为DNG，都可以导入NextFrame进行处理。</p>
-        </div>
-
-        <div class="faq-item">
-          <h3>6、对翻拍友好吗？</h3>
-          <p>绝对友好，NextFrame有批量镜像功能，别提多爽了。</p>
-        </div>
-
-        <div class="faq-item">
-          <h3>7、关于导出画质</h3>
-          <p>NextFrame支持无损导出，导入tiff文件通常为16bit，导出也会保持16bit，所以你如果只想用作负片预处理的工具，其他的步骤交给PS完成，也完全没问题，批量处理后导出tiff即可！</p>
-        </div>
-
-        <div class="faq-intro" style="margin-top: 40px;">
-          <p>希望NextFrame能帮大家处理胶片更轻松，也希望大家多多支持 🌹</p>
+    <!-- Feature: Sprocket Margin -->
+    <section class="feature-section snap-page">
+      <div class="detail-container">
+        <h2 class="feature-heading" data-i18n="f3">Keep Film Border With Empty Sprocket Holes</h2>
+        <div class="display-area reveal page-zoom-target">
+          <div class="reveal-inner reveal-inner--compact">
+            <div class="hover-swap" id="borderHover">
+              <img
+                class="hover-base"
+                src="assets/imgs/feature-border-no-margin.png"
+                alt="原图"
+              />
+              <img
+                class="hover-overlay"
+                src="assets/imgs/feature-border-with-margin.png"
+                alt="齿孔留白"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-      <div class="container">
-        <p>© <span id="year"></span> NextFrame Studio — we build tools for film photographers.</p>
+    <!-- Feature: Keyboard Shortcuts -->
+    <section class="feature-section snap-page">
+      <div class="detail-container">
+        <h2 class="feature-heading" data-i18n="f4">Adjust CMY Like Enlarge In The Darkroom</h2>
+        <div class="display-area reveal page-zoom-target">
+          <div class="reveal-inner">
+            <img src="assets/imgs/feature-keyboard.png" alt="快捷键设计" />
+          </div>
+        </div>
       </div>
-      <script>
-        document.getElementById("year").textContent = new Date().getFullYear();
-        
-        // Mouse hover scroll control
-        const banner = document.querySelector('.hero-banner');
-        const gallery = document.getElementById('heroGallery');
+    </section>
+
+    <!-- Feature: EXIF & HDR -->
+    <section class="feature-section snap-page">
+      <div class="detail-container">
+        <h2 class="feature-heading" data-i18n="f5">Custom Film EXIF Info, One-Click HDR Export</h2>
+        <div class="display-area reveal page-zoom-target">
+          <div class="reveal-inner">
+            <img src="assets/imgs/feature-exif-hdr.png" alt="EXIF与HDR导出" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature: Copy Paste Parameters -->
+    <section class="feature-section snap-page">
+      <div class="detail-container">
+        <h2 class="feature-heading" data-i18n="f6">Copy &amp; Paste Settings Across Your Roll</h2>
+        <div class="display-area reveal page-zoom-target">
+          <div class="reveal-inner">
+            <img src="assets/imgs/feature-copy-paste.png" alt="复制粘贴参数" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Download -->
+    <section class="feature-section download-section snap-page" id="download">
+      <div class="download-panel">
+        <div class="download-wrap">
+          <a class="download-btn" id="footerDownload" href="https://apps.apple.com/fr/app/nextframe-digital-darkroom/id6749921585?mt=12" target="_blank" rel="noopener noreferrer">
+            <span data-i18n="downloadBtn">Download Now</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M12 3v12M7 10l5 5 5-5M5 21h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+        <footer>
+          <p data-i18n="footer"></p>
+        </footer>
+      </div>
+    </section>
+
+    <script>
+        const DOWNLOAD_URL = "https://apps.apple.com/fr/app/nextframe-digital-darkroom/id6749921585?mt=12";
+
+        const I18N = {
+          en: {
+            navIntro: "Introduction",
+            navDownload: "Download",
+            heroCta: "Try Now",
+            heroSubtitle: "Negative Processing, Fast, Easy",
+            f1: "Convert Negatives In Density Way",
+            f2: "Direct Hasselblad Scan Import With Auto Cropping",
+            f2sub: "Also Supports RAW Imports And EPSON/Nikon Scanner Formats",
+            f3: "Keep Film Border With Empty Sprocket Holes",
+            f4: "Adjust CMY Like Enlarge In The Darkroom",
+            f5: "Custom Film EXIF Info, One-Click HDR Export",
+            f6: "Copy & Paste Settings Across Your Roll",
+            downloadTitle: "Download NextFrame",
+            downloadBtn: "Download Now",
+            footer: "© {year} NextFrame Studio — We Build Tools For Film Photographers.",
+            pageTitle: "NextFrame — Digital Darkroom for Film",
+          },
+          zh: {
+            navIntro: "介绍",
+            navDownload: "下载",
+            heroCta: "立即体验",
+            heroSubtitle: "Negative Processing, Fast, Easy",
+            f1: "以密度域方式转换负片",
+            f2: "支持哈苏扫描件直接导入+自动裁切",
+            f2sub: "同样支持Raw文件导入，支持EPSON/Nikon等扫描仪格式",
+            f3: "保留胶片边框，齿孔留白",
+            f4: "像暗房放大机一样调节 CMY",
+            f5: "可自定义胶片EXIF信息, 一键导出HDR",
+            f6: "支持复制粘贴参数，无需一张一张调整",
+            downloadTitle: "下载NextFrame",
+            downloadBtn: "立即下载",
+            footer: "© {year} NextFrame Studio — 为胶片摄影师打造工具",
+            pageTitle: "NextFrame — 胶片暗房级的数字冲印",
+          },
+        };
+
+        let currentLang = localStorage.getItem("nf-lang") || "en";
+
+        (function initHeadingHighlight() {
+          const STEP_MS = 185;
+          let animTimers = [];
+
+          function clearTimers() {
+            animTimers.forEach(clearTimeout);
+            animTimers = [];
+          }
+
+          function wrapHeadingTokens(el, text, lang) {
+            el.textContent = "";
+            const units =
+              lang === "zh"
+                ? [...text]
+                : text.split(/(\s+)/);
+
+            units.forEach((part) => {
+              if (!part) return;
+              const isSpace = lang === "zh" ? /^\s$/.test(part) : /^\s+$/.test(part);
+              const span = document.createElement("span");
+              span.className = isSpace ? "heading-space" : "heading-token";
+              span.textContent = part;
+              el.appendChild(span);
+            });
+          }
+
+          function rebuildAll(lang) {
+            document.querySelectorAll(".feature-heading[data-i18n]").forEach((el) => {
+              const key = el.getAttribute("data-i18n");
+              const text = I18N[lang][key];
+              if (text) wrapHeadingTokens(el, text, lang);
+            });
+            document.querySelectorAll(".feature-subheading[data-i18n]").forEach((el) => {
+              const key = el.getAttribute("data-i18n");
+              const text = I18N[lang][key];
+              if (text) el.textContent = text;
+            });
+          }
+
+          function playForPage(page) {
+            if (!page) return;
+            clearTimers();
+            const headings = page.querySelectorAll(".feature-heading");
+            headings.forEach((heading) => {
+              heading.querySelectorAll(".heading-token").forEach((t) => {
+                t.classList.remove("is-lit");
+              });
+            });
+
+            requestAnimationFrame(() => {
+              headings.forEach((heading) => {
+                const tokens = heading.querySelectorAll(".heading-token");
+                tokens.forEach((token, i) => {
+                  animTimers.push(
+                    setTimeout(() => {
+                      if (i > 0) tokens[i - 1].classList.remove("is-lit");
+                      token.classList.add("is-lit");
+                    }, i * STEP_MS)
+                  );
+                });
+                if (tokens.length) {
+                  animTimers.push(
+                    setTimeout(() => {
+                      tokens[tokens.length - 1].classList.remove("is-lit");
+                    }, tokens.length * STEP_MS)
+                  );
+                }
+              });
+            });
+          }
+
+          window.__headingHighlight = { wrapHeadingTokens, rebuildAll, playForPage, clearTimers };
+        })();
+
+        function applyLanguage(lang) {
+          currentLang = lang;
+          localStorage.setItem("nf-lang", lang);
+          document.documentElement.lang = lang === "zh" ? "zh-Hans" : "en";
+          document.title = I18N[lang].pageTitle;
+
+          document.querySelectorAll("[data-i18n]").forEach((el) => {
+            const key = el.getAttribute("data-i18n");
+            const text = I18N[lang][key];
+            if (!text) return;
+            if (el.classList.contains("feature-heading")) {
+              return;
+            }
+            if (el.classList.contains("feature-subheading")) {
+              return;
+            }
+            if (key === "footer") {
+              el.textContent = text.replace("{year}", new Date().getFullYear());
+            } else {
+              el.textContent = text;
+            }
+          });
+
+          window.__headingHighlight.rebuildAll(lang);
+
+          document.querySelectorAll(".lang-btn").forEach((btn) => {
+            btn.classList.toggle("active", btn.dataset.lang === lang);
+          });
+
+          const activePage = document.querySelector(".snap-page.is-active");
+          if (activePage && activePage.querySelector(".feature-heading")) {
+            window.__headingHighlight.playForPage(activePage);
+          }
+        }
+
+        document.querySelectorAll(".lang-btn").forEach((btn) => {
+          btn.addEventListener("click", () => applyLanguage(btn.dataset.lang));
+        });
+
+        document.getElementById("heroDownload").href = DOWNLOAD_URL;
+        document.getElementById("footerDownload").href = DOWNLOAD_URL;
+        applyLanguage(currentLang);
+
+        // Hero 鼠标横向滑动
+        const banner = document.querySelector(".hero-banner");
+        const gallery = document.getElementById("heroGallery");
         let rafId = null;
         let targetScroll = 0;
-        
-        function updateScroll() {
+
+        function updateGalleryScroll() {
           gallery.scrollLeft = targetScroll;
           rafId = null;
         }
-        
-        banner.addEventListener('mousemove', (e) => {
+
+        banner.addEventListener("mousemove", (e) => {
           const rect = banner.getBoundingClientRect();
           const mouseX = e.clientX - rect.left;
           const percentage = Math.max(0, Math.min(1, mouseX / rect.width));
-          
-          // 鼠标从左到右，图片从右往左（scrollLeft增加）
           const maxScroll = gallery.scrollWidth - gallery.offsetWidth;
           targetScroll = percentage * maxScroll;
-          
-          // 使用 requestAnimationFrame 节流，避免卡顿
-          if (!rafId) {
-            rafId = requestAnimationFrame(updateScroll);
-          }
+          if (!rafId) rafId = requestAnimationFrame(updateGalleryScroll);
         });
+
+        // 整页翻页：跟手滑动，松手/停滚后吸附到最近一屏
+        (function initFullPageScroll() {
+          const getPages = () => Array.from(document.querySelectorAll(".snap-page"));
+          const SCROLL_MS = 720;
+          const SNAP_IDLE_MS = 45;
+          const COMMIT_RATIO = 0.1;
+          const WHEEL_GAIN = 1.2;
+          const WHEEL_COOLDOWN_MS = 180;
+          const WHEEL_INTENT_DELTA = 18;
+          const pageNav = document.getElementById("pageNav");
+          let pages = getPages();
+          let navItems = [];
+          let animating = false;
+          let scrollRaf = null;
+          let snapTimer = null;
+          let touchStartY = 0;
+          let touchStartScroll = 0;
+          let touching = false;
+          let activeIndex = 0;
+          let gestureStartIndex = 0;
+          let gestureDirection = 0;
+          let inGesture = false;
+          let wheelCooldownUntil = 0;
+
+          function easeOutQuint(t) {
+            return 1 - Math.pow(1 - t, 5);
+          }
+
+          function animationDuration(dist, isPageChange) {
+            if (isPageChange) return SCROLL_MS;
+            return Math.max(320, Math.min(560, Math.abs(dist) * 0.85));
+          }
+
+          function maxScrollY() {
+            pages = getPages();
+            return pages.length ? pages[pages.length - 1].offsetTop : 0;
+          }
+
+          function clampScroll(y) {
+            return Math.max(0, Math.min(maxScrollY(), y));
+          }
+
+          function clampGestureScroll(y) {
+            pages = getPages();
+            if (!pages.length) return y;
+            const minIdx = Math.max(0, gestureStartIndex - 1);
+            const maxIdx = Math.min(pages.length - 1, gestureStartIndex + 1);
+            const minY = pages[minIdx].offsetTop;
+            const maxY = pages[maxIdx].offsetTop;
+            return Math.max(minY, Math.min(maxY, y));
+          }
+
+          function beginGesture() {
+            inGesture = true;
+            gestureStartIndex = activeIndex;
+            gestureDirection = 0;
+          }
+
+          function resolveSnapIndex(scrollY) {
+            const vh = window.innerHeight;
+            const baseTop = pages[gestureStartIndex].offsetTop;
+            const delta = scrollY - baseTop;
+            const commit = vh * COMMIT_RATIO;
+
+            if (gestureDirection > 0 && delta > commit) {
+              return Math.min(gestureStartIndex + 1, pages.length - 1);
+            }
+            if (gestureDirection < 0 && delta < -commit) {
+              return Math.max(gestureStartIndex - 1, 0);
+            }
+            return gestureStartIndex;
+          }
+
+          function previewIndex(scrollY) {
+            const vh = window.innerHeight;
+            const baseTop = pages[gestureStartIndex].offsetTop;
+            const delta = scrollY - baseTop;
+            const mid = vh * 0.45;
+            if (delta > mid) return Math.min(gestureStartIndex + 1, pages.length - 1);
+            if (delta < -mid) return Math.max(gestureStartIndex - 1, 0);
+            return gestureStartIndex;
+          }
+
+          function nearestIndex(scrollY) {
+            if (inGesture || touching) return previewIndex(scrollY);
+            return activeIndex;
+          }
+
+          function startWheelCooldown() {
+            wheelCooldownUntil = Date.now() + WHEEL_COOLDOWN_MS;
+          }
+
+          function isWheelBlocked(e) {
+            const now = Date.now();
+            if (now >= wheelCooldownUntil) return false;
+            return Math.abs(e.deltaY) < WHEEL_INTENT_DELTA;
+          }
+
+          function clearWheelCooldown() {
+            wheelCooldownUntil = 0;
+          }
+
+          function setScrollY(y) {
+            const next = inGesture || touching ? clampGestureScroll(y) : clampScroll(y);
+            window.scrollTo(0, next);
+            updatePageZoom();
+            highlightNav(nearestIndex(window.scrollY));
+          }
+
+          function animateToIndex(index, onDone) {
+            pages = getPages();
+            if (index < 0 || index >= pages.length) {
+              onDone?.();
+              return;
+            }
+            if (scrollRaf) {
+              cancelAnimationFrame(scrollRaf);
+              scrollRaf = null;
+            }
+            animating = true;
+            const targetY = pages[index].offsetTop;
+            const startY = window.scrollY;
+            const dist = targetY - startY;
+            if (Math.abs(dist) < 1) {
+              window.scrollTo(0, targetY);
+              animating = false;
+              setActivePage(index);
+              onDone?.();
+              return;
+            }
+            const isPageChange = index !== activeIndex;
+            const duration = animationDuration(dist, isPageChange);
+            const t0 = performance.now();
+            function frame(now) {
+              const p = Math.min(1, (now - t0) / duration);
+              const eased = easeOutQuint(p);
+              window.scrollTo(0, startY + dist * eased);
+              updatePageZoom();
+              if (p < 1) {
+                scrollRaf = requestAnimationFrame(frame);
+              } else {
+                scrollRaf = null;
+                animating = false;
+                window.scrollTo(0, targetY);
+                updatePageZoom();
+                setActivePage(index);
+                if (isPageChange) startWheelCooldown();
+                onDone?.();
+              }
+            }
+            scrollRaf = requestAnimationFrame(frame);
+          }
+
+          function finishGestureAndSnap() {
+            if (animating || touching) return;
+            const idx = resolveSnapIndex(window.scrollY);
+            inGesture = false;
+            gestureDirection = 0;
+            animateToIndex(idx);
+          }
+
+          function snapToNearest() {
+            clearTimeout(snapTimer);
+            snapTimer = null;
+            finishGestureAndSnap();
+          }
+
+          function scheduleSnap() {
+            clearTimeout(snapTimer);
+            snapTimer = window.setTimeout(snapToNearest, SNAP_IDLE_MS);
+          }
+
+          function goTo(index) {
+            clearTimeout(snapTimer);
+            snapTimer = null;
+            inGesture = false;
+            clearWheelCooldown();
+            if (scrollRaf) {
+              cancelAnimationFrame(scrollRaf);
+              scrollRaf = null;
+            }
+            animating = false;
+            animateToIndex(index);
+          }
+
+          function setActivePage(index) {
+            activeIndex = index;
+            pages.forEach((page, i) => {
+              page.classList.toggle("is-active", i === index);
+            });
+            highlightNav(index);
+            const darkNav = index === 0 || index === pages.length - 1;
+            pageNav.classList.toggle("on-hero", darkNav);
+            window.__headingHighlight?.playForPage(pages[index]);
+          }
+
+          function highlightNav(index) {
+            navItems.forEach((btn, i) => {
+              btn.classList.toggle("active", i === index);
+            });
+          }
+
+          function updatePageZoom() {
+            const vh = window.innerHeight;
+            const scrollY = window.scrollY;
+            pages.forEach((page) => {
+              const target = page.querySelector(".page-zoom-target");
+              if (!target) return;
+              if (page.classList.contains("hero-banner")) {
+                target.style.transform = "scale(1)";
+                return;
+              }
+              const dist = Math.abs(scrollY - page.offsetTop);
+              const progress = Math.max(0, 1 - dist / (vh * 0.92));
+              const scale = 0.9 + progress * 0.1;
+              target.style.transform = "scale(" + scale + ")";
+            });
+          }
+
+          function isScrollBlockedTarget(el) {
+            return el && el.closest && el.closest("#compareSlider");
+          }
+
+          function buildPageNav() {
+            pageNav.innerHTML = "";
+            navItems = pages.map((page, i) => {
+              const btn = document.createElement("button");
+              btn.type = "button";
+              btn.className = "page-nav-item" + (i === 0 ? " active" : "");
+              btn.setAttribute("aria-label", "Go to section " + (i + 1));
+              btn.addEventListener("click", () => goTo(i));
+              pageNav.appendChild(btn);
+              return btn;
+            });
+          }
+
+          buildPageNav();
+          setActivePage(0);
+          updatePageZoom();
+
+          window.addEventListener(
+            "wheel",
+            (e) => {
+              e.preventDefault();
+
+              if (isWheelBlocked(e)) return;
+
+              if (Math.abs(e.deltaY) >= WHEEL_INTENT_DELTA) {
+                clearWheelCooldown();
+              }
+
+              if (animating) {
+                if (Math.abs(e.deltaY) < WHEEL_INTENT_DELTA) return;
+                if (scrollRaf) {
+                  cancelAnimationFrame(scrollRaf);
+                  scrollRaf = null;
+                }
+                animating = false;
+                clearTimeout(snapTimer);
+                snapTimer = null;
+                if (!inGesture) beginGesture();
+              } else if (!inGesture) {
+                beginGesture();
+              }
+
+              if (e.deltaY !== 0) gestureDirection = e.deltaY > 0 ? 1 : -1;
+              setScrollY(window.scrollY + e.deltaY * WHEEL_GAIN);
+              scheduleSnap();
+            },
+            { passive: false }
+          );
+
+          window.addEventListener(
+            "touchstart",
+            (e) => {
+              if (isScrollBlockedTarget(e.target)) return;
+              clearWheelCooldown();
+              touching = true;
+              touchStartY = e.touches[0].clientY;
+              touchStartScroll = window.scrollY;
+              beginGesture();
+              clearTimeout(snapTimer);
+              snapTimer = null;
+              if (scrollRaf) {
+                cancelAnimationFrame(scrollRaf);
+                scrollRaf = null;
+              }
+              animating = false;
+            },
+            { passive: true }
+          );
+
+          window.addEventListener(
+            "touchmove",
+            (e) => {
+              if (!touching || isScrollBlockedTarget(e.target)) return;
+              e.preventDefault();
+              const dy = touchStartY - e.touches[0].clientY;
+              if (dy !== 0) gestureDirection = dy > 0 ? 1 : -1;
+              setScrollY(touchStartScroll + dy);
+            },
+            { passive: false }
+          );
+
+          window.addEventListener(
+            "touchend",
+            () => {
+              if (!touching) return;
+              touching = false;
+              clearTimeout(snapTimer);
+              snapTimer = null;
+              requestAnimationFrame(finishGestureAndSnap);
+            },
+            { passive: true }
+          );
+
+          window.addEventListener("resize", () => {
+            pages = getPages();
+            updatePageZoom();
+            if (!animating && !touching) {
+              animateToIndex(activeIndex);
+            }
+          });
+
+          document.getElementById("navLogo").addEventListener("click", (e) => {
+            e.preventDefault();
+            goTo(0);
+          });
+
+          document.querySelectorAll('.nav-link[href^="#"]').forEach((link) => {
+            link.addEventListener("click", (e) => {
+              const id = link.getAttribute("href").slice(1);
+              const target = document.getElementById(id);
+              if (!target) return;
+              e.preventDefault();
+              const idx = pages.indexOf(target);
+              if (idx >= 0) goTo(idx);
+            });
+          });
+
+          window.__updatePageZoom = updatePageZoom;
+        })();
+
+        // 负片/正片对比滑块
+        (function initCompareSlider() {
+          const slider = document.getElementById("compareSlider");
+          const wrap = document.getElementById("compareBeforeWrap");
+          const handle = document.getElementById("compareHandle");
+          const beforeImg = document.getElementById("compareBeforeImg");
+          let dragging = false;
+
+          function setPosition(pct) {
+            const clamped = Math.max(0, Math.min(100, pct));
+            wrap.style.width = clamped + "%";
+            handle.style.left = clamped + "%";
+            beforeImg.style.width = slider.offsetWidth + "px";
+          }
+
+          function positionFromEvent(e) {
+            const rect = slider.getBoundingClientRect();
+            const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+            setPosition((x / rect.width) * 100);
+          }
+
+          setPosition(50);
+          window.addEventListener("resize", () => setPosition(parseFloat(handle.style.left) || 50));
+          slider.querySelector(".compare-after").addEventListener("load", () => setPosition(parseFloat(handle.style.left) || 50));
+          beforeImg.addEventListener("load", () => setPosition(parseFloat(handle.style.left) || 50));
+
+          slider.addEventListener("mousedown", (e) => {
+            dragging = true;
+            positionFromEvent(e);
+          });
+          slider.addEventListener("touchstart", (e) => {
+            dragging = true;
+            positionFromEvent(e);
+          }, { passive: true });
+          window.addEventListener("mousemove", (e) => {
+            if (dragging) positionFromEvent(e);
+          });
+          window.addEventListener("touchmove", (e) => {
+            if (dragging) positionFromEvent(e);
+          }, { passive: true });
+          window.addEventListener("mouseup", () => { dragging = false; });
+          window.addEventListener("touchend", () => { dragging = false; });
+        })();
+
+        // 视差渐现 + 鼠标滚轮顺滑翻页
+        (function initRevealParallax() {
+          const areas = document.querySelectorAll(".display-area.reveal");
+          let ticking = false;
+
+          function updateParallax() {
+            const vh = window.innerHeight;
+            areas.forEach((area) => {
+              const inner = area.querySelector(".reveal-inner");
+              if (!inner) return;
+              const rect = area.getBoundingClientRect();
+              const progress = Math.max(0, Math.min(1, (vh - rect.top) / (vh * 0.85)));
+              const offset = (1 - progress) * 40;
+              const compact = inner.classList.contains("reveal-inner--compact");
+              const scale = compact ? 0.88 : 1;
+
+              if (area.classList.contains("is-visible")) {
+                inner.style.opacity = String(Math.min(1, progress * 1.2));
+                inner.style.transform =
+                  "translate3d(0, " + offset + "px, 0) scale(" + scale + ")";
+              }
+            });
+            ticking = false;
+          }
+
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("is-visible");
+                  updateParallax();
+                }
+              });
+            },
+            { threshold: 0.2 }
+          );
+          areas.forEach((el) => observer.observe(el));
+
+          window.addEventListener(
+            "scroll",
+            () => {
+              if (!ticking) {
+                ticking = true;
+                requestAnimationFrame(() => {
+                  updateParallax();
+                  window.__updatePageZoom?.();
+                  ticking = false;
+                });
+              }
+            },
+            { passive: true }
+          );
+          window.addEventListener("resize", updateParallax);
+          updateParallax();
+        })();
       </script>
-    </footer>
   </body>
 </html>
