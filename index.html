@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="description" content="NextFrame - 胶片暗房级的数字冲印工具，支持哈苏扫描件、Raw翻拍件的自动校色，智能去色罩，批量处理，16bit导出" />
-    <title>NextFrame — Digital Darkroom for Film</title>
+    <meta name="description" content="胶片玩家 - NextFrame 胶片暗房级的数字冲印工具，支持哈苏扫描件、Raw翻拍件的自动校色，智能去色罩，批量处理，16bit导出" />
+    <title>胶片玩家</title>
     <link rel="preload" as="image" href="assets/imgs/opt/hero-01.webp" fetchpriority="high" />
     <link rel="preload" as="image" href="assets/imgs/opt/feature-positive.webp" />
     <link rel="preload" as="image" href="assets/imgs/opt/feature-negative.webp" />
@@ -522,6 +522,9 @@
         padding: 0;
         color: rgba(255, 255, 255, 0.72);
       }
+      .download-section footer .footer-beian a {
+        color: rgba(255, 255, 255, 0.72);
+      }
       .download-section .download-btn {
         display: inline-flex;
         align-items: center;
@@ -763,6 +766,17 @@
         color: var(--muted);
         font-size: 0.9rem;
         border-top: none;
+      }
+      footer .footer-beian {
+        margin-top: 8px;
+        font-size: 0.85rem;
+      }
+      footer .footer-beian a {
+        color: inherit;
+        text-decoration: none;
+      }
+      footer .footer-beian a:hover {
+        text-decoration: underline;
       }
 
       /* Responsive */
@@ -1067,6 +1081,9 @@
         </div>
         <footer>
           <p data-i18n="footer"></p>
+          <p class="footer-beian">
+            <a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">浙ICP备2026017032号</a>
+          </p>
         </footer>
       </div>
     </section>
@@ -1090,7 +1107,6 @@
             downloadTitle: "Download NextFrame",
             downloadBtn: "Download Now",
             footer: "© {year} NextFrame Studio — We Build Tools For Film Photographers.",
-            pageTitle: "NextFrame — Digital Darkroom for Film",
           },
           zh: {
             navIntro: "介绍",
@@ -1107,7 +1123,6 @@
             downloadTitle: "下载NextFrame",
             downloadBtn: "立即下载",
             footer: "© {year} NextFrame Studio — 为胶片摄影师打造工具",
-            pageTitle: "NextFrame — 胶片暗房级的数字冲印",
           },
         };
 
@@ -1191,7 +1206,7 @@
           currentLang = lang;
           localStorage.setItem("nf-lang", lang);
           document.documentElement.lang = lang === "zh" ? "zh-Hans" : "en";
-          document.title = I18N[lang].pageTitle;
+          document.title = "胶片玩家";
 
           document.querySelectorAll("[data-i18n]").forEach((el) => {
             const key = el.getAttribute("data-i18n");
