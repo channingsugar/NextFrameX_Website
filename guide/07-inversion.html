@@ -1,0 +1,31 @@
+<!doctype html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>密度域反转与取样 · NextFrame</title><meta name="description" content="反转面板通过密度域转换及 DCMY 参数控制负片的亮暗与颜色。曝光范围、Dmin 和 Dmax 用于指定分析区域和参考点。"><link rel="canonical" href="https://www.filmmmer.com/guide/07-inversion.html"><meta property="og:title" content="密度域反转与取样 · NextFrame"><meta property="og:description" content="反转面板通过密度域转换及 DCMY 参数控制负片的亮暗与颜色。曝光范围、Dmin 和 Dmax 用于指定分析区域和参考点。"><meta property="og:type" content="website"><meta property="og:url" content="https://www.filmmmer.com/guide/07-inversion.html"><meta property="og:image" content="https://www.filmmmer.com/assets/media/workspace.webp"><link rel="icon" href="../assets/imgs/opt/icon.webp"><meta name="theme-color" content="#f7f7f7"><link rel="stylesheet" href="../assets/css/site.css?v=9ef77bf43c"><script defer src="../assets/js/search-index.js?v=c8411593e5"></script><script defer src="../assets/js/site.js?v=756f00063c"></script></head><body><a class="skip" href="#main">跳到正文</a><header class="site-nav"><div class="nav-inner wrap"><a class="brand" href="../index.html" aria-label="NextFrame 首页"><img src="../assets/imgs/opt/icon.webp" width="30" height="30" alt="">NextFrame</a><nav class="nav-links" aria-label="主导航"><a class="nav-home" href="../index.html#intro">产品</a><a href="../guide/index.html">使用教程</a><a class="nav-download" href="../download/index.html">下载 ↗</a></nav></div></header><main id="main"><div class="guide-layout wrap"><aside class="guide-sidebar"><h2>使用文档</h2><label class="sr-only" for="doc-search">搜索教程</label><input id="doc-search" class="doc-search" type="search" placeholder="搜索教程，例如 Dmin" autocomplete="off"><div class="search-results" aria-live="polite"></div><details open><summary>章节目录</summary><nav aria-label="教程章节"><a href="01-start.html" >快速开始</a><a href="02-workflows.html" >选择处理流程</a><a href="03-raw.html" >RAW 全自动模式</a><a href="04-strip.html" >整条扫描与自动分帧</a><a href="05-masks.html" >整条扫描的绝对蒙版</a><a href="06-positive.html" >反转片与黑白负片</a><a href="07-inversion.html" aria-current="page">密度域反转与取样</a><a href="08-color.html" >颜色调整</a><a href="09-finishing.html" >齿孔、除尘与质感</a><a href="10-export.html" >批量处理、HDR 与 LIVE 导出</a><a href="11-shortcuts.html" >快捷键速查</a><a href="12-troubleshooting.html" >常见问题</a><a href="13-agent.html" >连接 Agent</a><a href="14-capture.html" >文件格式与联机拍摄</a><a href="15-controls.html" >转盘与波形操作</a></nav></details></aside><article class="article"><span class="eyebrow">NEXTFRAME / 使用文档</span><h1>密度域反转与取样</h1><p class="lead">反转面板通过密度域转换及 DCMY 参数控制负片的亮暗与颜色。曝光范围、Dmin 和 Dmax 用于指定分析区域和参考点。</p><p class="meta">中文教程 · 更新 2026-10-17 · 界面参考 2.54.0</p><div class="prose"><h2 id="_1">密度域反转</h2>
+<p>胶片密度与透射光强呈对数关系。密度域反转在这一关系下处理负片，再通过通道基线、增益和影调控制得到正像。它提供的控制不同于简单的 RGB 数值反相。</p>
+<p>按 <code>C</code> 开关反转，按 <code>S</code> 执行自动对齐。DCMY 的手动调整见<a href="08-color.html">颜色调整</a>。</p>
+<h2 id="_2">曝光范围</h2>
+<p>曝光范围决定哪些区域参与分析，不改变导出边界。</p>
+<ul>
+<li>按 <code>A</code> 后在画面中拖动，绘制分析区域。</li>
+<li>长按 <code>A</code> 选择预设比例，或选择“自动”重新处理。</li>
+<li>按 <code>V</code> 显示或隐藏范围标记。</li>
+</ul>
+<p>通常将范围放在有效画面内部，避开片夹、齿孔、邻帧和大面积干扰色。有干扰色时可缩小至 75%、55%、45% 或 35%，再比较结果。天空、云、雪山等缺少黑点的画面，可试着包含少量干净片基。</p>
+<p><img alt="raw 目录照片的曝光范围与取样标记" src="../assets/media/range.webp?v=c675cdc094" width="1600" height="1014" loading="lazy" decoding="async" /></p>
+<p>按 <code>V</code> 可显示曝光范围与取样标记。上图来自当前显影工作区：范围放在画面内部，避开齿孔和边码。</p>
+<h2 id="dmin">Dmin 取样</h2>
+<p>按 <code>Q</code> 进入 Dmin 取样，点击干净片基。四周的窄黑边和帧间间隔通常可供取样；避开字码、孔洞及扫描床。</p>
+<p>没有明确片基时，可尝试反转成片中最暗的可靠区域。这里指成片的暗处，不是负片原图中最暗的部分。取样后比较颜色、灰雾和对比度；效果变差时，点击 Dmin 旁的清除按钮或撤销。</p>
+<p>Dmin 可以不设置，不必为每张照片强行寻找取样点。</p>
+<h2 id="dmax">Dmax 取样</h2>
+<p>长按 <code>Q</code> 选择 Dmax，在反转成片最亮、未溢出的中性高光处取样，例如白墙、白衣或白云。避开有色光源和有色反射。</p>
+<p>通常在范围、白平衡和色偏强度调整无明显改善后，再尝试 Dmax。</p>
+<h2 id="_3">取样位置与裁切</h2>
+<p>取样点可以在最终裁切之外，但应属于同一底片、相同照明条件。先完成取样，再裁掉不需要的外侧区域。保留片基时也应去掉底片外的连续白边。</p></div><nav class="doc-pagination" aria-label="相邻章节"><a href="06-positive.html">← 反转片与黑白负片</a><a href="08-color.html">颜色调整 →</a></nav></article><aside class="toc"><p>本页内容</p><div class="toc">
+<ul>
+<li><a href="#_1">密度域反转</a></li>
+<li><a href="#_2">曝光范围</a></li>
+<li><a href="#dmin">Dmin 取样</a></li>
+<li><a href="#dmax">Dmax 取样</a></li>
+<li><a href="#_3">取样位置与裁切</a></li>
+</ul>
+</div>
+</aside></div></main><footer class="site-footer"><div class="wrap footer-row"><span>© 2026 NextFrame Studio · 为胶片摄影师打造</span><div class="footer-links"><a href="../guide/index.html">使用教程</a><a href="../guide/updates.html">文档更新</a><a href="https://www.xiaohongshu.com/user/profile/5fa7aad30000000001005466" target="_blank" rel="noopener noreferrer">小红书 ↗</a><a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">浙ICP备2026017032号</a></div></div></footer></body></html>

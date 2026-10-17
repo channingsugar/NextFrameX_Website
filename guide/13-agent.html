@@ -1,0 +1,28 @@
+<!doctype html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>连接 Agent · NextFrame</title><meta name="description" content="NextFrame 通过本地 MCP 向支持该协议的客户端提供图像处理工具。连接后可用对话指定目录、处理方式和修改要求。"><link rel="canonical" href="https://www.filmmmer.com/guide/13-agent.html"><meta property="og:title" content="连接 Agent · NextFrame"><meta property="og:description" content="NextFrame 通过本地 MCP 向支持该协议的客户端提供图像处理工具。连接后可用对话指定目录、处理方式和修改要求。"><meta property="og:type" content="website"><meta property="og:url" content="https://www.filmmmer.com/guide/13-agent.html"><meta property="og:image" content="https://www.filmmmer.com/assets/media/workspace.webp"><link rel="icon" href="../assets/imgs/opt/icon.webp"><meta name="theme-color" content="#f7f7f7"><link rel="stylesheet" href="../assets/css/site.css?v=9ef77bf43c"><script defer src="../assets/js/search-index.js?v=c8411593e5"></script><script defer src="../assets/js/site.js?v=756f00063c"></script></head><body><a class="skip" href="#main">跳到正文</a><header class="site-nav"><div class="nav-inner wrap"><a class="brand" href="../index.html" aria-label="NextFrame 首页"><img src="../assets/imgs/opt/icon.webp" width="30" height="30" alt="">NextFrame</a><nav class="nav-links" aria-label="主导航"><a class="nav-home" href="../index.html#intro">产品</a><a href="../guide/index.html">使用教程</a><a class="nav-download" href="../download/index.html">下载 ↗</a></nav></div></header><main id="main"><div class="guide-layout wrap"><aside class="guide-sidebar"><h2>使用文档</h2><label class="sr-only" for="doc-search">搜索教程</label><input id="doc-search" class="doc-search" type="search" placeholder="搜索教程，例如 Dmin" autocomplete="off"><div class="search-results" aria-live="polite"></div><details open><summary>章节目录</summary><nav aria-label="教程章节"><a href="01-start.html" >快速开始</a><a href="02-workflows.html" >选择处理流程</a><a href="03-raw.html" >RAW 全自动模式</a><a href="04-strip.html" >整条扫描与自动分帧</a><a href="05-masks.html" >整条扫描的绝对蒙版</a><a href="06-positive.html" >反转片与黑白负片</a><a href="07-inversion.html" >密度域反转与取样</a><a href="08-color.html" >颜色调整</a><a href="09-finishing.html" >齿孔、除尘与质感</a><a href="10-export.html" >批量处理、HDR 与 LIVE 导出</a><a href="11-shortcuts.html" >快捷键速查</a><a href="12-troubleshooting.html" >常见问题</a><a href="13-agent.html" aria-current="page">连接 Agent</a><a href="14-capture.html" >文件格式与联机拍摄</a><a href="15-controls.html" >转盘与波形操作</a></nav></details></aside><article class="article"><span class="eyebrow">NEXTFRAME / 使用文档</span><h1>连接 Agent</h1><p class="lead">NextFrame 通过本地 MCP 向支持该协议的客户端提供图像处理工具。连接后可用对话指定目录、处理方式和修改要求。</p><p class="meta">中文教程 · 更新 2026-10-17 · 界面参考 2.54.0</p><div class="prose"><h2 id="_1">配置连接</h2>
+<ol>
+<li>打开 NextFrame，进入“设置 → Agent MCP…”。</li>
+<li>添加允许处理的素材目录，点击“启用本地 MCP”。</li>
+<li>将窗口显示的 Codex 或 Cursor 配置复制到对应客户端的 MCP 配置中。</li>
+<li>重新加载客户端工具，让 Agent 检查 NextFrame 连接状态。</li>
+</ol>
+<p>配置使用本机窗口显示的路径。应用退出后需重新启用连接。NextFrame 无需填写大模型 API Key。</p>
+<h2 id="_2">处理一个文件夹</h2>
+<p>可向 Agent 输入：</p>
+<blockquote>
+<p>用 NextFrame 处理文件夹「实际素材路径」。RAW 保留片基，整条扫描移除片基。检查每帧裁切与颜色，先展示处理结果。</p>
+</blockquote>
+<p>将引号内替换为实际路径。继续修改时，说明文件名及具体要求，例如“把 _200885.ARW 调亮一点，保留现在的色调”。</p>
+<p>已手工调整的照片，可明确要求保留现有参数，以当前效果为基础修改。</p>
+<h2 id="_3">网络设置</h2>
+<p>网络支持时保留云端校色。无法连接校色服务时，可说“本次关闭云端校色，继续本地处理”。Agent 客户端能联网，不代表 NextFrame 的校色服务也能连接。</p>
+<h2 id="_4">检查与导出</h2>
+<p>查看预览，检查裁切、范围、齿孔和颜色。需要修改时继续描述要求。</p>
+<p>当前 MCP 导出入口会打开 NextFrame 的导出窗口，由用户选择格式和目录并完成导出。导出结束后检查目标目录中的实际文件。</p></div><nav class="doc-pagination" aria-label="相邻章节"><a href="12-troubleshooting.html">← 常见问题</a><a href="14-capture.html">文件格式与联机拍摄 →</a></nav></article><aside class="toc"><p>本页内容</p><div class="toc">
+<ul>
+<li><a href="#_1">配置连接</a></li>
+<li><a href="#_2">处理一个文件夹</a></li>
+<li><a href="#_3">网络设置</a></li>
+<li><a href="#_4">检查与导出</a></li>
+</ul>
+</div>
+</aside></div></main><footer class="site-footer"><div class="wrap footer-row"><span>© 2026 NextFrame Studio · 为胶片摄影师打造</span><div class="footer-links"><a href="../guide/index.html">使用教程</a><a href="../guide/updates.html">文档更新</a><a href="https://www.xiaohongshu.com/user/profile/5fa7aad30000000001005466" target="_blank" rel="noopener noreferrer">小红书 ↗</a><a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">浙ICP备2026017032号</a></div></div></footer></body></html>

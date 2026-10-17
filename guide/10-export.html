@@ -1,0 +1,36 @@
+<!doctype html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>批量处理、HDR 与 LIVE 导出 · NextFrame</title><meta name="description" content="导出前选择要保存的照片，再设置格式、尺寸及输出方式。"><link rel="canonical" href="https://www.filmmmer.com/guide/10-export.html"><meta property="og:title" content="批量处理、HDR 与 LIVE 导出 · NextFrame"><meta property="og:description" content="导出前选择要保存的照片，再设置格式、尺寸及输出方式。"><meta property="og:type" content="website"><meta property="og:url" content="https://www.filmmmer.com/guide/10-export.html"><meta property="og:image" content="https://www.filmmmer.com/assets/media/workspace.webp"><link rel="icon" href="../assets/imgs/opt/icon.webp"><meta name="theme-color" content="#f7f7f7"><link rel="stylesheet" href="../assets/css/site.css?v=9ef77bf43c"><script defer src="../assets/js/search-index.js?v=c8411593e5"></script><script defer src="../assets/js/site.js?v=756f00063c"></script></head><body><a class="skip" href="#main">跳到正文</a><header class="site-nav"><div class="nav-inner wrap"><a class="brand" href="../index.html" aria-label="NextFrame 首页"><img src="../assets/imgs/opt/icon.webp" width="30" height="30" alt="">NextFrame</a><nav class="nav-links" aria-label="主导航"><a class="nav-home" href="../index.html#intro">产品</a><a href="../guide/index.html">使用教程</a><a class="nav-download" href="../download/index.html">下载 ↗</a></nav></div></header><main id="main"><div class="guide-layout wrap"><aside class="guide-sidebar"><h2>使用文档</h2><label class="sr-only" for="doc-search">搜索教程</label><input id="doc-search" class="doc-search" type="search" placeholder="搜索教程，例如 Dmin" autocomplete="off"><div class="search-results" aria-live="polite"></div><details open><summary>章节目录</summary><nav aria-label="教程章节"><a href="01-start.html" >快速开始</a><a href="02-workflows.html" >选择处理流程</a><a href="03-raw.html" >RAW 全自动模式</a><a href="04-strip.html" >整条扫描与自动分帧</a><a href="05-masks.html" >整条扫描的绝对蒙版</a><a href="06-positive.html" >反转片与黑白负片</a><a href="07-inversion.html" >密度域反转与取样</a><a href="08-color.html" >颜色调整</a><a href="09-finishing.html" >齿孔、除尘与质感</a><a href="10-export.html" aria-current="page">批量处理、HDR 与 LIVE 导出</a><a href="11-shortcuts.html" >快捷键速查</a><a href="12-troubleshooting.html" >常见问题</a><a href="13-agent.html" >连接 Agent</a><a href="14-capture.html" >文件格式与联机拍摄</a><a href="15-controls.html" >转盘与波形操作</a></nav></details></aside><article class="article"><span class="eyebrow">NEXTFRAME / 使用文档</span><h1>批量处理、HDR 与 LIVE 导出</h1><p class="lead">导出前选择要保存的照片，再设置格式、尺寸及输出方式。</p><p class="meta">中文教程 · 更新 2026-10-17 · 界面参考 2.54.0</p><div class="prose"><h2 id="_1">批量复制参数</h2>
+<p>在照片列表中多选目标，或按 <code>⌘ A</code> 全选当前集合。在参考图上按 <code>⌘ C</code>，选中目标后按 <code>⌘ V</code>，在粘贴面板勾选需要同步的模块。</p>
+<p>不同画面的裁切、Dmin 和曝光通常需要分别设置。当前若选中蒙版，<code>⌘ A</code> 等操作会作用于蒙版；批量处理照片前先退出蒙版选择。</p>
+<h2 id="_2">保留不同版本</h2>
+<p>按 <code>⌘ D</code> 创建虚拟副本，可用于比较不同调色方案。副本保留独立编辑参数，通过导出后才生成独立图片文件。</p>
+<h2 id="_3">普通图片导出</h2>
+<ol>
+<li>选中结果，按 <code>⌘ S</code> 打开导出窗口。</li>
+<li>核对已选张数，选择 JPEG、TIFF 或 PNG。</li>
+<li>设置最大边长、质量或位深，选择色彩空间。</li>
+<li>普通网页分享选择 SDR 和 sRGB；后续编辑可使用支持的高位深格式。</li>
+<li>设置命名与保存目录，点击导出，等待完成。</li>
+</ol>
+<p>完成后打开目录检查张数、尺寸和颜色。失败项可使用“重试”重新输出。</p>
+<h2 id="hdr">HDR 预览与输出</h2>
+<p>在显影工作区的“监视器”中切换到 HDR 视图，左右拖动图表调整 HDR 亮度，按住 HDR 预览按钮查看效果。</p>
+<p>导出时，将“动态范围”设为 HDR，并选择“自动、自然、标准、强烈、极致”等强度。当前 HDR 使用 Ultra HDR JPEG；开启 HDR 后其他格式会受到限制。需要输出 Live 时，先切回 SDR。</p>
+<p>使用支持 HDR 的屏幕和查看软件检查文件。在不支持 HDR 的环境中，显示的是兼容的 SDR 效果；普通网页截图不能完整呈现 HDR 亮度。</p>
+<h2 id="live">LIVE 导出</h2>
+<ol>
+<li>打开导出窗口，将动态范围设为 SDR，格式选择“Live”。</li>
+<li>选择“签名条”“留边”或“铺满”模板，按需要开启“显示 Logo”。</li>
+<li>选择照片与保存位置，点击导出，等待短片合成完成。</li>
+<li>macOS 会尝试将 Live Photo 保存到系统“照片”，可从相册隔空投送到 iPhone。Windows 输出 Live 视频。</li>
+</ol>
+<p>如果 macOS 提示未获“照片”权限，文件仍可能已写入导出目录。按提示授权后再处理相册写入，不必把整个批次视为丢失。</p>
+<p>导出格式、尺寸与额度以当前版本及账号权限为准。</p></div><nav class="doc-pagination" aria-label="相邻章节"><a href="09-finishing.html">← 齿孔、除尘与质感</a><a href="11-shortcuts.html">快捷键速查 →</a></nav></article><aside class="toc"><p>本页内容</p><div class="toc">
+<ul>
+<li><a href="#_1">批量复制参数</a></li>
+<li><a href="#_2">保留不同版本</a></li>
+<li><a href="#_3">普通图片导出</a></li>
+<li><a href="#hdr">HDR 预览与输出</a></li>
+<li><a href="#live">LIVE 导出</a></li>
+</ul>
+</div>
+</aside></div></main><footer class="site-footer"><div class="wrap footer-row"><span>© 2026 NextFrame Studio · 为胶片摄影师打造</span><div class="footer-links"><a href="../guide/index.html">使用教程</a><a href="../guide/updates.html">文档更新</a><a href="https://www.xiaohongshu.com/user/profile/5fa7aad30000000001005466" target="_blank" rel="noopener noreferrer">小红书 ↗</a><a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">浙ICP备2026017032号</a></div></div></footer></body></html>

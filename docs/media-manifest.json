@@ -1,0 +1,122 @@
+{
+  "collection": "4879",
+  "captured": "2026-10-17",
+  "mode": "existing_native_preview",
+  "hero": [
+    {
+      "id": "89755d6e-b36b-4ca7-93cd-10a2f76c0bfb",
+      "source": "1 002_s0_f11.fff",
+      "asset": "assets/media/hero-06.webp",
+      "alt": "蓝天中的滑翔伞"
+    },
+    {
+      "id": "598297bc-4baf-4a50-9508-f02be3233889",
+      "source": "1 003_s0_f3.fff",
+      "asset": "assets/media/hero-12.webp",
+      "alt": "沙滩上的日光浴"
+    },
+    {
+      "id": "13fc9268-9a93-43c7-8a9f-646aa3213a56",
+      "source": "1 003_s0_f1.fff",
+      "asset": "assets/media/hero-11.webp",
+      "alt": "草地上的鸟"
+    },
+    {
+      "id": "ecd87103-1e62-45f6-b7fb-90669fc3ad9b",
+      "source": "1 003_s0_f2.fff",
+      "asset": "assets/media/hero-beach-silhouette.webp",
+      "alt": "海浪前的人物剪影"
+    },
+    {
+      "id": "7e4e5145-7d37-4b75-961d-35505f41f2a8",
+      "source": "1 001_s0_f11.fff",
+      "asset": "assets/media/hero-09.webp",
+      "alt": "飞机下方的云海"
+    },
+    {
+      "id": "491f6e72-e5cb-4cec-848d-4d79789c5157",
+      "source": "1 001_s0_f4.fff",
+      "asset": "assets/media/hero-07.webp",
+      "alt": "舷窗外的机翼与跑道"
+    },
+    {
+      "id": "855c4a18-8b5f-4052-a201-03369877fb40",
+      "source": "1 002_s0_f4.fff",
+      "asset": "assets/media/hero-02.webp",
+      "alt": "药房前的街道"
+    },
+    {
+      "id": "f232468b-2bfd-4d53-b0a3-c94bdf63aea8",
+      "source": "1 001_s0_f7.fff",
+      "asset": "assets/media/hero-08.webp",
+      "alt": "海浪中的人"
+    },
+    {
+      "id": "3844df14-ff02-412b-995a-b8d341e2551b",
+      "source": "1 003_s0_f0.fff",
+      "asset": "assets/media/hero-10.webp",
+      "alt": "树荫下的海滩"
+    }
+  ],
+  "raw": [
+    {
+      "source": "_200885.ARW",
+      "id": "c2eea1a5-30af-49fe-95c7-a01575188f43"
+    },
+    {
+      "source": "_201019.ARW",
+      "id": "c62ff027-7c53-41e5-b290-33435cbab80d"
+    }
+  ],
+  "selection": "9 photos, in the exact numbered order from the user screenshot on 2026-10-17",
+  "features": [
+    {
+      "asset": "assets/media/feature-01.svg",
+      "alt": "密度域反转原理示意"
+    },
+    {
+      "asset": "assets/media/feature-02.svg",
+      "alt": "RAW 自动处理与画面识别示意"
+    },
+    {
+      "asset": "assets/media/feature-03.svg",
+      "alt": "使用已分帧照片展示整条裁切"
+    },
+    {
+      "asset": "assets/media/feature-04.svg",
+      "alt": "RAW、DNG、TIFF、FFF 多格式兼容示意"
+    },
+    {
+      "asset": "assets/media/feature-05.svg",
+      "alt": "保留片基与白色齿孔的实际照片"
+    },
+    {
+      "asset": "assets/media/feature-06.svg",
+      "alt": "HDR 明暗层次示意"
+    },
+    {
+      "asset": "assets/media/feature-07.svg",
+      "alt": "曲线与 DCMY 色彩控制示意"
+    },
+    {
+      "asset": "assets/media/feature-08.svg",
+      "alt": "转盘与快捷键操作示意"
+    },
+    {
+      "asset": "assets/media/feature-09.svg",
+      "alt": "相机联机拍摄流程示意"
+    },
+    {
+      "asset": "assets/media/feature-10.svg",
+      "alt": "自动除尘检测与修复流程示意"
+    },
+    {
+      "asset": "assets/media/feature-11.svg",
+      "alt": "LIVE 动态成片播放示意"
+    },
+    {
+      "asset": "assets/media/feature-12.svg",
+      "alt": "Agent 通过本地 MCP 调用 NextFrame 的示意"
+    }
+  ]
+}

@@ -1,63 +1,25 @@
-# NextFrameX Website
+# NextFrame 中文网站
 
-NextFrameX 官方网站 - 胶片暗房级的数字冲印工具
+产品首页、下载页与 15 篇人工使用教程。静态 HTML，可直接打开 `index.html` 阅读；搜索也可在本地文件模式使用，不依赖第三方服务。
 
-## 项目简介
+## 修改与构建
 
-NextFrameX 是为胶片摄影师而生的数字暗房应用，提供智能色罩去除、色偏矫正、边框识别和 16-bit 导出等功能。
-
-## 技术栈
-
-- 纯 HTML/CSS/JavaScript
-- 响应式设计
-- 支持深色模式
-
-## 本地开发
-
-直接在浏览器中打开 `index.html` 即可预览。
-
-## 部署
-
-### Vercel（推荐）
-
-1. 安装 Vercel CLI：
-   ```bash
-   npm i -g vercel
-   ```
-
-2. 部署：
-   ```bash
-   vercel
-   ```
-
-### Netlify
-
-1. 拖拽文件夹到 [Netlify Drop](https://app.netlify.com/drop)
-2. 或使用 Netlify CLI：
-   ```bash
-   npm i -g netlify-cli
-   netlify deploy --prod
-   ```
-
-### GitHub Pages
-
-1. 在仓库 Settings → Pages 中启用
-2. 选择分支和文件夹（通常是 `main` 分支的根目录）
-
-## 文件结构
-
-```
-NextFrameX_Website/
-├── index.html          # 主页面
-├── README.md          # 项目说明
-└── .gitignore         # Git 忽略文件
+```sh
+python3 -m pip install -r requirements.txt
+python3 scripts/build-site.py
+python3 scripts/check-site.py
 ```
 
-## 更新日志
+- `content/guide/*.md`：教程正文；修改后重新构建。
+- `templates/home.html`、`templates/download.html`：首页和下载页内容。
+- `assets/css/site.css`、`assets/js/site.js`：共享样式与轻量交互。
+- `scripts/build-site.py`：导航、章节目录、全文搜索数据与静态页面生成；下载/作者地址集中配置。
+- `assets/media/`：本次新增真实截图与引擎预览；来源见 `docs/ASSET-SOURCES.md`。
+- `guide/`、`download/`、`index.html`：生成页面，保留在仓库便于本地预览。
+- `_site/`：发布产物，只包含公开页面和它们引用的资源。
 
-- 2025-02-01: 初始版本发布
+首屏保留桌面鼠标横移、手机页面滚动联动样片，并补充前后按钮。正文使用自然滚动。遵守减少动态效果偏好；无 JS 时正文和普通链接可用。
 
-## 许可证
+## 发布
 
-© NextFrame Studio
-
+GitHub Pages 工作流构建并验证 `_site/` 后上传。保留原域名和备案。部署不上传旧截图、源码、内部规划文档。详见 `DEPLOY.md`。本次改动未推送或发布。

@@ -1,0 +1,31 @@
+<!doctype html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>文件格式与联机拍摄 · NextFrame</title><meta name="description" content="NextFrame 可处理相机翻拍文件和扫描文件，也可连接支持的相机或监看拍摄目录。"><link rel="canonical" href="https://www.filmmmer.com/guide/14-capture.html"><meta property="og:title" content="文件格式与联机拍摄 · NextFrame"><meta property="og:description" content="NextFrame 可处理相机翻拍文件和扫描文件，也可连接支持的相机或监看拍摄目录。"><meta property="og:type" content="website"><meta property="og:url" content="https://www.filmmmer.com/guide/14-capture.html"><meta property="og:image" content="https://www.filmmmer.com/assets/media/workspace.webp"><link rel="icon" href="../assets/imgs/opt/icon.webp"><meta name="theme-color" content="#f7f7f7"><link rel="stylesheet" href="../assets/css/site.css?v=9ef77bf43c"><script defer src="../assets/js/search-index.js?v=c8411593e5"></script><script defer src="../assets/js/site.js?v=756f00063c"></script></head><body><a class="skip" href="#main">跳到正文</a><header class="site-nav"><div class="nav-inner wrap"><a class="brand" href="../index.html" aria-label="NextFrame 首页"><img src="../assets/imgs/opt/icon.webp" width="30" height="30" alt="">NextFrame</a><nav class="nav-links" aria-label="主导航"><a class="nav-home" href="../index.html#intro">产品</a><a href="../guide/index.html">使用教程</a><a class="nav-download" href="../download/index.html">下载 ↗</a></nav></div></header><main id="main"><div class="guide-layout wrap"><aside class="guide-sidebar"><h2>使用文档</h2><label class="sr-only" for="doc-search">搜索教程</label><input id="doc-search" class="doc-search" type="search" placeholder="搜索教程，例如 Dmin" autocomplete="off"><div class="search-results" aria-live="polite"></div><details open><summary>章节目录</summary><nav aria-label="教程章节"><a href="01-start.html" >快速开始</a><a href="02-workflows.html" >选择处理流程</a><a href="03-raw.html" >RAW 全自动模式</a><a href="04-strip.html" >整条扫描与自动分帧</a><a href="05-masks.html" >整条扫描的绝对蒙版</a><a href="06-positive.html" >反转片与黑白负片</a><a href="07-inversion.html" >密度域反转与取样</a><a href="08-color.html" >颜色调整</a><a href="09-finishing.html" >齿孔、除尘与质感</a><a href="10-export.html" >批量处理、HDR 与 LIVE 导出</a><a href="11-shortcuts.html" >快捷键速查</a><a href="12-troubleshooting.html" >常见问题</a><a href="13-agent.html" >连接 Agent</a><a href="14-capture.html" aria-current="page">文件格式与联机拍摄</a><a href="15-controls.html" >转盘与波形操作</a></nav></details></aside><article class="article"><span class="eyebrow">NEXTFRAME / 使用文档</span><h1>文件格式与联机拍摄</h1><p class="lead">NextFrame 可处理相机翻拍文件和扫描文件，也可连接支持的相机或监看拍摄目录。</p><p class="meta">中文教程 · 更新 2026-10-17 · 界面参考 2.54.0</p><div class="prose"><h2 id="_1">导入文件</h2>
+<p>在目录页点击“导入新目录”，或把文件夹拖入目录区域；使用“添加底片”导入单个或多个文件。</p>
+<p>常用输入包括相机 RAW（例如 ARW、NEF、CR2／CR3、RAF）、DNG、TIFF 和 FFF。具体相机型号与编码是否可读，以导入结果为准。单张翻拍与整条扫描分别选择相应处理流程。</p>
+<p>导入前在处理偏好中检查 DNG、TIFF 的源色彩空间及相机 DCP 设置，应与源文件相符。不同扫描软件输出的 TIFF 不一定采用相同的色彩空间。</p>
+<h2 id="_2">连接相机</h2>
+<ol>
+<li>用数据线连接相机，开启相机并选择允许电脑控制的连接模式。</li>
+<li>在 NextFrame 目录页点击“联机拍摄”。</li>
+<li>点击“连接”，选择检测到的支持设备。</li>
+<li>检查实时取景；在可用的控制项中设置曝光模式、快门、ISO、白平衡、画质和尺寸。</li>
+<li>点击拍摄按钮。照片传输完成后进入当前工作流；开启导入自动处理时，会按偏好继续处理。</li>
+<li>拍摄结束后断开连接。</li>
+</ol>
+<p>可用控制由相机型号与连接方式决定。不能从电脑调整的项目在机身上设置。实时取景不可用时，可按界面提示在机身开启，或直接拍摄。部分设备不支持遥控快门时，使用机身快门。</p>
+<h2 id="_3">跟踪目录</h2>
+<p>已有相机控制软件时，可以让其将照片保存到一个本地文件夹，再由 NextFrame 接收新增文件。</p>
+<ol>
+<li>将该文件夹导入 NextFrame 并选中。</li>
+<li>打开“联机拍摄”，点击“跟踪目录”。该功能需要当前目录对应实际磁盘路径，且未连接相机。</li>
+<li>在相机软件中把保存位置设置为同一文件夹。</li>
+<li>拍摄后等待文件写入完成，查看 NextFrame 新增照片与处理结果。</li>
+<li>通过悬浮状态条“暂停”“继续”或“关闭”控制监看。</li>
+</ol>
+<p>先拍一张测试文件，确认保存位置、格式和自动处理方式正确，再连续拍摄。</p></div><nav class="doc-pagination" aria-label="相邻章节"><a href="13-agent.html">← 连接 Agent</a><a href="15-controls.html">转盘与波形操作 →</a></nav></article><aside class="toc"><p>本页内容</p><div class="toc">
+<ul>
+<li><a href="#_1">导入文件</a></li>
+<li><a href="#_2">连接相机</a></li>
+<li><a href="#_3">跟踪目录</a></li>
+</ul>
+</div>
+</aside></div></main><footer class="site-footer"><div class="wrap footer-row"><span>© 2026 NextFrame Studio · 为胶片摄影师打造</span><div class="footer-links"><a href="../guide/index.html">使用教程</a><a href="../guide/updates.html">文档更新</a><a href="https://www.xiaohongshu.com/user/profile/5fa7aad30000000001005466" target="_blank" rel="noopener noreferrer">小红书 ↗</a><a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">浙ICP备2026017032号</a></div></div></footer></body></html>

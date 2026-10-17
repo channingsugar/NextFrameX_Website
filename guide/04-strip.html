@@ -1,0 +1,33 @@
+<!doctype html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>整条扫描与自动分帧 · NextFrame</title><meta name="description" content="用于一张 TIFF、FFF 或 DNG 中包含多个连续画格的扫描件。"><link rel="canonical" href="https://www.filmmmer.com/guide/04-strip.html"><meta property="og:title" content="整条扫描与自动分帧 · NextFrame"><meta property="og:description" content="用于一张 TIFF、FFF 或 DNG 中包含多个连续画格的扫描件。"><meta property="og:type" content="website"><meta property="og:url" content="https://www.filmmmer.com/guide/04-strip.html"><meta property="og:image" content="https://www.filmmmer.com/assets/media/workspace.webp"><link rel="icon" href="../assets/imgs/opt/icon.webp"><meta name="theme-color" content="#f7f7f7"><link rel="stylesheet" href="../assets/css/site.css?v=9ef77bf43c"><script defer src="../assets/js/search-index.js?v=c8411593e5"></script><script defer src="../assets/js/site.js?v=756f00063c"></script></head><body><a class="skip" href="#main">跳到正文</a><header class="site-nav"><div class="nav-inner wrap"><a class="brand" href="../index.html" aria-label="NextFrame 首页"><img src="../assets/imgs/opt/icon.webp" width="30" height="30" alt="">NextFrame</a><nav class="nav-links" aria-label="主导航"><a class="nav-home" href="../index.html#intro">产品</a><a href="../guide/index.html">使用教程</a><a class="nav-download" href="../download/index.html">下载 ↗</a></nav></div></header><main id="main"><div class="guide-layout wrap"><aside class="guide-sidebar"><h2>使用文档</h2><label class="sr-only" for="doc-search">搜索教程</label><input id="doc-search" class="doc-search" type="search" placeholder="搜索教程，例如 Dmin" autocomplete="off"><div class="search-results" aria-live="polite"></div><details open><summary>章节目录</summary><nav aria-label="教程章节"><a href="01-start.html" >快速开始</a><a href="02-workflows.html" >选择处理流程</a><a href="03-raw.html" >RAW 全自动模式</a><a href="04-strip.html" aria-current="page">整条扫描与自动分帧</a><a href="05-masks.html" >整条扫描的绝对蒙版</a><a href="06-positive.html" >反转片与黑白负片</a><a href="07-inversion.html" >密度域反转与取样</a><a href="08-color.html" >颜色调整</a><a href="09-finishing.html" >齿孔、除尘与质感</a><a href="10-export.html" >批量处理、HDR 与 LIVE 导出</a><a href="11-shortcuts.html" >快捷键速查</a><a href="12-troubleshooting.html" >常见问题</a><a href="13-agent.html" >连接 Agent</a><a href="14-capture.html" >文件格式与联机拍摄</a><a href="15-controls.html" >转盘与波形操作</a></nav></details></aside><article class="article"><span class="eyebrow">NEXTFRAME / 使用文档</span><h1>整条扫描与自动分帧</h1><p class="lead">用于一张 TIFF、FFF 或 DNG 中包含多个连续画格的扫描件。</p><p class="meta">中文教程 · 更新 2026-10-17 · 界面参考 2.54.0</p><div class="prose"><h2 id="fff">FFF 自动分割</h2>
+<ol>
+<li>导入扫描件，在目录页选中整条原图。</li>
+<li>对支持自动分帧的素材点击“自动分割”，或从照片右键菜单进入对应功能。</li>
+<li>在“选择胶片画幅”中选择半格、135、6×6 或 6×7。</li>
+<li>核对检测出的胶片条数与总帧数，确认后创建裁切副本。</li>
+<li>如出现重新自动对齐与校色提示，按需要选择。已有满意校色的照片可跳过。</li>
+<li>逐张检查副本的边缘、方向与颜色，再导出。</li>
+</ol>
+<p>XPAN 和未能可靠识别的素材使用手动裁切。自动分割完成后会生成独立编辑副本；这些副本仍需通过导出窗口保存为图片文件。</p>
+<p><img alt="4879 目录分帧后的照片" src="../assets/media/strip.webp?v=a9cc211cf8" width="1200" height="840" loading="lazy" decoding="async" /></p>
+<h2 id="_1">手动整条裁切</h2>
+<ol>
+<li>导入后数清胶片条数和每条帧数，确认方向与画幅。</li>
+<li>按 <code>A</code>，在一条胶片内部框选有效区域。需要时按 <code>Q</code> 在干净片基或帧间间隔取样 Dmin。</li>
+<li>按 <code>F</code> 进入裁切，选择“整条”。</li>
+<li>设置组数、每组帧数和间距，调整总框、组间错位及角度。</li>
+<li>对齐第一帧和最后一帧后，逐一检查中间各帧。裁切框不能跨入相邻画面。</li>
+<li>确认裁切，在照片列表核对结果数量。</li>
+</ol>
+<p>同一文件内的帧数、间距或画幅不一致时，分组处理，必要时逐帧裁切。</p>
+<h2 id="_2">分帧后的反转</h2>
+<p>选择分帧结果，长按 <code>A</code> 选择 曝光范围 90% 可作为常用起点。该设置使宽、高各保留 90%。逐张检查是否包含干扰色，天空或雪景等画面可单独调整范围。</p>
+<h2 id="_3">导出</h2>
+<p>全选需要输出的分帧结果，按 <code>⌘ S</code>。例如整条有 12 帧，导出窗口中应选中对应的 12 张结果。导出后核对实际文件数量。</p></div><nav class="doc-pagination" aria-label="相邻章节"><a href="03-raw.html">← RAW 全自动模式</a><a href="05-masks.html">整条扫描的绝对蒙版 →</a></nav></article><aside class="toc"><p>本页内容</p><div class="toc">
+<ul>
+<li><a href="#fff">FFF 自动分割</a></li>
+<li><a href="#_1">手动整条裁切</a></li>
+<li><a href="#_2">分帧后的反转</a></li>
+<li><a href="#_3">导出</a></li>
+</ul>
+</div>
+</aside></div></main><footer class="site-footer"><div class="wrap footer-row"><span>© 2026 NextFrame Studio · 为胶片摄影师打造</span><div class="footer-links"><a href="../guide/index.html">使用教程</a><a href="../guide/updates.html">文档更新</a><a href="https://www.xiaohongshu.com/user/profile/5fa7aad30000000001005466" target="_blank" rel="noopener noreferrer">小红书 ↗</a><a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">浙ICP备2026017032号</a></div></div></footer></body></html>

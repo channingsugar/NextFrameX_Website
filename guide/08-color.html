@@ -1,0 +1,88 @@
+<!doctype html><html lang="zh-Hans"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>颜色调整 · NextFrame</title><meta name="description" content="先检查分析范围，再调整白平衡和色偏。自动结果正常时，无需重新校色。"><link rel="canonical" href="https://www.filmmmer.com/guide/08-color.html"><meta property="og:title" content="颜色调整 · NextFrame"><meta property="og:description" content="先检查分析范围，再调整白平衡和色偏。自动结果正常时，无需重新校色。"><meta property="og:type" content="website"><meta property="og:url" content="https://www.filmmmer.com/guide/08-color.html"><meta property="og:image" content="https://www.filmmmer.com/assets/media/workspace.webp"><link rel="icon" href="../assets/imgs/opt/icon.webp"><meta name="theme-color" content="#f7f7f7"><link rel="stylesheet" href="../assets/css/site.css?v=9ef77bf43c"><script defer src="../assets/js/search-index.js?v=c8411593e5"></script><script defer src="../assets/js/site.js?v=756f00063c"></script></head><body><a class="skip" href="#main">跳到正文</a><header class="site-nav"><div class="nav-inner wrap"><a class="brand" href="../index.html" aria-label="NextFrame 首页"><img src="../assets/imgs/opt/icon.webp" width="30" height="30" alt="">NextFrame</a><nav class="nav-links" aria-label="主导航"><a class="nav-home" href="../index.html#intro">产品</a><a href="../guide/index.html">使用教程</a><a class="nav-download" href="../download/index.html">下载 ↗</a></nav></div></header><main id="main"><div class="guide-layout wrap"><aside class="guide-sidebar"><h2>使用文档</h2><label class="sr-only" for="doc-search">搜索教程</label><input id="doc-search" class="doc-search" type="search" placeholder="搜索教程，例如 Dmin" autocomplete="off"><div class="search-results" aria-live="polite"></div><details open><summary>章节目录</summary><nav aria-label="教程章节"><a href="01-start.html" >快速开始</a><a href="02-workflows.html" >选择处理流程</a><a href="03-raw.html" >RAW 全自动模式</a><a href="04-strip.html" >整条扫描与自动分帧</a><a href="05-masks.html" >整条扫描的绝对蒙版</a><a href="06-positive.html" >反转片与黑白负片</a><a href="07-inversion.html" >密度域反转与取样</a><a href="08-color.html" aria-current="page">颜色调整</a><a href="09-finishing.html" >齿孔、除尘与质感</a><a href="10-export.html" >批量处理、HDR 与 LIVE 导出</a><a href="11-shortcuts.html" >快捷键速查</a><a href="12-troubleshooting.html" >常见问题</a><a href="13-agent.html" >连接 Agent</a><a href="14-capture.html" >文件格式与联机拍摄</a><a href="15-controls.html" >转盘与波形操作</a></nav></details></aside><article class="article"><span class="eyebrow">NEXTFRAME / 使用文档</span><h1>颜色调整</h1><p class="lead">先检查分析范围，再调整白平衡和色偏。自动结果正常时，无需重新校色。</p><p class="meta">中文教程 · 更新 2026-10-17 · 界面参考 2.54.0</p><div class="prose"><p><img alt="NextFrame 当前反转面板" src="../assets/media/inversion-panel.webp?v=25e87159e6" width="789" height="787" loading="lazy" decoding="async" /></p>
+<h2 id="_1">分析范围</h2>
+<p>按 <code>V</code> 显示标记，检查 曝光范围 是否包含齿孔、片夹、邻帧或大面积干扰色。需要时先缩小范围或重新框选。天空、云、雪山等缺少黑点的画面，可尝试带入少量片基。</p>
+<h2 id="_2">白平衡与色偏强度</h2>
+<p>按 <code>T</code> 应用自动色温色调；已有调整时，此键会重置相关参数。手工调整过的照片可先创建虚拟副本，再比较自动、重置或手动的结果。按 <code>W</code> 使用白平衡吸管，也可在白平衡面板中分别调整整体、阴影、中间调和高光。</p>
+<p>在反转面板中降低“色偏矫正强度”，比较当前值、较低值和 0。降低强度适合自动校色过重的照片。按 <code>P</code> 可切换色偏矫正；重新调用云端校色需要网络可用。</p>
+<p>夕阳、舞台灯或室内暖光应保留适当的现场色彩，不以整张照片完全中性为目标。</p>
+<h2 id="dmin-dmax">Dmin 与 Dmax</h2>
+<p>仍有灰雾或偏色时，检查 Dmin 是否点在片基，必要时清除后重新取样。以上调整无效时，长按 <code>Q</code> 选择 Dmax，在最亮且未溢出的中性区域取样。操作说明见<a href="07-inversion.html">反转与取样</a>。</p>
+<h2 id="dcmy">拖拽 DCMY 波形</h2>
+<p>在反转面板直接拖动各波形两端。左端主要控制暗端基线，右端主要控制增益。每次小幅调整，再观察暗部、中间调和高光。</p>
+<table>
+<thead>
+<tr>
+<th>波形</th>
+<th>左端</th>
+<th>右端</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>整体基线偏移</td>
+<td>整体增益</td>
+</tr>
+<tr>
+<td>C</td>
+<td>红通道暗端</td>
+<td>红通道增益</td>
+</tr>
+<tr>
+<td>M</td>
+<td>绿通道暗端</td>
+<td>绿通道增益</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>蓝通道暗端</td>
+<td>蓝通道增益</td>
+</tr>
+</tbody>
+</table>
+<p>例如，暗部偏绿时可试着小幅降低 M 左端；高光偏黄、缺蓝时可试着增加 Y 右端。调整后同时检查肤色和中间调，避免修好一端却使另一端偏色。各通道波形不需要完全重合。</p>
+<h2 id="_3">其他颜色工具</h2>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>影调</td>
+<td>调整曝光、高光、阴影、白色和黑色，控制整体明暗层次</td>
+</tr>
+<tr>
+<td>曲线</td>
+<td>添加并拖动控制点；整体曲线控制反差，RGB 通道曲线分别控制颜色</td>
+</tr>
+<tr>
+<td>颜色混合</td>
+<td>选择红、橙、黄、绿、青、蓝、紫、品红等颜色，调整对应色相、饱和度和明度</td>
+</tr>
+<tr>
+<td>颜色分级</td>
+<td>为阴影、中间调、高光或整体设置颜色，并用混合与平衡控制过渡</td>
+</tr>
+<tr>
+<td>LUT</td>
+<td>在 LUT 面板选择预设或导入文件，开启后调整强度；长按 Z 可快速控制</td>
+</tr>
+<tr>
+<td>局部蒙版</td>
+<td>添加并选中蒙版，再调整区域内的曝光或颜色；用羽化控制边缘过渡</td>
+</tr>
+</tbody>
+</table>
+<p>按 <code>N</code> 比较前后效果，按 <code>⌘ Z</code> 撤销最近的修改。</p></div><nav class="doc-pagination" aria-label="相邻章节"><a href="07-inversion.html">← 密度域反转与取样</a><a href="09-finishing.html">齿孔、除尘与质感 →</a></nav></article><aside class="toc"><p>本页内容</p><div class="toc">
+<ul>
+<li><a href="#_1">分析范围</a></li>
+<li><a href="#_2">白平衡与色偏强度</a></li>
+<li><a href="#dmin-dmax">Dmin 与 Dmax</a></li>
+<li><a href="#dcmy">拖拽 DCMY 波形</a></li>
+<li><a href="#_3">其他颜色工具</a></li>
+</ul>
+</div>
+</aside></div></main><footer class="site-footer"><div class="wrap footer-row"><span>© 2026 NextFrame Studio · 为胶片摄影师打造</span><div class="footer-links"><a href="../guide/index.html">使用教程</a><a href="../guide/updates.html">文档更新</a><a href="https://www.xiaohongshu.com/user/profile/5fa7aad30000000001005466" target="_blank" rel="noopener noreferrer">小红书 ↗</a><a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">浙ICP备2026017032号</a></div></div></footer></body></html>

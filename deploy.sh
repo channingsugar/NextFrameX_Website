@@ -76,6 +76,12 @@ else
   log "跳过图片压缩"
 fi
 
+# Build public pages before staging or publishing.
+if [[ "$DRY_RUN" -eq 0 ]]; then
+  python3 "$ROOT/scripts/build-site.py"
+  python3 "$ROOT/scripts/check-site.py"
+fi
+
 # ── 2. 提交变更 ──
 log "检查本地变更..."
 git add -A
