@@ -107,8 +107,8 @@
     "hero": {
       "aria": "胶片作品画廊",
       "eyebrow": "为胶片摄影而作",
-      "tagline": "从一张底片，到一整卷回忆。",
-      "download": "下载 NextFrame",
+      "tagline": "胶片数字化，从未如此简单",
+      "download": "下载Windows/Mac版本",
       "guide": "使用说明",
       "prev": "上一张样片",
       "next": "下一张样片"
@@ -162,7 +162,7 @@
     "banner": {
       "title": "下一卷，从这里开始。",
       "body": "下载应用，查看完整使用说明。",
-      "download": "下载 NextFrame ↗",
+      "download": "下载Windows/Mac版本 ↗",
       "guide": "阅读使用说明"
     }
   },

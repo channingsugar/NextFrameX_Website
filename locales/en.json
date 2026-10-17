@@ -107,8 +107,8 @@
     "hero": {
       "aria": "Film stills",
       "eyebrow": "Made for film photography",
-      "tagline": "From one frame to a whole roll of memories.",
-      "download": "Download NextFrame",
+      "tagline": "Negative Processing, Fast, Easy",
+      "download": "Download for Windows/Mac",
       "guide": "User guide",
       "prev": "Previous still",
       "next": "Next still"
@@ -162,7 +162,7 @@
     "banner": {
       "title": "The next roll starts here.",
       "body": "Download the app and read the full guide.",
-      "download": "Download NextFrame ↗",
+      "download": "Download for Windows/Mac ↗",
       "guide": "Read the guide"
     }
   },
