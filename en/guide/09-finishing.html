@@ -1,0 +1,59 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sprockets, dust, and texture · NextFrame</title><meta name="description" content="Sprocket handling when you keep the film base, plus dust removal, sharpening, glow, and grain."><link rel="canonical" href="https://www.filmmmer.com/en/guide/09-finishing.html"><link rel="alternate" hreflang="zh-Hans" href="https://www.filmmmer.com/guide/09-finishing.html"><link rel="alternate" hreflang="en" href="https://www.filmmmer.com/en/guide/09-finishing.html"><link rel="alternate" hreflang="x-default" href="https://www.filmmmer.com/guide/09-finishing.html"><meta property="og:title" content="Sprockets, dust, and texture · NextFrame"><meta property="og:description" content="Sprocket handling when you keep the film base, plus dust removal, sharpening, glow, and grain."><meta property="og:type" content="website"><meta property="og:url" content="https://www.filmmmer.com/en/guide/09-finishing.html"><meta property="og:image" content="https://www.filmmmer.com/assets/media/workspace.webp"><meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="zh_CN"><link rel="icon" href="../../assets/imgs/opt/icon.webp"><meta name="theme-color" content="#f7f7f7"><link rel="stylesheet" href="../../assets/css/site.css?v=0d5b6b9230"><script defer src="../../assets/js/search-index-en.js?v=c85071be64"></script><script>window.NF_UI={"copied":"Copied","copyFail":"Code: 55b5","searchEmpty":"No matches. Try “crop”, “Dmin”, or “shortcut”.","lightbox":"View larger image","close":"Close ×","zoom":"Enlarge: "}</script><script defer src="../../assets/js/site.js?v=7bb7f3006d"></script></head><body><a class="skip" href="#main">Skip to content</a><header class="site-nav"><div class="nav-inner wrap"><a class="brand" href="../index.html" aria-label="NextFrame home"><img src="../../assets/imgs/opt/icon.webp" width="30" height="30" alt="">NextFrame</a><nav class="nav-links" aria-label="Primary"><a class="nav-home" href="../index.html#intro">Product</a><a href="../guide/index.html">Guide</a><a class="lang-switch" href="../../guide/09-finishing.html" hreflang="zh-Hans" lang="zh-Hans" aria-label="切换到中文">中文</a><a class="nav-download" href="../download/index.html">Download ↗</a></nav></div></header><main id="main"><div class="guide-layout wrap"><aside class="guide-sidebar"><h2>Guide</h2><label class="sr-only" for="doc-search">Search the guide</label><input id="doc-search" class="doc-search" type="search" placeholder="Search the guide, for example Dmin" autocomplete="off"><div class="search-results" aria-live="polite"></div><details open><summary>Chapters</summary><nav aria-label="Guide chapters"><a href="01-start.html" >Getting started</a><a href="02-workflows.html" >Choose a workflow</a><a href="03-raw.html" >Automatic RAW mode</a><a href="04-strip.html" >Strip scans and frame splitting</a><a href="05-masks.html" >Absolute masks on a strip</a><a href="06-positive.html" >Slides and black-and-white negatives</a><a href="07-inversion.html" >Density inversion and sampling</a><a href="08-color.html" >Color</a><a href="09-finishing.html" aria-current="page">Sprockets, dust, and texture</a><a href="10-export.html" >Batch, HDR, and LIVE export</a><a href="11-shortcuts.html" >Keyboard shortcuts</a><a href="12-troubleshooting.html" >Troubleshooting</a><a href="13-agent.html" >Connecting an agent</a><a href="14-capture.html" >File formats and tethered capture</a><a href="15-controls.html" >Dials and waveforms</a></nav></details></aside><article class="article"><span class="eyebrow">NEXTFRAME / Guide</span><h1>Sprockets, dust, and texture</h1><p class="lead">Sprocket handling when you keep the film base, plus dust removal, sharpening, glow, and grain.</p><p class="meta">English guide · Updated 2026-10-17 · Interface reference 2.54.0</p><div class="prose"><h2 id="sprocket-fill-and-borders">Sprocket fill and borders</h2>
+<ol>
+<li>Crop with Keep Base so the edge codes and sprocket holes you want remain.</li>
+<li>Press <code>G</code> to turn on sprocket fill, and hold <code>G</code> to adjust the threshold.</li>
+<li>Zoom in and check missed holes, edge codes, and dark parts of the picture. Lower the threshold if it fills areas it should not.</li>
+<li>Crop away the continuous white border outside the base.</li>
+</ol>
+<p>Sprocket fill is white. For a motion piece with a border, choose the Border template in Live export. See <a href="10-export.html">Export</a>.</p>
+<h2 id="automatic-dust-removal">Automatic dust removal</h2>
+<ol>
+<li>Press <code>E</code> to open dust removal and choose Auto.</li>
+<li>The first time, download the dust-detection model when asked. After that, detection runs on this computer.</li>
+<li>Click Detect Dust, turn on Show Dust, and look at the marked area.</li>
+<li>Adjust sensitivity, or edit the dust mask with the brush and eraser. If real texture was selected, lower the sensitivity or erase that area.</li>
+<li>Click Remove Dust, and use Compare to check the repair.</li>
+<li>Press <code>Enter</code> to apply, or <code>Esc</code> to cancel.</li>
+</ol>
+<p>If this computer does not support automatic dust removal, use the Manual page. Scroll to change the brush size, then click or drag to repair dust. Hold Space and drag to pan. <code>⌘ Z</code> undoes.</p>
+<h2 id="noise-reduction-and-sharpening">Noise reduction and sharpening</h2>
+<p>Open Detail and adjust noise reduction and sharpening near 100% view. Look at sky, skin, edges, and fine texture. Too much sharpening makes bright edges. Too much noise reduction removes grain and detail.</p>
+<h2 id="glow">Glow</h2>
+<p>Open Glow and adjust strength, range, distance, and warmth. Watch the spread around highlights and the local contrast. Use the reset button on the right of the panel to return to the default.</p>
+<h2 id="grain">Grain</h2>
+<p>Under Glow, open Grain and adjust:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Amount</td>
+<td>Texture strength. 0 turns it off</td>
+</tr>
+<tr>
+<td>Size</td>
+<td>How large the grain looks</td>
+</tr>
+<tr>
+<td>Roughness</td>
+<td>The balance of fine texture and larger clumps</td>
+</tr>
+</tbody>
+</table>
+<p>Start with a low amount. At 100% view, look at skin, sky, and shadows, then adjust size and roughness. A scan that already has clear film grain does not need more.</p>
+<h2 id="apply-to-a-batch">Apply to a batch</h2>
+<p>Copy settings from a reference photo. On the target, open the paste panel and check only the modules you want to sync. After a batch apply, check photos with different exposure and different subjects.</p></div><nav class="doc-pagination" aria-label="Nearby chapters"><a href="08-color.html">← Color</a><a href="10-export.html">Batch, HDR, and LIVE export →</a></nav></article><aside class="toc"><p>On this page</p><div class="toc">
+<ul>
+<li><a href="#sprocket-fill-and-borders">Sprocket fill and borders</a></li>
+<li><a href="#automatic-dust-removal">Automatic dust removal</a></li>
+<li><a href="#noise-reduction-and-sharpening">Noise reduction and sharpening</a></li>
+<li><a href="#glow">Glow</a></li>
+<li><a href="#grain">Grain</a></li>
+<li><a href="#apply-to-a-batch">Apply to a batch</a></li>
+</ul>
+</div>
+</aside></div></main><footer class="site-footer"><div class="wrap footer-row"><span>© 2026 NextFrame Studio · Made for film photographers</span><div class="footer-links"><a href="../guide/index.html">Guide</a><a href="../guide/updates.html">Updates</a><a href="https://www.xiaohongshu.com/user/profile/5fa7aad30000000001005466" target="_blank" rel="noopener noreferrer">Xiaohongshu ↗</a><a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">浙ICP备2026017032号</a></div></div></footer></body></html>

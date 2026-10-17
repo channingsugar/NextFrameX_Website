@@ -10,3 +10,4 @@
 .feature-grid>a>img{width:100%;aspect-ratio:5/3;object-fit:cover;background:#202020;border-radius:6px;margin-bottom:22px}.feature-grid>a{min-width:0}.feature-grid>a>img{transition:filter .2s}.feature-grid>a:hover>img{filter:brightness(1.08)}
 
 .lightbox img[src*="workspace.webp"]{border-radius:2% / 3%}
+.nav-links a{white-space:nowrap}

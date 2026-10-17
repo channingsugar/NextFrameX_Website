@@ -24,4 +24,4 @@ python3 scripts/check-site.py
 
 ## 内容更新
 
-在 Markdown 中编辑教程，在 templates 中编辑首页和下载页，然后重新构建。新增截图需记录来源、版本和用途，避免把算法预览标成应用界面截图。
+在 `content/guide` 与 `content/en/guide` 中编辑教程，在 `locales/*.json` 中编辑界面文案，然后重新构建。新增截图需记录来源、版本和用途，避免把算法预览标成应用界面截图。

@@ -1,0 +1,190 @@
+{
+  "lang": "en",
+  "ogLocale": "en_US",
+  "prefix": "en/",
+  "content": "content/en/guide",
+  "search": "search-index-en.js",
+  "switchLabel": "EN",
+  "switchAria": "Switch to English",
+  "chrome": {
+    "skip": "Skip to content",
+    "brandHome": "NextFrame home",
+    "navLabel": "Primary",
+    "navProduct": "Product",
+    "navGuide": "Guide",
+    "navDownload": "Download ↗",
+    "footer": "© 2026 NextFrame Studio · Made for film photographers",
+    "footerGuide": "Guide",
+    "footerUpdates": "Updates",
+    "footerSocial": "Xiaohongshu ↗"
+  },
+  "ui": {
+    "copied": "Copied",
+    "copyFail": "Code: 55b5",
+    "searchEmpty": "No matches. Try “crop”, “Dmin”, or “shortcut”.",
+    "lightbox": "View larger image",
+    "close": "Close ×",
+    "zoom": "Enlarge: "
+  },
+  "article": {
+    "sidebarTitle": "Guide",
+    "searchLabel": "Search the guide",
+    "searchPlaceholder": "Search the guide, for example Dmin",
+    "summary": "Chapters",
+    "navAria": "Guide chapters",
+    "eyebrow": "NEXTFRAME / Guide",
+    "meta": "English guide · Updated {updated} · Interface reference 2.54.0",
+    "toc": "On this page",
+    "pagination": "Nearby chapters"
+  },
+  "pages": {
+    "home": {
+      "title": "The next frame",
+      "desc": "NextFrame is a digital darkroom for film: RAW copies, strip scans, inversion, and color. Read the guide and download the app."
+    },
+    "download": {
+      "title": "Download",
+      "desc": "Download NextFrame, read the install and user guide, and visit the author on Xiaohongshu."
+    }
+  },
+  "guideIndex": {
+    "title": "Guide",
+    "desc": "Learn NextFrame inversion, cropping, color, and export, from a single copy to a full strip scan.",
+    "eyebrow": "NEXTFRAME / Guide",
+    "h1": "NextFrame user guide",
+    "lead": "Import, automatic processing, strip crops, color, and export. Read by chapter, or search for a control.",
+    "start": "Getting started ↗",
+    "shortcuts": "Keyboard shortcuts",
+    "more": "Read chapter ↗"
+  },
+  "updates": {
+    "title": "Updates",
+    "desc": "Changes to the NextFrame user guide and site.",
+    "eyebrow": "Updates",
+    "h1": "Guide updates",
+    "lead": "2026-10-17 · First edition of the guide",
+    "heading": "This update",
+    "items": [
+      "Added three workflows: single-frame copies, split the strip first, and mask the strip first.",
+      "Documented the color check order: optional Dmin sampling, then exposure range first.",
+      "Checked shortcuts against the current app, including press-and-hold and mask scope.",
+      "Updated screenshots for 2.54.0 and added automatic mode, tethered capture, dust removal, HDR, LIVE, and dials."
+    ],
+    "note": "This page records documentation changes. It does not replace the release notes in the installer. Features follow the version you have installed.",
+    "back": "Back to all chapters ↗"
+  },
+  "alts": {
+    "workspace": "NextFrame 2.54.0 develop workspace, raw folder",
+    "auto": "Developed raw frame with the film base kept",
+    "strip": "Contact sheet of split frames from folder 4879",
+    "hero": [
+      "Paraglider in a blue sky",
+      "Sunbathing on the beach",
+      "A bird on the grass",
+      "Silhouette against the surf",
+      "Clouds beneath an airplane",
+      "Wing and runway through the cabin window",
+      "Street in front of a pharmacy",
+      "A person in the waves",
+      "Beach under the trees"
+    ],
+    "features": [
+      "Diagram of density-domain inversion",
+      "Diagram of automatic RAW processing and frame detection",
+      "Strip crop shown with frames already split",
+      "Diagram of RAW, DNG, TIFF, and FFF support",
+      "Photograph keeping the film base and white sprocket holes",
+      "Diagram of HDR tonal range",
+      "Diagram of curves and DCMY color controls",
+      "Diagram of the dial and keyboard controls",
+      "Diagram of tethered camera capture",
+      "Diagram of automatic dust detection and repair",
+      "Diagram of LIVE motion playback",
+      "Diagram of an agent calling NextFrame through local MCP"
+    ]
+  },
+  "home": {
+    "hero": {
+      "aria": "Film stills",
+      "eyebrow": "Made for film photography",
+      "tagline": "From one frame to a whole roll of memories.",
+      "download": "Download NextFrame",
+      "guide": "User guide",
+      "prev": "Previous still",
+      "next": "Next still"
+    },
+    "intro": {
+      "eyebrow": "01 / Digital darkroom",
+      "title1": "A film darkroom.",
+      "title2": "From inversion to the final file.",
+      "body": "A density-domain inversion engine, a full set of color tools, and an automated path through capture, scanning, development, and output. Darkroom control, in one workspace."
+    },
+    "features": {
+      "f01": {"title": "Density inversion", "body": "Start from the film’s density, sample the base, and use DCMY to rebuild the negative’s color and tone."},
+      "f02": {"title": "Automatic RAW", "body": "Import and go. Detect the frame, straighten, invert, and balance color, and let the roll’s repetitive work run itself."},
+      "f03": {"title": "FFF auto crop", "body": "Find frames in a strip scan and make a crop for each one. A strip comes in. Frames come out, each one editable."},
+      "f04": {"title": "Many formats", "body": "Bring camera RAW, DNG, TIFF, and FFF scans into the same darkroom, whatever the camera or scanner."},
+      "f05": {"title": "Sprockets and borders", "body": "Keep edge codes, fill sprocket holes white, and use the LIVE border template. The film edge can stay part of the picture."},
+      "f06": {"title": "HDR output", "body": "From the develop preview to Ultra HDR, so bright sources and fine tone hold up on screens that support it."},
+      "f07": {"title": "Full color control", "body": "DCMY, split white balance, curves, a mixer, color grading, LUTs, and local masks. From a faithful print to a personal look."},
+      "f08": {"title": "Controls on the image", "body": "Hold a key for the dial, drag a waveform, and keep moving with shortcuts. Strip crops keep a whole roll in one rhythm."},
+      "f09": {"title": "Tethered capture", "body": "Connect a supported camera for live view, remote release, and ingest. Or watch a folder and continue with the copy setup you already use."},
+      "f10": {"title": "On-device dust removal", "body": "Detect dust on this computer, edit the detected area, then repair it. Automatic detection and a manual brush, without inventing detail."},
+      "f11": {"title": "LIVE motion", "body": "Turn a still frame into a short motion piece. macOS can save a Live Photo. Windows can export a Live video."},
+      "f12": {"title": "Works with agents", "body": "Connect a supported agent through local MCP. Ask it to invert, crop, and grade, and take the file back for hand editing whenever you want."}
+    },
+    "workflows": {
+      "eyebrow": "02 / Start from the film you have",
+      "title1": "Every kind of film",
+      "title2": "has a way to begin.",
+      "body": "Pick a path from the film type.",
+      "r1": {"title": "Single RAW copies", "body": "Turn on automatic processing, choose whether to keep or remove the film base, then check crop and color after import.", "more": "RAW processing ↗"},
+      "r2": {"title": "Strip scans", "body": "Choose the format, then split automatically or crop the strip by hand. Use absolute masks when each frame needs its own local adjustment.", "more": "Strip processing ↗"},
+      "r3": {"title": "Slides and black-and-white", "body": "Slides use the original-image path. Black-and-white negatives are inverted, then graded in gray and tone as needed.", "more": "Slides and black-and-white ↗"}
+    },
+    "auto": {
+      "eyebrow": "03 / Automatic mode",
+      "title1": "From import",
+      "title2": "to a finished frame.",
+      "body": "Turn on Auto Process. NextFrame detects the frame, crops, straightens, and inverts from your preset, then fills sprockets and handles color the way you set it.",
+      "s1": {"title": "Choose the default", "body": "Keep the film base or remove it, set in advance for the job."},
+      "s2": {"title": "Import the RAW batch", "body": "Wait for automatic processing, then review the result in Develop."},
+      "s3": {"title": "Check, then export", "body": "Hold A to run automatic processing again. Hold D to change the crop. Hold S to choose a tone mode."},
+      "more": "Automatic mode ↗"
+    },
+    "strip": {
+      "eyebrow": "04 / A whole roll",
+      "title1": "A whole roll,",
+      "title2": "in order.",
+      "body": "FFF auto split, strip crops, synced settings, and independent masks cover the path from scan to file. Share a look across the roll, and set exposure and color per frame.",
+      "more": "Strip scans ↗"
+    },
+    "banner": {
+      "title": "The next roll starts here.",
+      "body": "Download the app and read the full guide.",
+      "download": "Download NextFrame ↗",
+      "guide": "Read the guide"
+    }
+  },
+  "download": {
+    "eyebrow": "NEXTFRAME / Download",
+    "h1": "Your next darkroom.",
+    "lead": "Install NextFrame and start from one frame. The package, release notes, and supported systems are the files in the download.",
+    "cardEyebrow": "Baidu Netdisk",
+    "cardTitle": "Download NextFrame",
+    "cardBody": "The link includes the extraction code. If the site asks for it, enter:",
+    "copy": "Copy code",
+    "cta": "Open Baidu Netdisk ↗",
+    "cardNote": "The disk opens in a new window. Choose the installer for your computer there.",
+    "afterTitle": "After installing",
+    "step1": "Move the app into Applications and open it.",
+    "step2": "Import one frame and confirm whether it is a negative or a slide.",
+    "step3": "Follow the guide to check crop, range, and color.",
+    "start": "Start with the first frame ↗",
+    "shortcuts": "Keyboard shortcuts ↗",
+    "note": "Interface screenshots are from 2.54.0. Grain, Agent MCP, and similar features need a build that includes them. The notes in the installer and the interface you see take priority.",
+    "authorTitle": "Find the author",
+    "authorBody": "Film work, usage notes, and product updates.",
+    "social": "Visit Xiaohongshu ↗"
+  }
+}

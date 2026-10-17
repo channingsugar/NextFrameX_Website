@@ -1,0 +1,88 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Color · NextFrame</title><meta name="description" content="Check the analysis range first, then white balance and color cast. If the automatic result looks right, do not rebalance it."><link rel="canonical" href="https://www.filmmmer.com/en/guide/08-color.html"><link rel="alternate" hreflang="zh-Hans" href="https://www.filmmmer.com/guide/08-color.html"><link rel="alternate" hreflang="en" href="https://www.filmmmer.com/en/guide/08-color.html"><link rel="alternate" hreflang="x-default" href="https://www.filmmmer.com/guide/08-color.html"><meta property="og:title" content="Color · NextFrame"><meta property="og:description" content="Check the analysis range first, then white balance and color cast. If the automatic result looks right, do not rebalance it."><meta property="og:type" content="website"><meta property="og:url" content="https://www.filmmmer.com/en/guide/08-color.html"><meta property="og:image" content="https://www.filmmmer.com/assets/media/workspace.webp"><meta property="og:locale" content="en_US"><meta property="og:locale:alternate" content="zh_CN"><link rel="icon" href="../../assets/imgs/opt/icon.webp"><meta name="theme-color" content="#f7f7f7"><link rel="stylesheet" href="../../assets/css/site.css?v=0d5b6b9230"><script defer src="../../assets/js/search-index-en.js?v=c85071be64"></script><script>window.NF_UI={"copied":"Copied","copyFail":"Code: 55b5","searchEmpty":"No matches. Try “crop”, “Dmin”, or “shortcut”.","lightbox":"View larger image","close":"Close ×","zoom":"Enlarge: "}</script><script defer src="../../assets/js/site.js?v=7bb7f3006d"></script></head><body><a class="skip" href="#main">Skip to content</a><header class="site-nav"><div class="nav-inner wrap"><a class="brand" href="../index.html" aria-label="NextFrame home"><img src="../../assets/imgs/opt/icon.webp" width="30" height="30" alt="">NextFrame</a><nav class="nav-links" aria-label="Primary"><a class="nav-home" href="../index.html#intro">Product</a><a href="../guide/index.html">Guide</a><a class="lang-switch" href="../../guide/08-color.html" hreflang="zh-Hans" lang="zh-Hans" aria-label="切换到中文">中文</a><a class="nav-download" href="../download/index.html">Download ↗</a></nav></div></header><main id="main"><div class="guide-layout wrap"><aside class="guide-sidebar"><h2>Guide</h2><label class="sr-only" for="doc-search">Search the guide</label><input id="doc-search" class="doc-search" type="search" placeholder="Search the guide, for example Dmin" autocomplete="off"><div class="search-results" aria-live="polite"></div><details open><summary>Chapters</summary><nav aria-label="Guide chapters"><a href="01-start.html" >Getting started</a><a href="02-workflows.html" >Choose a workflow</a><a href="03-raw.html" >Automatic RAW mode</a><a href="04-strip.html" >Strip scans and frame splitting</a><a href="05-masks.html" >Absolute masks on a strip</a><a href="06-positive.html" >Slides and black-and-white negatives</a><a href="07-inversion.html" >Density inversion and sampling</a><a href="08-color.html" aria-current="page">Color</a><a href="09-finishing.html" >Sprockets, dust, and texture</a><a href="10-export.html" >Batch, HDR, and LIVE export</a><a href="11-shortcuts.html" >Keyboard shortcuts</a><a href="12-troubleshooting.html" >Troubleshooting</a><a href="13-agent.html" >Connecting an agent</a><a href="14-capture.html" >File formats and tethered capture</a><a href="15-controls.html" >Dials and waveforms</a></nav></details></aside><article class="article"><span class="eyebrow">NEXTFRAME / Guide</span><h1>Color</h1><p class="lead">Check the analysis range first, then white balance and color cast. If the automatic result looks right, do not rebalance it.</p><p class="meta">English guide · Updated 2026-10-17 · Interface reference 2.54.0</p><div class="prose"><p><img alt="Current NextFrame inversion panel" src="../../assets/media/inversion-panel.webp?v=25e87159e6" width="789" height="787" loading="lazy" decoding="async" /></p>
+<h2 id="analysis-range">Analysis range</h2>
+<p>Press <code>V</code> to show the marks. Check whether the exposure range includes sprocket holes, the holder, a neighboring frame, or a large area of interfering color. Shrink the range or draw it again if it does. For sky, cloud, or snow with no black point, try including a little film base.</p>
+<h2 id="white-balance-and-cast-strength">White balance and cast strength</h2>
+<p>Press <code>T</code> to apply automatic temperature and tint. If those settings already have adjustments, this key resets them. On a photo you have edited by hand, make a virtual copy first, then compare automatic, reset, and manual results. Press <code>W</code> for the white-balance eyedropper, or adjust global, shadows, midtones, and highlights separately in the white-balance panel.</p>
+<p>In the inversion panel, lower Color Cast Strength and compare the current value, a lower value, and 0. A lower strength suits a photo where automatic correction went too far. Press <code>P</code> to toggle cast correction. Calling cloud correction again needs a network connection.</p>
+<p>Sunset, stage light, and warm indoor light should keep an appropriate amount of the light that was there. The goal is not a completely neutral picture.</p>
+<h2 id="dmin-and-dmax">Dmin and Dmax</h2>
+<p>If fog or a cast remains, check that Dmin landed on the film base. Clear it and sample again if needed. When the steps above do nothing, hold <code>Q</code>, choose Dmax, and sample the brightest neutral area that has not clipped. The steps are in <a href="07-inversion.html">Inversion and sampling</a>.</p>
+<h2 id="drag-the-dcmy-waveforms">Drag the DCMY waveforms</h2>
+<p>In the inversion panel, drag either end of a waveform. The left end mainly controls the shadow baseline. The right end mainly controls gain. Move a little at a time, then look at shadows, midtones, and highlights.</p>
+<table>
+<thead>
+<tr>
+<th>Waveform</th>
+<th>Left end</th>
+<th>Right end</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D</td>
+<td>Overall baseline shift</td>
+<td>Overall gain</td>
+</tr>
+<tr>
+<td>C</td>
+<td>Red-channel shadow end</td>
+<td>Red-channel gain</td>
+</tr>
+<tr>
+<td>M</td>
+<td>Green-channel shadow end</td>
+<td>Green-channel gain</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>Blue-channel shadow end</td>
+<td>Blue-channel gain</td>
+</tr>
+</tbody>
+</table>
+<p>If the shadows are green, try lowering the left end of M a little. If the highlights are yellow and short on blue, try raising the right end of Y. After the change, check skin and midtones as well, so fixing one end does not push the other end off. The channel waveforms do not need to overlap.</p>
+<h2 id="other-color-tools">Other color tools</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tone</td>
+<td>Exposure, highlights, shadows, whites, and blacks, for the overall light-to-dark shape</td>
+</tr>
+<tr>
+<td>Curves</td>
+<td>Add and drag control points. The master curve sets contrast. RGB channel curves set color</td>
+</tr>
+<tr>
+<td>Color mixer</td>
+<td>Choose red, orange, yellow, green, aqua, blue, purple, or magenta, then adjust hue, saturation, and luminance</td>
+</tr>
+<tr>
+<td>Color grading</td>
+<td>Set a color for shadows, midtones, highlights, or the whole picture, and use blend and balance for the transition</td>
+</tr>
+<tr>
+<td>LUT</td>
+<td>Pick a preset or import a file in the LUT panel, turn it on, and set the strength. Hold Z for a quick control</td>
+</tr>
+<tr>
+<td>Local mask</td>
+<td>Add and select a mask, then adjust exposure or color inside it. Use feather for the edge</td>
+</tr>
+</tbody>
+</table>
+<p>Press <code>N</code> to compare before and after. Press <code>⌘ Z</code> to undo the latest change.</p></div><nav class="doc-pagination" aria-label="Nearby chapters"><a href="07-inversion.html">← Density inversion and sampling</a><a href="09-finishing.html">Sprockets, dust, and texture →</a></nav></article><aside class="toc"><p>On this page</p><div class="toc">
+<ul>
+<li><a href="#analysis-range">Analysis range</a></li>
+<li><a href="#white-balance-and-cast-strength">White balance and cast strength</a></li>
+<li><a href="#dmin-and-dmax">Dmin and Dmax</a></li>
+<li><a href="#drag-the-dcmy-waveforms">Drag the DCMY waveforms</a></li>
+<li><a href="#other-color-tools">Other color tools</a></li>
+</ul>
+</div>
+</aside></div></main><footer class="site-footer"><div class="wrap footer-row"><span>© 2026 NextFrame Studio · Made for film photographers</span><div class="footer-links"><a href="../guide/index.html">Guide</a><a href="../guide/updates.html">Updates</a><a href="https://www.xiaohongshu.com/user/profile/5fa7aad30000000001005466" target="_blank" rel="noopener noreferrer">Xiaohongshu ↗</a><a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">浙ICP备2026017032号</a></div></div></footer></body></html>

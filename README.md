@@ -10,8 +10,10 @@ python3 scripts/build-site.py
 python3 scripts/check-site.py
 ```
 
-- `content/guide/*.md`：教程正文；修改后重新构建。
-- `templates/home.html`、`templates/download.html`：首页和下载页内容。
+- `content/guide/*.md`：中文教程；`content/en/guide/*.md`：英文教程。修改后重新构建。
+- `locales/zh.json`、`locales/en.json`：导航、首页、下载页和界面文案。
+- `templates/home.html`、`templates/download.html`：首页和下载页结构，文案来自 locale。
+- 中文页面保持原地址。英文页面在 `en/`，导航中的语言切换指向同一页的另一种语言。
 - `assets/css/site.css`、`assets/js/site.js`：共享样式与轻量交互。
 - `scripts/build-site.py`：导航、章节目录、全文搜索数据与静态页面生成；下载/作者地址集中配置。
 - `assets/media/`：本次新增真实截图与引擎预览；来源见 `docs/ASSET-SOURCES.md`。
