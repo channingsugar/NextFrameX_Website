@@ -90,7 +90,7 @@
       if (!playing || !visible || document.hidden || requested !== current) return;
       if (!slides[current].complete || !slides[current].naturalWidth) return;
       prepare((current + 1) % slides.length);
-      timer = setTimeout(next, 5000);
+      timer = setTimeout(next, 3000);
     }
 
     async function next() {
