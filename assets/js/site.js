@@ -65,15 +65,77 @@
   }
   const slidesButton = document.querySelector('.workspace-slides');
   if (slidesButton) {
-    const slides = Array.from(slidesButton.querySelectorAll('img'));
+    const slides = Array.from(slidesButton.children);
     const counter = slidesButton.parentElement.querySelector('.workspace-count span');
-    let current = 0;
-    slidesButton.addEventListener('click', () => {
-      slides[current].hidden = true;
-      current = (current + 1) % slides.length;
-      slides[current].hidden = false;
-      counter.textContent = String(current + 1).padStart(2, '0');
-    });
+    const playback = slidesButton.parentElement.querySelector('.workspace-playback');
+    const motion = matchMedia('(prefers-reduced-motion: reduce)');
+    let playing = !motion.matches;
+    let visible = false;
+    let current = 0, requested = 0, timer;
+
+    function prepare(index) {
+      const slot = slides[index];
+      if (slot.tagName === 'TEMPLATE') {
+        const image = slot.content.querySelector('img');
+        image.loading = 'eager';
+        image.setAttribute('aria-hidden', 'true');
+        slot.replaceWith(image);
+        slides[index] = image;
+      }
+      return slides[index];
+    }
+
+    function schedule() {
+      clearTimeout(timer);
+      if (!playing || !visible || document.hidden || requested !== current) return;
+      if (!slides[current].complete || !slides[current].naturalWidth) return;
+      prepare((current + 1) % slides.length);
+      timer = setTimeout(next, 5000);
+    }
+
+    async function next() {
+      clearTimeout(timer);
+      const index = (requested + 1) % slides.length;
+      requested = index;
+      const image = prepare(index);
+      try {
+        await image.decode();
+      } catch {
+        if (requested === index) { requested = current; schedule(); }
+        return;
+      }
+      if (requested !== index) return;
+      if (index !== current) {
+        slidesButton.querySelector('.previous')?.classList.remove('previous');
+        slides[current].className = 'previous';
+        slides[current].setAttribute('aria-hidden', 'true');
+        // Commit the incoming frame's initial opacity before starting the fade.
+        image.getBoundingClientRect();
+        image.className = 'current';
+        image.removeAttribute('aria-hidden');
+        current = index;
+        counter.textContent = String(current + 1).padStart(2, '0');
+      }
+      schedule();
+    }
+
+    function setPlaying(value) {
+      playing = value;
+      playback.textContent = playing ? 'Ⅱ' : '▶';
+      playback.setAttribute('aria-label', playing ? playback.dataset.pause : playback.dataset.play);
+      schedule();
+    }
+    slidesButton.addEventListener('click', next);
+    playback.addEventListener('click', () => setPlaying(!playing));
+    playback.hidden = false;
+    setPlaying(playing);
+    motion.addEventListener('change', () => setPlaying(!motion.matches));
+    slides[0].addEventListener('load', schedule, { once: true });
+    document.addEventListener('visibilitychange', schedule);
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      schedule();
+    }).observe(slidesButton);
   }
   const images=document.querySelectorAll('.prose img');
   if(images.length){

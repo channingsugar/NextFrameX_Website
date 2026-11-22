@@ -12,7 +12,11 @@
 .lightbox img[src*="workspace.webp"]{border-radius:2% / 3%}
 .nav-links a{white-space:nowrap}
 
-.workspace-slides{display:block;width:100%;padding:0;border:0;background:transparent;color:inherit;cursor:pointer}
-.workspace-slides:focus-visible{outline:2px solid white;outline-offset:3px}
-.workspace-slides img[hidden]{display:none}
-.workspace-count{margin-top:8px;text-align:right;color:#ddd;font:12px/1.2 ui-monospace,monospace}
+.workspace-slides{display:grid;grid-template:1fr / minmax(0,1fr);align-items:center;width:100%;aspect-ratio:3024/1770;padding:0;border:0;background:transparent;color:inherit;cursor:pointer}
+.workspace-slides img{grid-area:1/1;opacity:0;pointer-events:none}
+.workspace-slides img.previous{z-index:1;opacity:1}
+.workspace-slides img.current{z-index:2;opacity:1;transition:opacity .65s ease-in-out}
+.workspace-slides:focus-visible,.workspace-playback:focus-visible{outline:2px solid white;outline-offset:3px}
+.workspace-count{display:flex;align-items:center;justify-content:flex-end;gap:.35em;margin-top:8px;color:#ddd;font:12px/1.2 ui-monospace,monospace}
+.workspace-playback{border:0;padding:4px 8px;background:transparent;color:inherit;font:inherit;cursor:pointer}
+@media(prefers-reduced-motion:reduce){.workspace-slides img.current{transition:none}}

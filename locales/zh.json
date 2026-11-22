@@ -113,6 +113,8 @@
       "next": "下一张样片"
     },
     "intro": {
+      "pauseSlides": "暂停轮播",
+      "playSlides": "播放轮播",
       "nextSlide": "查看下一张工作区截图",
       "eyebrow": "01 / 数字暗房",
       "title1": "专业胶片暗房。",

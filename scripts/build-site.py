@@ -153,9 +153,17 @@ def build_lang(loc, articles):
     raw['WORKSPACE_COUNT'] = f'{len(slides):02}'
     workspace_images = []
     for number, alt in enumerate(slides, 1):
-        asset = f'assets/media/workspace-{loc["id"]}-{number:02}.jpg'
-        markup = img(asset, alt, asset_prefix)
-        workspace_images.append(markup if number == 1 else markup.replace('<img ', '<img hidden ', 1))
+        base = f'assets/media/workspace-{loc["id"]}-{number:02}'
+        candidates = []
+        for width in (800, 1440, 2160):
+            path = f'{base}-{width}.webp'
+            candidates.append(f'{asset_prefix}{path}?v={version(path)} {width}w')
+        markup = img(f'{base}-1440.webp', alt, asset_prefix)
+        markup = markup.replace('<img ', f'<img srcset="{", ".join(candidates)}" sizes="(max-width: 700px) calc(100vw - 56px), (max-width: 1320px) calc(100vw - 136px), 1184px" ', 1)
+        if number == 1:
+            workspace_images.append(markup.replace('<img ', '<img class="current" ', 1))
+        else:
+            workspace_images.append(f'<template>{markup}</template>')
     raw['WORKSPACE'] = ''.join(workspace_images)
     for n,item in enumerate(manifest['features'],1):
         asset = item.get('englishAsset', item['asset']) if loc['id'] == 'en' else item['asset']
@@ -216,7 +224,12 @@ for path in paths+['sitemap.xml','robots.txt','CNAME','.nojekyll']:
     dest=out/path;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(ROOT/path,dest)
 for folder in ['css','js']:
     shutil.copytree(ROOT/'assets'/folder,out/'assets'/folder,dirs_exist_ok=True)
-asset_paths=set(re.findall(r'(?:src|href)="(?:\.\./)*(assets/[^"?#]+)', ''.join((ROOT/p).read_text() for p in paths)))
+page_html = ''.join((ROOT/p).read_text() for p in paths)
+asset_paths=set(re.findall(r'(?:src|href)="(?:\.\./)*(assets/[^"?#]+)', page_html))
+for srcset in re.findall(r'srcset="([^"]+)"', page_html):
+    for candidate in srcset.split(','):
+        url = candidate.strip().split()[0]
+        asset_paths.add(re.sub(r'^(?:\.\./)*', '', url.split('?')[0]))
 for path in asset_paths:
     if not (ROOT/path).is_file(): continue
     dest=out/path;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(ROOT/path,dest)

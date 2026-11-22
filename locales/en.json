@@ -111,6 +111,8 @@
       "next": "Next still"
     },
     "intro": {
+      "pauseSlides": "Pause slideshow",
+      "playSlides": "Play slideshow",
       "nextSlide": "Next workspace screenshot",
       "eyebrow": "01 / Digital darkroom",
       "title1": "A film darkroom.",
