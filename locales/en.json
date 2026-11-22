@@ -37,8 +37,8 @@
   },
   "pages": {
     "home": {
-      "title": "Film Negative Conversion Software for Camera Scans and Film Strips",
-      "desc": "Convert camera-scanned RAW negatives to positives, split film strips into individual frames, and remove dust from infrared or RGB scans in NextFrame for macOS and Windows."
+      "title": "Professional Film Negative Conversion Software for Full Rolls, Without Lightroom",
+      "desc": "Convert a full roll of camera-scanned RAW negatives automatically in NextFrame for macOS and Windows. Crop, invert, color-correct, and batch export without Lightroom. Explore the color science of film density."
     },
     "download": {
       "title": "Download",
@@ -104,8 +104,8 @@
   "home": {
     "hero": {
       "aria": "Film stills",
-      "eyebrow": "Film negative conversion software · macOS / Windows",
-      "tagline": "Turn camera-scanned RAW negatives into positives and split film strips into individual frames.",
+      "eyebrow": "Professional film negative conversion · macOS / Windows",
+      "tagline": "Automatically crop, invert, and color-correct a full roll of RAW negatives without Lightroom.",
       "guide": "User guide",
       "prev": "Previous still",
       "next": "Next still"
@@ -117,10 +117,10 @@
       "eyebrow": "01 / Digital darkroom",
       "title1": "A film darkroom.",
       "title2": "From inversion to the final file.",
-      "body": "NextFrame is a standalone desktop darkroom. Develop a single camera-scanned negative or bring in a whole strip, adjust each frame, remove dust, and export your photographs. You can do it all without Lightroom."
+      "body": "Photograph each frame into one folder, turn on Auto Process, and import the roll. NextFrame analyzes and converts each frame using your preset. Keep the film borders if you want them, fine-tune individual exposures, then export the roll together."
     },
     "features": {
-      "f01": {"title": "Density inversion", "body": "Start from the film’s density, sample the base, and use DCMY to rebuild the negative’s color and tone."},
+      "f01": {"title": "The color science of film density", "body": "Start from the film’s density, sample the base, and use DCMY to rebuild the negative’s color and tone."},
       "f02": {"title": "Automatic Film Processing", "body": "Import and go. Detect the frame, straighten, invert, and balance color, and let the roll’s repetitive work run itself."},
       "f03": {"title": "FFF auto crop", "body": "Find frames in a strip scan and make a crop for each one. A strip comes in. Frames come out, each one editable."},
       "f04": {"title": "Many formats", "body": "Bring camera RAW, DNG, TIFF, and FFF scans into the same darkroom, whatever the camera or scanner."},
@@ -138,7 +138,7 @@
       "title1": "Every kind of film",
       "title2": "has a way to begin.",
       "body": "Pick a path from the film type.",
-      "r1": {"title": "How do I convert a RAW film negative?", "body": "Turn on automatic processing, choose whether to keep or remove the film base, then check crop and color after import.", "more": "Convert a camera-scanned negative ↗"},
+      "r1": {"title": "How do I convert a whole roll of RAW negatives?", "body": "Import the folder of individual RAW captures. Check film-base samples and exposure ranges in Develop, adjust exceptions, and export the roll together.", "more": "Convert a camera-scanned negative ↗"},
       "r2": {"title": "How do I split a film strip scan?", "body": "Choose the format, then split automatically or crop the strip by hand. Use absolute masks when each frame needs its own local adjustment.", "more": "Split a strip into frames ↗"},
       "r3": {"title": "Slides and black-and-white", "body": "Slides use the original-image path. Black-and-white negatives are inverted, then graded in gray and tone as needed.", "more": "Slides and black-and-white ↗"}
     },

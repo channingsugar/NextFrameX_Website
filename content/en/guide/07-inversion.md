@@ -2,6 +2,8 @@
 
 The inversion panel controls a negative’s brightness and color through a density-domain conversion and the DCMY settings. Exposure range, Dmin, and Dmax set the analysis area and the reference points.
 
+For the optical density equation and a real camera-scan example, see [the color science of film negative conversion](16-density-color-science.html).
+
 ## Density-domain inversion
 
 Film density and transmitted light are related logarithmically. Density-domain inversion works in that relationship, then uses channel baseline, gain, and tone to produce a positive. The controls are not the same as a simple RGB invert.

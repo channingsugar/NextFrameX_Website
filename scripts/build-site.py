@@ -93,6 +93,9 @@ def load_articles(loc):
     # Keep published chapter URLs stable when changing the reading order.
     controls = folder/'15-controls.md'
     faq = folder/'12-troubleshooting.md'
+    science = folder/'16-density-color-science.md'
+    files.remove(science)
+    files.insert(files.index(folder/'07-inversion.md') + 1, science)
     files.remove(controls)
     files.insert(files.index(folder/'11-shortcuts.md'), controls)
     files.remove(faq)

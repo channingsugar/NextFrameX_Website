@@ -1,8 +1,16 @@
-# How to convert a camera-scanned RAW negative to a positive
+# How to automatically convert a full roll of RAW film negatives without Lightroom
 
-Turn on Auto Process in NextFrame, then import a RAW photograph of a single negative. NextFrame finds the frame, crops it, and inverts it using your preset. Press V to check the film-base sample and exposure range before exporting. You can do this without Lightroom.
+Turn on Auto Process in NextFrame and import a folder of camera-scanned RAW negatives. NextFrame detects, crops, inverts, and color-corrects each exposure using your preset. Review representative frames, adjust any exceptions, and batch export the positives in the same desktop app.
 
 If one file contains a row of frames, start with [splitting a film strip scan](04-strip.html).
+
+## From a roll of negatives to individual positives
+
+Put the camera captures from one roll in one folder, with one exposure per RAW file. Set the processing preferences below, then import the folder into the library. Once processing finishes, review a typical frame, a dark one, and a bright one. Press `V` to check the base sample and exposure range. Press `A` to redraw a range that includes the next exposure. Select the frames you want, check their count in the export window, and export them together.
+
+![The same camera-scanned frame in its embedded RAW preview on the left and its saved NextFrame positive preview on the right](../assets/media/raw-film-base-pair.webp)
+
+Both views come from the same Sony α7R III capture. Use the tree trunk and sprocket holes to match the two images. Check that the analysis rectangle excludes adjacent exposures before judging detail in grass and shade. See [the color science of film negative conversion](16-density-color-science.html) for how the base sample affects color.
 
 ## Set the default
 
@@ -26,9 +34,9 @@ Press `F` to crop. Check that the light panel, film holder, or a neighboring fra
 
 Press `V` to show the marks. Check that the sample point sits on clean, unexposed film base and that the exposure rectangle covers the picture. If the rectangle includes sprocket holes, the holder, or the next frame, press `A` to redraw it. Hold `A` to pick a range preset.
 
-![Camera-scanned negative with its exposure rectangle and sampling marks visible after pressing V](../assets/media/range.webp)
+![Saved analysis area in cyan and automatic Dmin sample in yellow, plotted on the same camera-scanned negative](../assets/media/raw-sampling-map.webp)
 
-Dmin should sit on clean film base. If there is no clear base, try the darkest reliable area in the positive. If the sample does not help, clear it. See [Inversion and sampling](07-inversion.html).
+Here the cyan rectangle excludes the next frame, while the yellow circle lies close to the edge lettering. Try sampling a clear patch away from the letters and compare the whole positive. If there is no clear base, try the darkest reliable area in the positive. If the sample does not help, clear it. See [Inversion and sampling](07-inversion.html).
 
 ## Check the sprockets
 
@@ -37,5 +45,3 @@ With the base kept, press `G` to toggle sprocket fill, and hold `G` to adjust th
 ## Color and export
 
 If the automatic result looks right, export it. If the whole frame has a cast, check the exposure range and film-base sample first. If neutral objects still look tinted, try the DCMY eyedropper, then fine-tune white balance as needed. See [Color](08-color.html). Press `⌘ S` to open export (`Ctrl S` on Windows).
-
-![Developed preview of a second camera-scanned RAW negative with the film base retained](../assets/media/auto.webp)

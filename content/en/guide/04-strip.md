@@ -2,6 +2,12 @@
 
 When one FFF, TIFF, or DNG scan contains several exposures, NextFrame can create a cropped copy for each frame. Use automatic splitting on supported originals, or press F to crop the strip by hand. Export the copies to save each frame as its own image file.
 
+## Flextight X5 and FFF workflow: choosing the original scan
+
+For a Hasselblad Flextight X5 workflow, start with the original 3F scan. The worked example uses `1 002.tiff`, a TIFF with a Flextight input profile that NextFrame reads as Scan3F. Viewed horizontally, it contains two strips of six exposures each. Select the full scan to begin splitting.
+
+![Original Flextight negative scan viewed horizontally with two rows of six exposures](../assets/media/flextight-strip.webp)
+
 ## Automatic FFF split
 
 1. Import the scan and select the whole strip in the library.
@@ -13,11 +19,15 @@ When one FFF, TIFF, or DNG scan contains several exposures, NextFrame can create
 
 Use a manual crop for XPAN and for scans that were not detected reliably. Automatic splitting creates separate editable copies. Those copies still have to be saved as image files through the export window.
 
-![Contact sheet of frames from a batch of FFF scans after splitting](../assets/media/strip.webp)
+**Check the frame boundaries.** The overlay below plots the 12 saved crop rectangles on the original scan, numbered in reading order. Look at the gap between 03 and 04. Each rectangle should end inside its own exposure. If a crop includes the neighboring exposure, open that copy, press `F`, adjust its edge, and confirm.
 
-Open a frame to check that the crop keeps the top and bottom of the picture and excludes the next exposure on either side. Here is a developed frame from the same batch.
+![Twelve numbered crop rectangles from the saved frame copies overlaid on the original scan](../assets/media/flextight-frame-map.webp)
 
-![Single frame from a split FFF scan showing a paraglider against a blue sky](../assets/media/hero-06.webp)
+**Check orientation and a single result.** This contact sheet uses the developed previews of all 12 copies from the same scan. Frames 01 and 02 are upright portraits and 03 is a landscape. Open 03 and check the horizon, driftwood, and left and right edges for any part of the next frame.
+
+![Twelve developed previews in the same order as the numbered crop map](../assets/media/flextight-contact.webp)
+
+![Developed preview of frame 03 with driftwood on the beach](../assets/media/flextight-frame-03.webp)
 
 ## Crop a strip by hand
 
@@ -36,4 +46,4 @@ Select the split results. Hold `A` and choose Exposure Range 90% as a common sta
 
 ## Export
 
-Select every split result you want to save and press `⌘ S`. If the strip has 12 frames, the export window should have those 12 results selected. After export, check the number of files on disk.
+For this scan, select the 12 cropped copies and open export (`⌘ S` on macOS or `Ctrl S` on Windows). Check that the selection count is 12. For web sharing, choose JPEG, SDR, and sRGB, select the destination, and start the export. Check the output folder for 12 individual images and open frame 03 to compare it with the driftwood preview above. See [batch export settings](10-export.html).

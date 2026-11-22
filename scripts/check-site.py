@@ -47,12 +47,16 @@ for f in pages:
  if len(templates)!=expected_templates or any('pan.baidu.com' not in section for section in templates):
   errors.append(f'{f}: mainland download alternatives')
 for lang in ('zh','en'):
+ locales_folder = 'content/guide' if lang=='zh' else 'content/en/guide'
  bundle=json.loads((ROOT/f'assets/js/guide-{lang}.json').read_text())
- assert len(bundle['chapters'])==15 and bundle['images'] and all('class="toc"' in c['toc'] for c in bundle['chapters'])
+ expected = {p.stem for p in (ROOT.parent/locales_folder).glob('*.md')}
+ assert {c['slug'] for c in bundle['chapters']} == expected
+ assert len(bundle['chapters'])==len(expected) and bundle['images'] and all('class="toc"' in c['toc'] for c in bundle['chapters'])
 def load_index(name):
  script=(ROOT/'assets/js'/name).read_text();return json.loads(script.removeprefix('window.NF_SEARCH=').removesuffix(';'))
 zh_index,en_index=load_index('search-index.js'),load_index('search-index-en.js')
-assert len(zh_index)==len(en_index)==15
+assert len(zh_index)==len(en_index)==len(expected)
+assert {'03-raw','04-strip','07-inversion','16-density-color-science'} <= {a['slug'] for a in en_index}
 assert [a['slug'] for a in zh_index]==[a['slug'] for a in en_index]
 for query in ['Dmin','齿孔','DCMY','快捷键']:
  assert any(query.lower() in (a['title']+a['text']).lower() for a in zh_index),query
