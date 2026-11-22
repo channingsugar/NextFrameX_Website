@@ -72,7 +72,7 @@
     "back": "Back to all chapters ↗"
   },
   "alts": {
-    "workspace": "NextFrame 2.54.0 develop workspace, raw folder",
+    "workspaceSlides": ["Film negative in the Develop workspace", "Positive preview with film borders after inversion", "Photo library with a selected portrait", "Two strips of negatives in the frame splitting view"],
     "auto": "Developed raw frame with the film base kept",
     "strip": "Contact sheet of split frames from folder 4879",
     "hero": [
@@ -111,6 +111,7 @@
       "next": "Next still"
     },
     "intro": {
+      "nextSlide": "Next workspace screenshot",
       "eyebrow": "01 / Digital darkroom",
       "title1": "A film darkroom.",
       "title2": "From inversion to the final file.",

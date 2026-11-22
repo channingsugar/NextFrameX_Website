@@ -2,7 +2,7 @@
 """Build lightweight feature illustrations from the approved photos and vector diagrams."""
 from pathlib import Path
 from PIL import Image, ImageOps
-import io,base64,json,math
+import io,base64,json,math,re
 ROOT=Path(__file__).resolve().parents[1]
 MEDIA=ROOT/'assets/media'
 
@@ -85,10 +85,43 @@ a+=circle(297,213,39,'#171717cc','#ddd')+'<path d="M287 193L317 213L287 233Z" fi
 a=rect(34,55,386,92,'#333',14)+text('处理这组底片',62,108,23)+rect(78,173,342,111,'#292929',14,'#666')+text('导入 · 裁切 · 调色',102,215,20)+text('在 NextFrame 中继续编辑',102,251,15,'#aaa')
 a+=path('M438 179H484M472 167L484 179L472 191','#aaa',2)+rect(503,129,99,99,'#e3e3e3',22)+text('NF',552,193,32,'#222','middle')+text('本地 MCP',320,342,16,'#aaa','middle');arts.append(a)
 titles=['密度域反转原理示意','RAW 自动处理与画面识别示意','使用已分帧照片展示整条裁切','RAW、DNG、TIFF、FFF 多格式兼容示意','保留片基与白色齿孔的实际照片','HDR 明暗层次示意','曲线与 DCMY 色彩控制示意','转盘与快捷键操作示意','相机联机拍摄流程示意','自动除尘检测与修复流程示意','LIVE 动态成片播放示意','Agent 通过本地 MCP 调用 NextFrame 的示意']
+english_labels = {
+    '透射光 → 密度 → 正像': 'Transmitted light → Density → Positive',
+    '识别  →  裁切  →  反转  →  校色': 'Detect  →  Crop  →  Invert  →  Balance color',
+    '一条扫描，逐帧显影': 'One strip scan, developed frame by frame',
+    '相机翻拍': 'Camera scan', '数字负片': 'Digital negative',
+    '高位深扫描': 'High-bit scan', '整条扫描': 'Strip scan',
+    '同一工作区，连接不同设备': 'Camera and scanner files in one workspace',
+    '边码 · 齿孔 · 留白': 'Edge codes · Sprocket holes · Borders',
+    '高光层次': 'Highlight detail', '暗部': 'Shadows', '亮部': 'Highlights',
+    '曲线  /  白平衡  /  混色器  /  局部蒙版': 'Curves  /  White balance  /  Color mixer  /  Local masks',
+    '长按': 'Hold', '显示标记': 'Show markers', '裁切': 'Crop', '片基取样': 'Sample film base',
+    '转盘 · 波形拖拽 · 快捷键': 'Dials · Waveform dragging · Keyboard shortcuts',
+    '拍摄 → 接收 → 显影': 'Capture → Import → Develop',
+    '检测': 'Detect', '选区': 'Select', '修复': 'Repair',
+    '灰尘检测与修复流程示意': 'Dust detection and repair',
+    '处理这组底片': 'Process these negatives',
+    '导入 · 裁切 · 调色': 'Import · Crop · Grade',
+    '在 NextFrame 中继续编辑': 'Continue editing in NextFrame',
+    '本地 MCP': 'Local MCP',
+}
+
+def english_text(match):
+    label = match.group(1)
+    translated = english_labels[label] if re.search(r'[一-鿿]', label) else label
+    return '>' + translated + '</text>'
+
 features=[]
 for i,a in enumerate(arts,1):
  name=f'feature-{i:02}.svg'
- (MEDIA/name).write_text(f'<svg xmlns="http://www.w3.org/2000/svg" width="640" height="384" viewBox="0 0 640 384"><rect width="640" height="384" fill="#202020"/><g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">{a}</g></svg>')
- features.append(dict(asset=f'assets/media/{name}',alt=titles[i-1]))
+ svg=f'<svg xmlns="http://www.w3.org/2000/svg" width="640" height="384" viewBox="0 0 640 384"><rect width="640" height="384" fill="#202020"/><g font-family="-apple-system,BlinkMacSystemFont,PingFang SC,Microsoft YaHei,sans-serif">{a}</g></svg>'
+ (MEDIA/name).write_text(svg)
+ feature = dict(asset=f'assets/media/{name}', alt=titles[i-1])
+ translated = re.sub(r'>([^<>]*)</text>', english_text, svg)
+ if translated != svg:
+  en_name = f'feature-{i:02}-en.svg'
+  (MEDIA/en_name).write_text(translated)
+  feature['englishAsset'] = f'assets/media/{en_name}'
+ features.append(feature)
 p=ROOT/'docs/media-manifest.json';m=json.loads(p.read_text());m['features']=features;p.write_text(json.dumps(m,ensure_ascii=False,indent=2)+'\n')
 print('Built 12 feature illustrations')

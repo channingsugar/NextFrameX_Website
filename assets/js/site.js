@@ -63,7 +63,19 @@
       for(const item of matches){const a=document.createElement('a');a.href=item.slug+'.html';a.textContent=item.title;const small=document.createElement('small');small.textContent=item.description;a.append(small);results.append(a);}
     });
   }
-  const images=document.querySelectorAll('.prose img,.overview-image img');
+  const slidesButton = document.querySelector('.workspace-slides');
+  if (slidesButton) {
+    const slides = Array.from(slidesButton.querySelectorAll('img'));
+    const counter = slidesButton.parentElement.querySelector('.workspace-count span');
+    let current = 0;
+    slidesButton.addEventListener('click', () => {
+      slides[current].hidden = true;
+      current = (current + 1) % slides.length;
+      slides[current].hidden = false;
+      counter.textContent = String(current + 1).padStart(2, '0');
+    });
+  }
+  const images=document.querySelectorAll('.prose img');
   if(images.length){
     const dialog=document.createElement('dialog');dialog.className='lightbox';dialog.setAttribute('aria-label',ui.lightbox||'查看大图');
     const close=document.createElement('button');close.textContent=ui.close||'关闭 ×';const preview=document.createElement('img');dialog.append(close,preview);document.body.append(dialog);

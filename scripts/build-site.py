@@ -148,8 +148,18 @@ def build_lang(loc, articles):
         raise SystemExit(f'Alt text count does not match media manifest for {loc["id"]}')
     home_path=prefix+'index.html'
     asset_prefix='../'*home_path.count('/')
-    raw={'HERO':''.join(f'<div class="hero-slide">{img(item["asset"],alts["hero"][i],asset_prefix,eager=i==0)}</div>' for i,item in enumerate(manifest['hero'])),'HERO_COUNT':str(len(manifest['hero'])).zfill(2),'WORKSPACE':img('assets/media/workspace.webp',alts['workspace'],asset_prefix),'AUTO':img('assets/media/auto.webp',alts['auto'],asset_prefix),'STRIP':img('assets/media/strip.webp',alts['strip'],asset_prefix),'DOWNLOAD':DOWNLOAD,'SOCIAL':SOCIAL}
-    for n,item in enumerate(manifest['features'],1): raw[f'FEATURE_{n:02}']=img(item['asset'],alts['features'][n-1],asset_prefix)
+    raw={'HERO':''.join(f'<div class="hero-slide">{img(item["asset"],alts["hero"][i],asset_prefix,eager=i==0)}</div>' for i,item in enumerate(manifest['hero'])),'HERO_COUNT':str(len(manifest['hero'])).zfill(2),'AUTO':img('assets/media/auto.webp',alts['auto'],asset_prefix),'STRIP':img('assets/media/strip.webp',alts['strip'],asset_prefix),'DOWNLOAD':DOWNLOAD,'SOCIAL':SOCIAL}
+    slides = alts['workspaceSlides']
+    raw['WORKSPACE_COUNT'] = f'{len(slides):02}'
+    workspace_images = []
+    for number, alt in enumerate(slides, 1):
+        asset = f'assets/media/workspace-{loc["id"]}-{number:02}.jpg'
+        markup = img(asset, alt, asset_prefix)
+        workspace_images.append(markup if number == 1 else markup.replace('<img ', '<img hidden ', 1))
+    raw['WORKSPACE'] = ''.join(workspace_images)
+    for n,item in enumerate(manifest['features'],1):
+        asset = item.get('englishAsset', item['asset']) if loc['id'] == 'en' else item['asset']
+        raw[f'FEATURE_{n:02}'] = img(asset, alts['features'][n-1], asset_prefix)
     def download_choice(store, mainland):
         if loc['id'] == 'en':
             return store

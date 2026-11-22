@@ -72,43 +72,53 @@
   "features": [
     {
       "asset": "assets/media/feature-01.svg",
-      "alt": "密度域反转原理示意"
+      "alt": "密度域反转原理示意",
+      "englishAsset": "assets/media/feature-01-en.svg"
     },
     {
       "asset": "assets/media/feature-02.svg",
-      "alt": "RAW 自动处理与画面识别示意"
+      "alt": "RAW 自动处理与画面识别示意",
+      "englishAsset": "assets/media/feature-02-en.svg"
     },
     {
       "asset": "assets/media/feature-03.svg",
-      "alt": "使用已分帧照片展示整条裁切"
+      "alt": "使用已分帧照片展示整条裁切",
+      "englishAsset": "assets/media/feature-03-en.svg"
     },
     {
       "asset": "assets/media/feature-04.svg",
-      "alt": "RAW、DNG、TIFF、FFF 多格式兼容示意"
+      "alt": "RAW、DNG、TIFF、FFF 多格式兼容示意",
+      "englishAsset": "assets/media/feature-04-en.svg"
     },
     {
       "asset": "assets/media/feature-05.svg",
-      "alt": "保留片基与白色齿孔的实际照片"
+      "alt": "保留片基与白色齿孔的实际照片",
+      "englishAsset": "assets/media/feature-05-en.svg"
     },
     {
       "asset": "assets/media/feature-06.svg",
-      "alt": "HDR 明暗层次示意"
+      "alt": "HDR 明暗层次示意",
+      "englishAsset": "assets/media/feature-06-en.svg"
     },
     {
       "asset": "assets/media/feature-07.svg",
-      "alt": "曲线与 DCMY 色彩控制示意"
+      "alt": "曲线与 DCMY 色彩控制示意",
+      "englishAsset": "assets/media/feature-07-en.svg"
     },
     {
       "asset": "assets/media/feature-08.svg",
-      "alt": "转盘与快捷键操作示意"
+      "alt": "转盘与快捷键操作示意",
+      "englishAsset": "assets/media/feature-08-en.svg"
     },
     {
       "asset": "assets/media/feature-09.svg",
-      "alt": "相机联机拍摄流程示意"
+      "alt": "相机联机拍摄流程示意",
+      "englishAsset": "assets/media/feature-09-en.svg"
     },
     {
       "asset": "assets/media/feature-10.svg",
-      "alt": "自动除尘检测与修复流程示意"
+      "alt": "自动除尘检测与修复流程示意",
+      "englishAsset": "assets/media/feature-10-en.svg"
     },
     {
       "asset": "assets/media/feature-11.svg",
@@ -116,7 +126,8 @@
     },
     {
       "asset": "assets/media/feature-12.svg",
-      "alt": "Agent 通过本地 MCP 调用 NextFrame 的示意"
+      "alt": "Agent 通过本地 MCP 调用 NextFrame 的示意",
+      "englishAsset": "assets/media/feature-12-en.svg"
     }
   ]
 }

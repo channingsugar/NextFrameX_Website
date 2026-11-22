@@ -3,7 +3,10 @@
 <div class="hero-content"><span class="eyebrow" style="color:white">{{home.hero.eyebrow}}</span><h1>NextFrame</h1><p>{{home.hero.tagline}}</p><div class="actions">{{HERO_DOWNLOAD}}<a class="button ghost" href="guide/01-start.html">{{home.hero.guide}}</a></div></div>
 <div class="hero-bottom"><div class="gallery-controls"><button type="button" data-gallery-step="-1" aria-label="{{home.hero.prev}}">←</button><span data-gallery-index aria-live="polite" aria-atomic="true">01 / {{HERO_COUNT}}</span><button type="button" data-gallery-step="1" aria-label="{{home.hero.next}}">→</button></div></div>
 </section>
-<section class="section wrap" id="intro"><div class="section-head"><div><span class="eyebrow">{{home.intro.eyebrow}}</span><h2>{{home.intro.title1}}<br>{{home.intro.title2}}</h2></div><p>{{home.intro.body}}</p></div><figure class="overview-image">{{WORKSPACE}}</figure>
+<section class="section wrap" id="intro"><div class="section-head"><div><span class="eyebrow">{{home.intro.eyebrow}}</span><h2>{{home.intro.title1}}<br>{{home.intro.title2}}</h2></div><p>{{home.intro.body}}</p></div><figure class="overview-image">
+<button type="button" class="workspace-slides" aria-label="{{home.intro.nextSlide}}">{{WORKSPACE}}</button>
+<figcaption class="workspace-count" aria-live="polite" aria-atomic="true"><span>01</span> / {{WORKSPACE_COUNT}}</figcaption>
+</figure>
 <div class="feature-grid">
 <a href="guide/07-inversion.html">{{FEATURE_01}}<span>01</span><h3>{{home.features.f01.title}}</h3><p>{{home.features.f01.body}}</p></a>
 <a href="guide/03-raw.html">{{FEATURE_02}}<span>02</span><h3>{{home.features.f02.title}}</h3><p>{{home.features.f02.body}}</p></a>
