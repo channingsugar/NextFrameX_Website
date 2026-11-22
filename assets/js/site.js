@@ -25,10 +25,31 @@
     }));
   }
   const ui=window.NF_UI||{};
-  document.querySelectorAll('[data-copy-code]').forEach(button=>button.addEventListener('click',async()=>{
-    try{await navigator.clipboard.writeText('55b5');button.textContent=ui.copied||'已复制';}
-    catch{button.textContent=ui.copyFail||'提取码：55b5';}
-  }));
+  const mainlandChoices = document.querySelectorAll('template[data-mainland-download]');
+  if (mainlandChoices.length) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
+    fetch('https://api.country.is/', {
+      signal: controller.signal, credentials: 'omit', referrerPolicy: 'no-referrer', cache: 'no-store'
+    }).then(async response => {
+      if (!response.ok || (await response.json()).country !== 'CN') return;
+      for (const choice of mainlandChoices) {
+        choice.previousElementSibling.replaceWith(choice.content.cloneNode(true));
+        choice.remove();
+      }
+      const copyButton = document.querySelector('[data-copy-code]');
+      if (copyButton) copyButton.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText('55b5');
+          copyButton.textContent = ui.copied;
+        } catch {
+          copyButton.textContent = ui.copyFail;
+        }
+      });
+    }).catch(() => {
+      // Keep the default App Store link when the region is unavailable.
+    }).finally(() => clearTimeout(timeout));
+  }
   const navDetails=document.querySelector('.guide-sidebar details');
   if(navDetails){const wide=matchMedia('(min-width: 701px)');navDetails.open=wide.matches;wide.addEventListener('change',e=>{navDetails.open=e.matches;});}
   const search=document.querySelector('.doc-search'), results=document.querySelector('.search-results');

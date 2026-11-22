@@ -37,8 +37,15 @@ for expected in ['https://pan.baidu.com/s/1gGiIIDEMDAdubAJYSAp9ZQ?pwd=55b5','htt
  if expected not in all_html:errors.append('Missing destination '+expected)
 mas='https://apps.apple.com/us/app/nextframe-digital-darkroom/id6749921585?mt=12'
 for f in pages:
- if (mas in pages[f].refs) != (f.relative_to(ROOT).as_posix() in ('en/index.html','en/download/index.html')):
-  errors.append(f'{f.name}: English MAS download entry')
+ if (mas in pages[f].refs) != (f.relative_to(ROOT).as_posix() in ('index.html','download/index.html','en/index.html','en/download/index.html')):
+  errors.append(f'{f.name}: missing or unexpected App Store entry')
+ html=f.read_text()
+ templates=re.findall(r'<template data-mainland-download>(.*?)</template>',html,re.S)
+ visible=re.sub(r'<template data-mainland-download>.*?</template>','',html,flags=re.S)
+ if 'pan.baidu.com' in visible:errors.append(f'{f}: unguarded Netdisk link')
+ expected_templates={'index.html':2,'download/index.html':1}.get(f.relative_to(ROOT).as_posix(),0)
+ if len(templates)!=expected_templates or any('pan.baidu.com' not in section for section in templates):
+  errors.append(f'{f}: mainland download alternatives')
 for lang in ('zh','en'):
  bundle=json.loads((ROOT/f'assets/js/guide-{lang}.json').read_text())
  assert len(bundle['chapters'])==15 and bundle['images'] and all('class="toc"' in c['toc'] for c in bundle['chapters'])

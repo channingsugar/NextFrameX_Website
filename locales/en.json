@@ -19,8 +19,6 @@
     "footerSocial": "Xiaohongshu ↗"
   },
   "ui": {
-    "copied": "Copied",
-    "copyFail": "Code: 55b5",
     "searchEmpty": "No matches. Try “crop”, “Dmin”, or “shortcut”.",
     "lightbox": "View larger image",
     "close": "Close ×",
@@ -108,7 +106,6 @@
       "aria": "Film stills",
       "eyebrow": "Made for film photography",
       "tagline": "Negative Processing, Fast, Easy",
-      "download": "Download for Windows/Mac",
       "guide": "User guide",
       "prev": "Previous still",
       "next": "Next still"
@@ -162,22 +159,18 @@
     "banner": {
       "title": "The next roll starts here.",
       "body": "Download the app and read the full guide.",
-      "download": "Download for Windows/Mac ↗",
       "guide": "Read the guide"
     }
   },
   "download": {
     "eyebrow": "NEXTFRAME / Download",
     "h1": "Your next darkroom.",
-    "lead": "Install NextFrame and start from one frame. The package, release notes, and supported systems are the files in the download.",
-    "cardEyebrow": "macOS and Windows",
+    "lead": "Install NextFrame and start with one frame.",
+    "cardEyebrow": "macOS",
+    "storeCta": "Download on the Mac App Store",
     "cardTitle": "Download NextFrame",
-    "cardBody": "The link includes the extraction code. If the site asks for it, enter:",
-    "copy": "Copy code",
-    "cta": "Open Baidu Netdisk ↗",
-    "cardNote": "The disk opens in a new window. Choose the installer for your computer there.",
     "afterTitle": "After installing",
-    "step1": "Move the app into Applications and open it.",
+    "step1": "Open NextFrame from Applications.",
     "step2": "Import one frame and confirm whether it is a negative or a slide.",
     "step3": "Follow the guide to check crop, range, and color.",
     "start": "Start with the first frame ↗",

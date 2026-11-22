@@ -6,6 +6,7 @@ import xml.etree.ElementTree as ET
 import markdown
 from PIL import Image
 ROOT=Path(__file__).resolve().parents[1]
+MAC_APP_STORE='https://apps.apple.com/us/app/nextframe-digital-darkroom/id6749921585?mt=12'
 DOWNLOAD='https://pan.baidu.com/s/1gGiIIDEMDAdubAJYSAp9ZQ?pwd=55b5'
 SOCIAL='https://www.xiaohongshu.com/user/profile/5fa7aad30000000001005466'
 DOMAIN='https://www.filmmmer.com'
@@ -149,7 +150,25 @@ def build_lang(loc, articles):
     asset_prefix='../'*home_path.count('/')
     raw={'HERO':''.join(f'<div class="hero-slide">{img(item["asset"],alts["hero"][i],asset_prefix,eager=i==0)}</div>' for i,item in enumerate(manifest['hero'])),'HERO_COUNT':str(len(manifest['hero'])).zfill(2),'WORKSPACE':img('assets/media/workspace.webp',alts['workspace'],asset_prefix),'AUTO':img('assets/media/auto.webp',alts['auto'],asset_prefix),'STRIP':img('assets/media/strip.webp',alts['strip'],asset_prefix),'DOWNLOAD':DOWNLOAD,'SOCIAL':SOCIAL}
     for n,item in enumerate(manifest['features'],1): raw[f'FEATURE_{n:02}']=img(item['asset'],alts['features'][n-1],asset_prefix)
-    raw['MAS'] = '<a class="button" href="https://apps.apple.com/us/app/nextframe-digital-darkroom/id6749921585?mt=12">Download on the Mac App Store</a>' if loc['id']=='en' else ''
+    def download_choice(store, mainland):
+        if loc['id'] == 'en':
+            return store
+        return store + '<template data-mainland-download>' + mainland + '</template>'
+
+    def download_button(url, label, style):
+        return f'<a class="{style}" href="{esc(url)}">{esc(label)}</a>'
+
+    d = loc['download']
+    for key, style in [('HERO_DOWNLOAD','button light'), ('BANNER_DOWNLOAD','button')]:
+        store_button = download_button(MAC_APP_STORE, d['storeCta'], style)
+        mainland_button = download_button(DOWNLOAD, d['cta'], style) if loc['id']=='zh' else ''
+        raw[key] = download_choice(store_button, mainland_button)
+    store_button = download_button(MAC_APP_STORE, d['storeCta'], 'button')
+    store_details = f'<div class="actions">{store_button}</div>'
+    mainland_details = ''
+    if loc['id'] == 'zh':
+        mainland_details = apply_template((ROOT/'templates/mainland-download.html').read_text(), loc, raw)
+    raw['DOWNLOAD_DETAILS'] = download_choice(store_details, mainland_details)
     home=apply_template((ROOT/'templates/home.html').read_text(), loc, raw)
     download=apply_template((ROOT/'templates/download.html').read_text(), loc, raw)
     download_path=prefix+'download/index.html'
