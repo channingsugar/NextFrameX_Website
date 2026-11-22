@@ -18,7 +18,12 @@ The exposure range decides which areas are analyzed. It does not change the expo
 - Hold `A` to choose a preset ratio, or choose Auto to process again.
 - Press `V` to show or hide the range marks.
 
-Usually place the range inside the picture, away from the holder, sprocket holes, neighboring frames, and large areas of interfering color. If interfering color remains, shrink the range to 75%, 55%, 45%, or 35% and compare. For sky, cloud, or snow with no black point, try including a little clean film base.
+Keep the exposure range inside the picture, clear of the film holder, sprocket holes, neighboring frames, and large areas of distracting color.
+
+If the range looks right but the positive still has a color cast, check two things.
+
+1. **Are there bright colors inside the range?** A few brightly colored lights can influence the analysis even in an otherwise neutral scene. Look for vivid red or yellow lights, especially where a highlight is complementary in color to its surroundings. Redraw the range to leave those lights outside it, then compare the positives to see whether the cast is weaker.
+2. **Is the scene nearly a single color?** A sky, clouds, or a snow-covered mountain may offer no reliable black point. Try including a small patch of clean film base in the exposure range, then compare the result.
 
 ![Exposure range and sample marks on a raw-folder photo](../assets/media/range.webp)
 
