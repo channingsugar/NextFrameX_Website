@@ -1,6 +1,8 @@
-# Automatic RAW mode
+# How to convert a camera-scanned RAW negative to a positive
 
-With automatic processing on, importing a single copied RAW runs detection, crop, and inversion from your preset. You can also run it again on a photo you already have.
+Turn on Auto Process in NextFrame, then import a RAW photograph of a single negative. NextFrame finds the frame, crops it, and inverts it using your preset. Press V to check the film-base sample and exposure range before exporting. You can do this without Lightroom.
+
+If one file contains a row of frames, start with [splitting a film strip scan](04-strip.html).
 
 ## Set the default
 
@@ -22,9 +24,9 @@ Hold `D` to choose the automatic crop: keep the base, remove the base, or straig
 
 Press `F` to crop. Check that the light panel, film holder, or a neighboring frame is not left in the edges. Drag an edge to change it, press `Enter` to confirm, or `Esc` to discard this change.
 
-Press `V` to show the marks. The exposure range should cover the picture that inversion analyzes. It usually excludes sprocket holes and the holder. Press `A` to draw the range again. Hold `A` to pick a range preset.
+Press `V` to show the marks. Check that the sample point sits on clean, unexposed film base and that the exposure rectangle covers the picture. If the rectangle includes sprocket holes, the holder, or the next frame, press `A` to redraw it. Hold `A` to pick a range preset.
 
-![Original range and sample marks on a raw-folder photo](../assets/media/range.webp)
+![Camera-scanned negative with its exposure rectangle and sampling marks visible after pressing V](../assets/media/range.webp)
 
 Dmin should sit on clean film base. If there is no clear base, try the darkest reliable area in the positive. If the sample does not help, clear it. See [Inversion and sampling](07-inversion.html).
 
@@ -34,4 +36,6 @@ With the base kept, press `G` to toggle sprocket fill, and hold `G` to adjust th
 
 ## Color and export
 
-If the automatic result looks right, export it. If the cast is obvious, check the exposure range first, then white balance, cast strength, and the inversion settings. See [Color](08-color.html). Press `⌘ S` to open export.
+If the automatic result looks right, export it. If the whole frame has a cast, check the exposure range and film-base sample first. If neutral objects still look tinted, try the DCMY eyedropper, then fine-tune white balance as needed. See [Color](08-color.html). Press `⌘ S` to open export (`Ctrl S` on Windows).
+
+![Developed preview of a second camera-scanned RAW negative with the film base retained](../assets/media/auto.webp)

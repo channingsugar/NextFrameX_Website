@@ -37,8 +37,8 @@
   },
   "pages": {
     "home": {
-      "title": "The next frame",
-      "desc": "NextFrame is a digital darkroom for film: RAW copies, strip scans, inversion, and color. Read the guide and download the app."
+      "title": "Film Negative Conversion Software for Camera Scans and Film Strips",
+      "desc": "Convert camera-scanned RAW negatives to positives, split film strips into individual frames, and remove dust from infrared or RGB scans in NextFrame for macOS and Windows."
     },
     "download": {
       "title": "Download",
@@ -104,8 +104,8 @@
   "home": {
     "hero": {
       "aria": "Film stills",
-      "eyebrow": "Made for film photography",
-      "tagline": "Negative Processing, Fast, Easy",
+      "eyebrow": "Film negative conversion software · macOS / Windows",
+      "tagline": "Turn camera-scanned RAW negatives into positives and split film strips into individual frames.",
       "guide": "User guide",
       "prev": "Previous still",
       "next": "Next still"
@@ -114,7 +114,7 @@
       "eyebrow": "01 / Digital darkroom",
       "title1": "A film darkroom.",
       "title2": "From inversion to the final file.",
-      "body": "A density-domain inversion engine, a full set of color tools, and an automated path through capture, scanning, development, and output. Darkroom control, in one workspace."
+      "body": "NextFrame is a standalone desktop darkroom. Develop a single camera-scanned negative or bring in a whole strip, adjust each frame, remove dust, and export your photographs. You can do it all without Lightroom."
     },
     "features": {
       "f01": {"title": "Density inversion", "body": "Start from the film’s density, sample the base, and use DCMY to rebuild the negative’s color and tone."},
@@ -126,7 +126,7 @@
       "f07": {"title": "Full color control", "body": "DCMY, split white balance, curves, a mixer, color grading, LUTs, and local masks. From a faithful print to a personal look."},
       "f08": {"title": "Controls on the image", "body": "Hold a key for the dial, drag a waveform, and keep moving with shortcuts. Strip crops keep a whole roll in one rhythm."},
       "f09": {"title": "Tethered capture", "body": "Connect a supported camera for live view, remote release, and ingest. Or watch a folder and continue with the copy setup you already use."},
-      "f10": {"title": "On-device dust removal", "body": "Detect dust on this computer, edit the detected area, then repair it. Automatic detection and a manual brush, without inventing detail."},
+      "f10": {"title": "Infrared and RGB dust removal", "body": "Use the scanner’s infrared channel to locate defects. For RGB images, detect dust on your computer across the whole frame or in a selected area."},
       "f11": {"title": "LIVE motion", "body": "Turn a still frame into a short motion piece. macOS can save a Live Photo. Windows can export a Live video."},
       "f12": {"title": "Works with agents", "body": "Connect a supported agent through local MCP. Ask it to invert, crop, and grade, and take the file back for hand editing whenever you want."}
     },
@@ -135,8 +135,8 @@
       "title1": "Every kind of film",
       "title2": "has a way to begin.",
       "body": "Pick a path from the film type.",
-      "r1": {"title": "Single RAW copies", "body": "Turn on automatic processing, choose whether to keep or remove the film base, then check crop and color after import.", "more": "RAW processing ↗"},
-      "r2": {"title": "Strip scans", "body": "Choose the format, then split automatically or crop the strip by hand. Use absolute masks when each frame needs its own local adjustment.", "more": "Strip processing ↗"},
+      "r1": {"title": "How do I convert a RAW film negative?", "body": "Turn on automatic processing, choose whether to keep or remove the film base, then check crop and color after import.", "more": "Convert a camera-scanned negative ↗"},
+      "r2": {"title": "How do I split a film strip scan?", "body": "Choose the format, then split automatically or crop the strip by hand. Use absolute masks when each frame needs its own local adjustment.", "more": "Split a strip into frames ↗"},
       "r3": {"title": "Slides and black-and-white", "body": "Slides use the original-image path. Black-and-white negatives are inverted, then graded in gray and tone as needed.", "more": "Slides and black-and-white ↗"}
     },
     "auto": {

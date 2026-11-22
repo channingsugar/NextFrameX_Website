@@ -1,11 +1,11 @@
-# Strip scans and frame splitting
+# How to split a film strip scan into individual frames
 
-Use this when one TIFF, FFF, or DNG contains several frames in a row.
+When one FFF, TIFF, or DNG scan contains several exposures, NextFrame can create a cropped copy for each frame. Use automatic splitting on supported originals, or press F to crop the strip by hand. Export the copies to save each frame as its own image file.
 
 ## Automatic FFF split
 
 1. Import the scan and select the whole strip in the library.
-2. For material that supports automatic splitting, click Auto Split, or open the command from the photo’s context menu.
+2. For a supported original, choose “Process FFF/DNG automatically” from its context menu or click Auto split. For example, when working with a Hasselblad Flextight X5 strip, select the original FFF scan.
 3. Under Film Format, choose half-frame, 135, 6×6, or 6×7.
 4. Check the detected strip count and total frames, then confirm to create the cropped copies.
 5. If you are asked to realign and rebalance color, choose what you need. Skip it when the color is already where you want it.
@@ -13,7 +13,11 @@ Use this when one TIFF, FFF, or DNG contains several frames in a row.
 
 Use a manual crop for XPAN and for scans that were not detected reliably. Automatic splitting creates separate editable copies. Those copies still have to be saved as image files through the export window.
 
-![Frames after splitting folder 4879](../assets/media/strip.webp)
+![Contact sheet of frames from a batch of FFF scans after splitting](../assets/media/strip.webp)
+
+Open a frame to check that the crop keeps the top and bottom of the picture and excludes the next exposure on either side. Here is a developed frame from the same batch.
+
+![Single frame from a split FFF scan showing a paraglider against a blue sky](../assets/media/hero-06.webp)
 
 ## Crop a strip by hand
 
