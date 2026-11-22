@@ -33,7 +33,7 @@
     "summary": "Chapters",
     "navAria": "Guide chapters",
     "eyebrow": "NEXTFRAME / Guide",
-    "meta": "English guide · Updated {updated} · Interface reference 2.54.0",
+    "meta": "English guide · Updated {updated} · Controls reference 2.62",
     "toc": "On this page",
     "pagination": "Nearby chapters"
   },
@@ -170,7 +170,7 @@
     "eyebrow": "NEXTFRAME / Download",
     "h1": "Your next darkroom.",
     "lead": "Install NextFrame and start from one frame. The package, release notes, and supported systems are the files in the download.",
-    "cardEyebrow": "Baidu Netdisk",
+    "cardEyebrow": "macOS and Windows",
     "cardTitle": "Download NextFrame",
     "cardBody": "The link includes the extraction code. If the site asks for it, enter:",
     "copy": "Copy code",

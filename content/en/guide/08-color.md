@@ -41,7 +41,13 @@ If the shadows are green, try lowering the left end of M a little. If the highli
 | Curves | Add and drag control points. The master curve sets contrast. RGB channel curves set color |
 | Color mixer | Choose red, orange, yellow, green, aqua, blue, purple, or magenta, then adjust hue, saturation, and luminance |
 | Color grading | Set a color for shadows, midtones, highlights, or the whole picture, and use blend and balance for the transition |
-| LUT | Pick a preset or import a file in the LUT panel, turn it on, and set the strength. Hold Z for a quick control |
+| LUT | Pick a preset or import a file in the LUT panel, then set its strength. Hold Z for a quick control |
 | Local mask | Add and select a mask, then adjust exposure or color inside it. Use feather for the edge |
 
 Press `N` to compare before and after. Press `⌘ Z` to undo the latest change.
+
+## Print, scan LUTs and manual levels
+
+Stack Print in Inversion with a scan look in the LUT panel. Choose None to disable an individual layer. Hold Z to adjust each strength. NF_C, NF_W and X5 pair with a 2383 D65 print look. Hold S to switch color modes.
+
+If a known neutral surface still has a cast, hold W to select the DCMY picker and sample it. Use the white-balance picker if needed. Press P to compare cast correction on and off. While enabled, use semicolon and apostrophe to adjust its strength. For residual channel bias, adjust the manual master or RGB black, mid and white handles.

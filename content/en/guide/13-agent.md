@@ -30,3 +30,7 @@ Leave cloud color correction on when the network supports it. If the color servi
 Look at the preview. Check crop, range, sprockets, and color. Describe the next change if you need one.
 
 The current MCP export command opens NextFrame’s export window. You choose the format and folder and finish the export. Afterward, check the actual files in the destination.
+
+## Optional review tools
+
+Compatible builds offer DCMY sampling, manual levels, two LUT layers, local dust repair, four-image stitching and film-border previews. Check the tool list for your connected build.

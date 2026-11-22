@@ -4,7 +4,7 @@ Install, import, develop, and export. For a first session, use a color negative 
 
 ## Install
 
-Open the disk from the [download page](../download/index.html) and choose the installer for your computer. On macOS, move the app into Applications and open it. If the system asks for access to a photo folder, allow the folder you want to process.
+[Download NextFrame](../download/index.html), install it, and open the app. If your system asks for access to a photo folder, choose the folder you want to process.
 
 ## Workspace
 
@@ -29,4 +29,8 @@ Slides are imported as the original image, with negative inversion off. See [Sli
 
 Open the destination folder and confirm the count and file names. Check orientation, size, and color in the actual files. For ordinary web sharing, choose SDR, JPEG, and sRGB.
 
-This guide refers to NextFrame 2.54.0. Shortcuts are shown for macOS. On Windows, use the matching Ctrl combination.
+This guide refers to NextFrame 2.62. Shortcuts are shown for macOS. On Windows, use the matching Ctrl combination.
+
+## Follow the beginner tips
+
+Enable Beginner mode at startup. After import, press V to inspect the base sample and exposure range. Complete the action or choose Skip to dismiss its tip. Beginner mode switches off when you finish all the tips. Turn it on again under Processing Preferences → Habits to start from the first tip. Open Guide next to Directories in the upper-left corner of the home screen for more help.

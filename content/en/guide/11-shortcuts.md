@@ -29,10 +29,11 @@ While typing in a text field, letter keys type characters. A dialog, curve edit,
 | ⌘ + C ／ ⌘ + V | Copy / paste settings (paste opens the choice panel) |
 | E | Dust removal |
 | W | White-balance eyedropper |
+| Hold W | Select the DCMY or white balance eyedropper |
 | T | Automatic temperature and tint (toggle) |
 | Hold T | Temperature and tint |
 | Z | Automatic tone (toggle) |
-| Hold Z | LUT on/off and strength |
+| Hold Z | Independent print and scan LUT strengths |
 | Hold 2 | Custom (2) |
 | Hold 3 | Custom (3) |
 | G | Toggle sprocket fill |
@@ -42,7 +43,7 @@ While typing in a text field, letter keys type characters. A dialog, curve edit,
 | ⌘ + S | Open export |
 | C | Toggle inversion |
 | S | Automatic alignment (inversion wand) |
-| Hold S | Tone mode (Vivid / Natural / Original) |
+| Hold S | Color modes, including NF_C, NF_W and X5 |
 ## Masks
 
 | Key | Action |
@@ -119,4 +120,4 @@ The filmstrip and the mask list both use `⌘ A`, `⌘ D`, and similar combinati
 
 ## Version
 
-This table matches 2.54.0. For other versions, also read the shortcut list inside the app.
+This table matches 2.62.0. For other versions, also read the shortcut list inside the app.

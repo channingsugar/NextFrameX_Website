@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate portable static pages for each locale. Run from any directory."""
 from pathlib import Path
-import html,json,os,re,shutil,hashlib
+import base64,html,json,os,re,shutil,hashlib
 import xml.etree.ElementTree as ET
 import markdown
 from PIL import Image
@@ -9,7 +9,7 @@ ROOT=Path(__file__).resolve().parents[1]
 DOWNLOAD='https://pan.baidu.com/s/1gGiIIDEMDAdubAJYSAp9ZQ?pwd=55b5'
 SOCIAL='https://www.xiaohongshu.com/user/profile/5fa7aad30000000001005466'
 DOMAIN='https://www.filmmmer.com'
-UPDATED='2026-10-17'
+UPDATED='2026-11-22'
 BEIAN='浙ICP备2026017032号'
 LANGS=['zh','en']
 media=ROOT/'assets/media'
@@ -89,11 +89,35 @@ def load_articles(loc):
     folder=ROOT/loc['content']
     files=sorted(folder.glob('*.md'))
     if not files: raise SystemExit(f'No chapters in {folder}')
+    # Keep published chapter URLs stable when changing the reading order.
+    controls = folder/'15-controls.md'
+    faq = folder/'12-troubleshooting.md'
+    files.remove(controls)
+    files.insert(files.index(folder/'11-shortcuts.md'), controls)
+    files.remove(faq)
+    files.append(faq)
     for f in files:
         title,desc,rendered,toc,text=render_markdown(f.read_text(), extra)
         articles.append(dict(slug=f.stem,title=title,description=desc,body=rendered,toc=toc,text=text))
     return articles
+def article_outline(article, loc):
+    return f'<aside class="toc"><p>{esc(loc["article"]["toc"])}</p>{article["toc"]}</aside>'
+
+def export_app_guide(loc, articles):
+    # The desktop reader uses the same rendered chapters and heading links as the site.
+    images = {}
+    chapters = []
+    for article in articles:
+        chapters.append({**article, 'toc': article_outline(article, loc)})
+        for name in re.findall(r'src="(?:\.\./)+assets/media/([\w.-]+)\?', article['body']):
+            if name not in images:
+                blob = (media / name).read_bytes()
+                images[name] = 'data:image/webp;base64,' + base64.b64encode(blob).decode('ascii')
+    bundle = dict(schema=1, language=loc['id'], chapters=chapters, images=images)
+    (ROOT/'assets/js'/f'guide-{loc["id"]}.json').write_text(json.dumps(bundle, ensure_ascii=False, separators=(',', ':')))
+
 def build_lang(loc, articles):
+    export_app_guide(loc, articles)
     prefix=loc['prefix']
     (ROOT/'assets/js'/loc['search']).write_text('window.NF_SEARCH='+json.dumps([{k:a[k] for k in ['slug','title','description','text']} for a in articles],ensure_ascii=False)+';')
     art=loc['article']
@@ -107,7 +131,7 @@ def build_lang(loc, articles):
         if i: pagination+=f'<a href="{articles[i-1]["slug"]}.html">← {esc(articles[i-1]["title"])}</a>'
         if i+1<len(articles): pagination+=f'<a href="{articles[i+1]["slug"]}.html">{esc(articles[i+1]["title"])} →</a>'
         meta=esc(art['meta'].format(updated=UPDATED))
-        body=f'<div class="guide-layout wrap">{side}<article class="article"><span class="eyebrow">{esc(art["eyebrow"])}</span><h1>{esc(a["title"])}</h1><p class="lead">{esc(a["description"])}</p><p class="meta">{meta}</p><div class="prose">{a["body"]}</div><nav class="doc-pagination" aria-label="{esc(art["pagination"])}">{pagination}</nav></article><aside class="toc"><p>{esc(art["toc"])}</p>{a["toc"]}</aside></div>'
+        body=f'<div class="guide-layout wrap">{side}<article class="article"><span class="eyebrow">{esc(art["eyebrow"])}</span><h1>{esc(a["title"])}</h1><p class="lead">{esc(a["description"])}</p><p class="meta">{meta}</p><div class="prose">{a["body"]}</div><nav class="doc-pagination" aria-label="{esc(art["pagination"])}">{pagination}</nav></article>{article_outline(a,loc)}</div>'
         path=prefix+'guide/'+a['slug']+'.html'
         shell(a['title'],a['description'],body,path,loc,search=True);paths.append(path)
     g=loc['guideIndex']
@@ -125,6 +149,7 @@ def build_lang(loc, articles):
     asset_prefix='../'*home_path.count('/')
     raw={'HERO':''.join(f'<div class="hero-slide">{img(item["asset"],alts["hero"][i],asset_prefix,eager=i==0)}</div>' for i,item in enumerate(manifest['hero'])),'HERO_COUNT':str(len(manifest['hero'])).zfill(2),'WORKSPACE':img('assets/media/workspace.webp',alts['workspace'],asset_prefix),'AUTO':img('assets/media/auto.webp',alts['auto'],asset_prefix),'STRIP':img('assets/media/strip.webp',alts['strip'],asset_prefix),'DOWNLOAD':DOWNLOAD,'SOCIAL':SOCIAL}
     for n,item in enumerate(manifest['features'],1): raw[f'FEATURE_{n:02}']=img(item['asset'],alts['features'][n-1],asset_prefix)
+    raw['MAS'] = '<a class="button" href="https://apps.apple.com/us/app/nextframe-digital-darkroom/id6749921585?mt=12">Download on the Mac App Store</a>' if loc['id']=='en' else ''
     home=apply_template((ROOT/'templates/home.html').read_text(), loc, raw)
     download=apply_template((ROOT/'templates/download.html').read_text(), loc, raw)
     download_path=prefix+'download/index.html'

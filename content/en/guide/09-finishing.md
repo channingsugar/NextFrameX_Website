@@ -22,6 +22,10 @@ Sprocket fill is white. For a motion piece with a border, choose the Border temp
 
 If this computer does not support automatic dust removal, use the Manual page. Scroll to change the brush size, then click or drag to repair dust. Hold Space and drag to pan. `⌘ Z` undoes.
 
+## Infrared and local AI cleaning
+
+Scans with an infrared channel can use infrared cleaning without an AI model. For RGB images, run local AI detection on the frame or a selected region. Compare the defect markers with the repaired image and zoom in to verify detail.
+
 ## Noise reduction and sharpening
 
 Open Detail and adjust noise reduction and sharpening near 100% view. Look at sky, skin, edges, and fine texture. Too much sharpening makes bright edges. Too much noise reduction removes grain and detail.

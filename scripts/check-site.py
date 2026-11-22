@@ -35,7 +35,13 @@ for f in ROOT.rglob('*'):
 all_html=''.join(f.read_text() for f in pages)
 for expected in ['https://pan.baidu.com/s/1gGiIIDEMDAdubAJYSAp9ZQ?pwd=55b5','https://www.xiaohongshu.com/user/profile/5fa7aad30000000001005466']:
  if expected not in all_html:errors.append('Missing destination '+expected)
-if 'apps.apple.com' in all_html:errors.append('Obsolete download destination')
+mas='https://apps.apple.com/us/app/nextframe-digital-darkroom/id6749921585?mt=12'
+for f in pages:
+ if (mas in pages[f].refs) != (f.relative_to(ROOT).as_posix() in ('en/index.html','en/download/index.html')):
+  errors.append(f'{f.name}: English MAS download entry')
+for lang in ('zh','en'):
+ bundle=json.loads((ROOT/f'assets/js/guide-{lang}.json').read_text())
+ assert len(bundle['chapters'])==15 and bundle['images'] and all('class="toc"' in c['toc'] for c in bundle['chapters'])
 def load_index(name):
  script=(ROOT/'assets/js'/name).read_text();return json.loads(script.removeprefix('window.NF_SEARCH=').removesuffix(';'))
 zh_index,en_index=load_index('search-index.js'),load_index('search-index-en.js')

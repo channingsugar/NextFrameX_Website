@@ -10,11 +10,11 @@ Focus the Develop workspace, hold the key, move the pointer to an item on the di
 | --- | --- |
 | A | Exposure-range presets, automatic processing |
 | D | Automatic crop mode, straighten, no crop |
-| S | Vivid, Natural, or Original tone |
+| S | Color modes, including NF_C, NF_W and X5 |
 | Q | Choose Dmin or Dmax sampling |
 | T | Temperature and tint |
 | G | Sprocket-fill threshold |
-| Z | LUT on/off and strength |
+| Z | Independent print and scan LUT strengths |
 | 2, 3 | Custom dials |
 
 In Processing Preferences, set the controls for Custom (2) and Custom (3). After you choose the adjustments you use often, hold the matching number key while editing.

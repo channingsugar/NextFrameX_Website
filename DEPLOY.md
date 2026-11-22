@@ -25,3 +25,5 @@ python3 scripts/check-site.py
 ## 内容更新
 
 在 `content/guide` 与 `content/en/guide` 中编辑教程，在 `locales/*.json` 中编辑界面文案，然后重新构建。新增截图需记录来源、版本和用途，避免把算法预览标成应用界面截图。
+
+网站构建从同一份 Markdown 生成网页和 `_site/assets/js/guide-{zh,en}.json`。发布官网后，支持同步的 App 会自动更新「教程」正文、配图和标题目录。MAS 固定使用英文教程。
