@@ -1,0 +1,103 @@
+{
+  "title": "NextFrame – Auto Film Convert | Automatic Film Negative Conversion",
+  "description": "NextFrame is a standalone film digitizing app for macOS and Windows. Convert camera-scanned negatives, crop frames, remove color casts and grade a whole roll without Lightroom.",
+  "guide": "User guide",
+  "download": "Download NextFrame",
+  "sections": [
+    {
+      "heading": "NextFrame – Auto Film Convert",
+      "paragraphs": [
+        "NextFrame is a standalone film digitizing app for macOS and Windows. Convert camera-scanned negatives, crop frames, remove color casts and grade a whole roll without Lightroom.",
+        "Tether your camera, split scans, remove dust with infrared or AI, choose a scan look, or hand the roll to Codex."
+      ],
+      "alt": "NextFrame automatic film workflow cover with a black-and-white street photograph"
+    },
+    {
+      "heading": "Release the shutter. See the positive.",
+      "paragraphs": [
+        "Connect your camera and trigger the shutter from your computer. Each RAW capture lands in NextFrame and appears as a positive while the film is still in the holder."
+      ],
+      "alt": "Film copy stand tethered to a laptop displaying a camera scan in NextFrame"
+    },
+    {
+      "heading": "One import for the whole roll",
+      "paragraphs": [
+        "A 36-exposure roll used to mean cropping 36 times. Import it once and let Auto Process work through the frames.",
+        "NextFrame crops and straightens each frame, identifies the exposure area, samples the film base for Dmin, inverts the negative and fills the sprocket holes white."
+      ],
+      "alt": "Orange negative, exposure area and converted positive in the automatic workflow"
+    },
+    {
+      "heading": "Tell Codex to process the roll",
+      "paragraphs": [
+        "Ask Codex to “process this roll for me,” then review the results. Through MCP, Codex calls NextFrame’s film tools directly, saving the prompts and tokens you would spend describing each adjustment."
+      ],
+      "alt": "A film processing request in Codex using NextFrame’s MCP tools"
+    },
+    {
+      "heading": "Split a Hasselblad FFF scan in one click",
+      "paragraphs": [
+        "Right-click a Hasselblad Flextight X5 strip scan to split it into individual frames. You can skip the frame-by-frame cropping in Photoshop.",
+        "For manual control, press F. Lay out the crops along the strip and cut a 36-exposure roll in one pass."
+      ],
+      "alt": "Hasselblad FFF strips and the individual photographs after splitting"
+    },
+    {
+      "heading": "Invert negatives. Keep slides positive.",
+      "paragraphs": [
+        "Import color negatives, slides and black-and-white film together, even from different rolls. NextFrame detects the film type and applies the corresponding process."
+      ],
+      "alt": "Film type picker with color negative, slide and black-and-white options"
+    },
+    {
+      "heading": "Give each scan its own look",
+      "paragraphs": [
+        "Hold S to choose a color mode. Apply a scan look or bring your own LUT, then hold Z to adjust its strength."
+      ],
+      "alt": "The same film photograph shown with three scan looks"
+    },
+    {
+      "heading": "Grade film with a key and a drag",
+      "paragraphs": [
+        "Hold S for color modes, T for white balance or Z for LUT strength. Put the controls you use most on the 2 and 3 dials, or drag the D, C, M and Y waveforms directly.",
+        "To remove a color cast, sample a neutral area with the DCMY eyedropper, then fine-tune white balance if needed."
+      ],
+      "alt": "On-image grading dial and draggable color waveforms"
+    },
+    {
+      "heading": "Remove dust with infrared or AI",
+      "paragraphs": [
+        "On a scan with an infrared channel, NextFrame uses that channel to locate dust. For a camera scan or an RGB file, the built-in AI model cleans the frame locally."
+      ],
+      "alt": "Dust marks on a scan beside the dust removal controls"
+    },
+    {
+      "heading": "Put the film edge back on an FFF scan",
+      "paragraphs": [
+        "A Hasselblad X5 scan often crops away the film edge. Choose your film stock at export to simulate its border, edge markings and sprocket holes."
+      ],
+      "alt": "A Hasselblad frame with simulated sprockets and stock-specific film borders"
+    },
+    {
+      "heading": "Put frames in order and add EXIF",
+      "paragraphs": [
+        "Reorder the frames after cropping. Import a shooting log from Film Notes to add the camera, film stock, shooting date and location in one step."
+      ],
+      "alt": "Film Notes location and camera metadata being added to film scans"
+    },
+    {
+      "heading": "Make a contact sheet or a Live Photo",
+      "paragraphs": [
+        "Lay out a whole roll on a single contact sheet, or export a favorite frame as a film Live Photo."
+      ],
+      "alt": "A contact sheet showing a full roll of photographs"
+    },
+    {
+      "heading": "Downloads and support",
+      "paragraphs": [
+        "NextFrame runs on macOS and Windows. Visit the download page for distribution options or open the guide for help with your first roll."
+      ],
+      "alt": "NextFrame website with download and guide links"
+    }
+  ]
+}

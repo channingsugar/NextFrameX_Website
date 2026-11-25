@@ -25,6 +25,7 @@
     "zoom": "Enlarge: "
   },
   "article": {
+    "rawUpdated": "Updated 26 November 2026",
     "sidebarTitle": "Guide",
     "searchLabel": "Search the guide",
     "searchPlaceholder": "Search the guide, for example Dmin",
@@ -111,6 +112,7 @@
       "next": "Next still"
     },
     "intro": {
+      "productLink": "Explore the automatic film workflow",
       "pauseSlides": "Pause slideshow",
       "playSlides": "Play slideshow",
       "nextSlide": "Next workspace screenshot",
@@ -138,7 +140,7 @@
       "title1": "Every kind of film",
       "title2": "has a way to begin.",
       "body": "Pick a path from the film type.",
-      "r1": {"title": "How do I convert a whole roll of RAW negatives?", "body": "Import the folder of individual RAW captures. Check film-base samples and exposure ranges in Develop, adjust exceptions, and export the roll together.", "more": "Convert a camera-scanned negative ↗"},
+      "r1": {"title": "How do I convert a whole roll of RAW negatives?", "body": "Import your RAW captures for automatic cropping, straightening, exposure-area detection, film-base sampling and inversion.", "more": "Convert a camera-scanned negative ↗"},
       "r2": {"title": "How do I split a film strip scan?", "body": "Choose the format, then split automatically or crop the strip by hand. Use absolute masks when each frame needs its own local adjustment.", "more": "Split a strip into frames ↗"},
       "r3": {"title": "Slides and black-and-white", "body": "Slides use the original-image path. Black-and-white negatives are inverted, then graded in gray and tone as needed.", "more": "Slides and black-and-white ↗"}
     },

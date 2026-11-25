@@ -58,7 +58,7 @@ def render_markdown(source, extra_ups):
         rendered=rendered.replace('src="../assets/', 'src="'+('../'*(extra_ups+1))+'assets/')
     text=re.sub('<[^>]+>',' ',rendered)
     return title, desc, rendered, md.toc, text
-def shell(title, desc, body, path, loc, search=False, hero=False):
+def shell(title, desc, body, path, loc, search=False, hero=False, share_image="assets/media/workspace.webp", stylesheet=None):
     prefix=loc['prefix'];rel=path[len(prefix):]
     up='../'*rel.count('/');asset='../'*path.count('/')
     t=loc['chrome']
@@ -77,7 +77,9 @@ def shell(title, desc, body, path, loc, search=False, hero=False):
     footer=f'''<footer class="site-footer"><div class="wrap footer-row"><span>{esc(t["footer"])}</span><div class="footer-links"><a href="{up}guide/index.html">{esc(t["footerGuide"])}</a><a href="{up}guide/updates.html">{esc(t["footerUpdates"])}</a><a href="{SOCIAL}" target="_blank" rel="noopener noreferrer">{esc(t["footerSocial"])}</a><a href="https://beian.miit.gov.cn" target="_blank" rel="noopener noreferrer">{BEIAN}</a></div></div></footer>'''
     url=DOMAIN+'/'+path
     ui=json.dumps(loc['ui'],ensure_ascii=False,separators=(',',':')).replace('<','\\u003c')
-    out=f'''<!doctype html><html lang="{loc["lang"]}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(title)} · NextFrame</title><meta name="description" content="{esc(desc)}"><link rel="canonical" href="{url}">{''.join(alternates)}<meta property="og:title" content="{esc(title)} · NextFrame"><meta property="og:description" content="{esc(desc)}"><meta property="og:type" content="website"><meta property="og:url" content="{url}"><meta property="og:image" content="{DOMAIN}/assets/media/workspace.webp"><meta property="og:locale" content="{loc["ogLocale"]}">{og_alt}<link rel="icon" href="{asset}assets/imgs/opt/icon.webp"><meta name="theme-color" content="#f7f7f7"><link rel="stylesheet" href="{asset}assets/css/site.css?v={version("assets/css/site.css")}">'''
+    out=f'''<!doctype html><html lang="{loc["lang"]}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(title)} · NextFrame</title><meta name="description" content="{esc(desc)}"><link rel="canonical" href="{url}">{''.join(alternates)}<meta property="og:title" content="{esc(title)} · NextFrame"><meta property="og:description" content="{esc(desc)}"><meta property="og:type" content="website"><meta property="og:url" content="{url}"><meta property="og:image" content="{DOMAIN}/{share_image}"><meta property="og:locale" content="{loc["ogLocale"]}">{og_alt}<link rel="icon" href="{asset}assets/imgs/opt/icon.webp"><meta name="theme-color" content="#f7f7f7"><link rel="stylesheet" href="{asset}assets/css/site.css?v={version("assets/css/site.css")}">'''
+    if stylesheet:
+        out+=f'<link rel="stylesheet" href="{asset}{stylesheet}?v={version(stylesheet)}">'
     if hero:
         hero_asset=manifest['hero'][0]['asset']
         out+=f'<link rel="preload" as="image" href="{asset}{hero_asset}?v={version(hero_asset)}" fetchpriority="high">'
@@ -120,6 +122,28 @@ def export_app_guide(loc, articles):
     bundle = dict(schema=1, language=loc['id'], chapters=chapters, images=images)
     (ROOT/'assets/js'/f'guide-{loc["id"]}.json').write_text(json.dumps(bundle, ensure_ascii=False, separators=(',', ':')))
 
+def build_product(loc):
+    lang = loc['id']
+    page = json.loads((ROOT/'content'/f'film-convert-{lang}.json').read_text())
+    sections = []
+    for index, section in enumerate(page['sections'], 1):
+        number = f'{index:02}'
+        art = img(f'assets/media/film-convert/{lang}-{number}.webp',
+                  section['alt'], '../' * loc['prefix'].count('/'), eager=index == 1)
+        heading = 'h1' if index == 1 else 'h2'
+        paragraphs = ''.join(f'<p>{esc(p)}</p>' for p in section['paragraphs'])
+        actions = ''
+        if index in (1, len(page['sections'])):
+            actions = (f'<div class="actions"><a class="button" href="download/index.html">{esc(page["download"])}</a>'
+                       f'<a href="guide/index.html">{esc(page["guide"])}</a></div>')
+        sections.append(f'<section id="feature-{number}" class="product-feature">'
+                        f'<div class="product-copy"><{heading}>{esc(section["heading"])}</{heading}>{paragraphs}{actions}</div>'
+                        f'{art}</section>')
+    path = loc['prefix'] + 'film-convert.html'
+    shell(page['title'], page['description'], '<div class="product-story wrap">' + ''.join(sections) + '</div>',
+          path, loc, share_image=f'assets/media/film-convert/{lang}-01.webp', stylesheet='assets/css/product.css')
+    return path
+
 def build_lang(loc, articles):
     export_app_guide(loc, articles)
     prefix=loc['prefix']
@@ -134,7 +158,7 @@ def build_lang(loc, articles):
         pagination=''
         if i: pagination+=f'<a href="{articles[i-1]["slug"]}.html">← {esc(articles[i-1]["title"])}</a>'
         if i+1<len(articles): pagination+=f'<a href="{articles[i+1]["slug"]}.html">{esc(articles[i+1]["title"])} →</a>'
-        meta=esc(art['meta'].format(updated=UPDATED))
+        meta=esc(art['meta'].format(updated=UPDATED)) if a['slug'] != '03-raw' else esc(art['rawUpdated'])
         body=f'<div class="guide-layout wrap">{side}<article class="article"><span class="eyebrow">{esc(art["eyebrow"])}</span><h1>{esc(a["title"])}</h1><p class="lead">{esc(a["description"])}</p><p class="meta">{meta}</p><div class="prose">{a["body"]}</div><nav class="doc-pagination" aria-label="{esc(art["pagination"])}">{pagination}</nav></article>{article_outline(a,loc)}</div>'
         path=prefix+'guide/'+a['slug']+'.html'
         shell(a['title'],a['description'],body,path,loc,search=True);paths.append(path)
@@ -196,7 +220,7 @@ def build_lang(loc, articles):
     page=loc['pages']
     shell(page['home']['title'],page['home']['desc'],home,home_path,loc,hero=True)
     shell(page['download']['title'],page['download']['desc'],download,download_path,loc)
-    return [home_path,download_path,index,updates]+paths
+    return [home_path,download_path,index,updates,build_product(loc)]+paths
 groups={}
 for lid in LANGS:
     locales[lid]['id']=lid
@@ -211,13 +235,14 @@ def sitemap_links(rel):
     links=''.join(f'<xhtml:link rel="alternate" hreflang="{locales[lid]["lang"]}" href="{DOMAIN}/{locales[lid]["prefix"]+rel}"/>' for lid in LANGS)
     links+=f'<xhtml:link rel="alternate" hreflang="x-default" href="{DOMAIN}/{locales["zh"]["prefix"]+rel}"/>'
     return links
-rels=['index.html','download/index.html','guide/index.html','guide/updates.html']+['guide/'+slug+'.html' for slug in slugs]
+rels=['index.html','film-convert.html','download/index.html','guide/index.html','guide/updates.html']+['guide/'+slug+'.html' for slug in slugs]
 entries=''
 for rel in rels:
     links=sitemap_links(rel)
     for lid in LANGS:
         loc_url=DOMAIN+'/'+locales[lid]['prefix']+rel
-        entries+=f'<url><loc>{loc_url}</loc><lastmod>{UPDATED}</lastmod>{links}</url>'
+        lastmod='2026-11-26' if rel in ('film-convert.html','index.html','guide/03-raw.html','guide/index.html') else UPDATED
+        entries+=f'<url><loc>{loc_url}</loc><lastmod>{lastmod}</lastmod>{links}</url>'
 (ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">'+entries+'</urlset>')
 (ROOT/'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: '+DOMAIN+'/sitemap.xml\n')
 out=ROOT/'_site'
