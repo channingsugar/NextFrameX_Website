@@ -8,7 +8,7 @@ For the optical density equation and a real camera-scan example, see [the color 
 
 Film density and transmitted light are related logarithmically. Density-domain inversion works in that relationship, then uses channel baseline, gain, and tone to produce a positive. The controls are not the same as a simple RGB invert.
 
-Press `C` to toggle inversion. Press `S` for automatic alignment. Manual DCMY adjustments are in [Color](08-color.html).
+Press `C` to toggle inversion. Press `S` for automatic alignment. Manual DCMY adjustments are in [Film Color Grading](08-color.html).
 
 ## Exposure range
 

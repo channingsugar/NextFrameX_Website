@@ -60,7 +60,9 @@
       ],
       "alt": "片型菜单中的彩色负片、反转片和黑白片选项",
       "guidePath": "guide/06-positive.html",
-      "guideLabel": "查看正片与黑白片处理方法"
+      "guideLabel": "查看正片与黑白片处理方法",
+      "relatedPath": "guide/18-negative-to-positive.html",
+      "relatedLabel": "看负片如何转成正片"
     },
     {
       "heading": "个性化扫描风格",
@@ -79,7 +81,9 @@
       ],
       "alt": "照片上的快捷键转盘和可拖动的调色波形",
       "guidePath": "guide/15-controls.html",
-      "guideLabel": "使用转盘和波形调色"
+      "guideLabel": "使用转盘和波形调色",
+      "relatedPath": "guide/17-remove-color-cast.html",
+      "relatedLabel": "看偏色怎么修复"
     },
     {
       "heading": "红外＋AI 解决灰尘问题",

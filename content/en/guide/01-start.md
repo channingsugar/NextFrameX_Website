@@ -20,7 +20,7 @@ In Develop, the filmstrip is on the left, the preview is in the center, and the 
 2. Under Auto Crop, choose Keep Base or Remove Base.
 3. Import the photos and wait until processing finishes.
 4. Open Develop. Press `F` to check the crop, and `V` to show the range and sample marks.
-5. Check orientation, edges, and color. To change them, see [Automatic RAW mode](03-raw.html) and [Color](08-color.html).
+5. Check orientation, edges, and color. To change them, see [Automatic RAW mode](03-raw.html) and [Film Color Grading](08-color.html).
 6. Press `⌘ S` to open export. Choose the photos, format, size, and destination, then export.
 
 Slides are imported as the original image, with negative inversion off. See [Slides and black-and-white negatives](06-positive.html).

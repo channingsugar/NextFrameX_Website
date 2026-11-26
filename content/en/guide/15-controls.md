@@ -23,7 +23,7 @@ In Processing Preferences, set the controls for Custom (2) and Custom (3). After
 
 Open the inversion panel and drag the left or right end of the D, C, M, or Y waveform. The left end controls the baseline. The right end controls gain. D adjusts the whole picture. C, M, and Y are the red, green, and blue channels.
 
-Move a little, look at the picture, then continue. If shadows and highlights have different casts, adjust the matching end. Do not change the color only to make the waveforms overlap. More detail is in [Color](08-color.html).
+Move a little, look at the picture, then continue. If shadows and highlights have different casts, adjust the matching end. Do not change the color only to make the waveforms overlap. More detail is in [Film Color Grading](08-color.html).
 
 ## Move through the photos
 

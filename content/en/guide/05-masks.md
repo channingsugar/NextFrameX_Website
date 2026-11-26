@@ -19,4 +19,4 @@ An absolute mask can invert on its own. A relative mask adjusts a local area on 
 
 Press `F` for the strip crop, line every crop box up with a frame, confirm, and check each copy. Color and sample range should match before and after the split. When they do, select the results and open export.
 
-Crop boxes are covered in [Strip scans](04-strip.html). Color is covered in [Color](08-color.html).
+Crop boxes are covered in [Strip scans](04-strip.html). Color is covered in [Film Color Grading](08-color.html).

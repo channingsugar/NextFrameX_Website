@@ -59,7 +59,9 @@
       ],
       "alt": "Film type picker with color negative, slide and black-and-white options",
       "guidePath": "guide/06-positive.html",
-      "guideLabel": "Work with slides and black-and-white film"
+      "guideLabel": "Work with slides and black-and-white film",
+      "relatedPath": "guide/18-negative-to-positive.html",
+      "relatedLabel": "See how a negative becomes a positive"
     },
     {
       "heading": "Give each scan its own look",
@@ -78,7 +80,9 @@
       ],
       "alt": "On-image grading dial and draggable color waveforms",
       "guidePath": "guide/15-controls.html",
-      "guideLabel": "Grade with dials and waveforms"
+      "guideLabel": "Grade with dials and waveforms",
+      "relatedPath": "guide/17-remove-color-cast.html",
+      "relatedLabel": "How to remove a color cast"
     },
     {
       "heading": "Remove dust with infrared or AI",

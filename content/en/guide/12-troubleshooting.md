@@ -8,7 +8,7 @@ Press `G` to check the switch, and hold `G` to adjust the threshold. Raise it a 
 
 ## Fog, low contrast, or an obvious cast
 
-Press `V` and check the exposure range and Dmin. Shrink the range if it includes interfering color. If the picture has no black point, try including a little film base. You can place Dmin again on the narrow black edge or in the gap between frames. Clear it if the result gets worse. Then follow [Color](08-color.html).
+Press `V` and check the exposure range and Dmin. Shrink the range if it includes interfering color. If the picture has no black point, try including a little film base. You can place Dmin again on the narrow black edge or in the gap between frames. Clear it if the result gets worse. Then follow [Film Color Grading](08-color.html).
 
 ## Cloud color correction fails
 

@@ -1,4 +1,4 @@
-# Color
+# Film Color Grading
 
 Check the analysis range first, then white balance and color cast. If the automatic result looks right, do not rebalance it.
 
