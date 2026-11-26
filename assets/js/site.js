@@ -6,8 +6,29 @@
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
     let scheduled = false, target = 0;
     const position=document.querySelector("[data-gallery-index]");
-    const move = () => { gallery.scrollLeft = target * (gallery.scrollWidth-gallery.clientWidth); scheduled=false;
-      if(position)position.textContent=String(Math.round(target*(gallery.children.length-1))+1).padStart(2,"0")+" / "+String(gallery.children.length).padStart(2,"0"); };
+    const slides = Array.from(gallery.children);
+    function reveal(slide) {
+      const slot = slide.querySelector('template');
+      if (!slot) return;
+      slot.content.querySelector('img').loading = 'eager';
+      slot.replaceWith(slot.content);
+    }
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting || entry.intersectionRatio === 0) continue;
+        reveal(entry.target);
+        observer.unobserve(entry.target);
+      }
+    }, { root: gallery, threshold: [0, 0.001] });
+    slides.slice(1).forEach(slide => observer.observe(slide));
+    const move = () => {
+      const index = target * (slides.length - 1);
+      reveal(slides[Math.floor(index)]);
+      reveal(slides[Math.ceil(index)]);
+      gallery.scrollLeft = target * (gallery.scrollWidth - gallery.clientWidth);
+      scheduled = false;
+      if (position) position.textContent = String(Math.round(index) + 1).padStart(2, '0') + ' / ' + String(slides.length).padStart(2, '0');
+    };
     const queue = (x) => { target=Math.max(0,Math.min(1,x)); if(!scheduled){scheduled=true;requestAnimationFrame(move);} };
     hero.addEventListener('pointermove', e => {
       if(coarse.matches || reduced.matches || e.target.closest('a,button')) return;

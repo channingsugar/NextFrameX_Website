@@ -1,6 +1,7 @@
 .product-story {padding-block:clamp(48px,7vw,110px)}
 .product-feature {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.86fr);gap:clamp(32px,7vw,100px);align-items:center;padding-block:clamp(32px,5vw,72px);border-top:1px solid #ccc}
 .product-feature:first-child {padding-top:0;border:0}
+.product-feature picture {display:contents}
 .product-feature img {display:block;width:100%;height:auto;max-width:470px;justify-self:center}
 .product-copy {max-width:39rem}
 .product-copy :is(h1,h2,h3) {font-weight:700;letter-spacing:-.045em;line-height:1.08;margin:0 0 .38em;text-wrap:balance}

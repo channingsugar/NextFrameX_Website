@@ -42,6 +42,21 @@ def img(path, alt, prefix='', eager=False):
         root=ET.parse(ROOT/path).getroot();w,h=int(root.attrib['width']),int(root.attrib['height'])
     else: w,h=Image.open(ROOT/path).size
     return f'<img src="{prefix}{path}?v={version(path)}" alt="{esc(alt)}" width="{w}" height="{h}" loading="{"eager" if eager else "lazy"}" decoding="async"'+(' fetchpriority="high"' if eager else '')+'>'
+def mobile_picture(path, markup, prefix, media):
+    mobile = Path(path).with_stem(Path(path).stem + '-mobile').as_posix()
+    return (f'<picture><source media="{media}" srcset="{prefix}{mobile}?v={version(mobile)}">'
+            f'{markup}</picture>')
+
+def hero_gallery(loc, asset_prefix):
+    slides = []
+    for index, item in enumerate(manifest['hero']):
+        path = item['asset']
+        image = img(path, loc['alts']['hero'][index], asset_prefix, eager=index == 0)
+        picture = mobile_picture(path, image, asset_prefix, '(max-width: 700px) and (max-aspect-ratio: 3/4)')
+        if index:
+            picture = f'<template>{picture}</template><noscript>{picture}</noscript>'
+        slides.append(f'<div class="hero-slide">{picture}</div>')
+    return ''.join(slides)
 def render_markdown(source, extra_ups):
     lines=source.splitlines();title=lines[0].removeprefix('# ');desc=next(x for x in lines[1:] if x.strip());body='\n'.join(lines[lines.index(desc)+1:])
     md=markdown.Markdown(extensions=['tables','fenced_code','attr_list','toc'],extension_configs={'toc':{'permalink':False}})
@@ -58,7 +73,7 @@ def render_markdown(source, extra_ups):
         rendered=rendered.replace('src="../assets/', 'src="'+('../'*(extra_ups+1))+'assets/')
     text=re.sub('<[^>]+>',' ',rendered)
     return title, desc, rendered, md.toc, text
-def shell(title, desc, body, path, loc, search=False, hero=False, share_image="assets/media/workspace.webp", stylesheet=None):
+def shell(title, desc, body, path, loc, search=False, share_image="assets/media/workspace.webp", stylesheet=None):
     prefix=loc['prefix'];rel=path[len(prefix):]
     up='../'*rel.count('/');asset='../'*path.count('/')
     t=loc['chrome']
@@ -80,9 +95,6 @@ def shell(title, desc, body, path, loc, search=False, hero=False, share_image="a
     out=f'''<!doctype html><html lang="{loc["lang"]}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{esc(title)} · NextFrame</title><meta name="description" content="{esc(desc)}"><link rel="canonical" href="{url}">{''.join(alternates)}<meta property="og:title" content="{esc(title)} · NextFrame"><meta property="og:description" content="{esc(desc)}"><meta property="og:type" content="website"><meta property="og:url" content="{url}"><meta property="og:image" content="{DOMAIN}/{share_image}"><meta property="og:locale" content="{loc["ogLocale"]}">{og_alt}<link rel="icon" href="{asset}assets/imgs/opt/icon.webp"><meta name="theme-color" content="#f7f7f7"><link rel="stylesheet" href="{asset}assets/css/site.css?v={version("assets/css/site.css")}">'''
     if stylesheet:
         out+=f'<link rel="stylesheet" href="{asset}{stylesheet}?v={version(stylesheet)}">'
-    if hero:
-        hero_asset=manifest['hero'][0]['asset']
-        out+=f'<link rel="preload" as="image" href="{asset}{hero_asset}?v={version(hero_asset)}" fetchpriority="high">'
     if search: out+=f'<script defer src="{asset}assets/js/{loc["search"]}?v={version("assets/js/"+loc["search"])}"></script>'
     out+=f'<script>window.NF_UI={ui}</script><script defer src="{asset}assets/js/site.js?v={version("assets/js/site.js")}"></script></head><body>{nav}<main id="main">{body}</main>{footer}</body></html>'
     dest=ROOT/path;dest.parent.mkdir(exist_ok=True,parents=True);dest.write_text(out)
@@ -127,8 +139,10 @@ def product_features(loc, page, *, on_home):
     sections = []
     for index, section in enumerate(page['sections'], 1):
         number = f'{index:02}'
-        art = img(f'assets/media/film-convert/{lang}-{number}.webp',
-                  section['alt'], '../' * loc['prefix'].count('/'), eager=index == 1 and not on_home)
+        path = f'assets/media/film-convert/{lang}-{number}.webp'
+        prefix = '../' * loc['prefix'].count('/')
+        art = img(path, section['alt'], prefix, eager=index == 1 and not on_home)
+        art = mobile_picture(path, art, prefix, '(max-width: 700px)')
         heading = 'h3' if on_home else ('h1' if index == 1 else 'h2')
         paragraphs = ''.join(f'<p>{esc(p)}</p>' for p in section['paragraphs'])
         guide = (f'<a class="feature-guide" href="{esc(section["guidePath"])}">'
@@ -180,7 +194,7 @@ def build_lang(loc, articles):
         raise SystemExit(f'Alt text count does not match media manifest for {loc["id"]}')
     home_path=prefix+'index.html'
     asset_prefix='../'*home_path.count('/')
-    raw={'HERO':''.join(f'<div class="hero-slide">{img(item["asset"],alts["hero"][i],asset_prefix,eager=i==0)}</div>' for i,item in enumerate(manifest['hero'])),'HERO_COUNT':str(len(manifest['hero'])).zfill(2),'DOWNLOAD':DOWNLOAD,'SOCIAL':SOCIAL}
+    raw={'HERO':hero_gallery(loc, asset_prefix),'HERO_COUNT':str(len(manifest['hero'])).zfill(2),'DOWNLOAD':DOWNLOAD,'SOCIAL':SOCIAL}
     product = json.loads((ROOT/'content'/f'film-convert-{loc["id"]}.json').read_text())
     raw['PRODUCT_FEATURES'] = product_features(loc, product, on_home=True)
     slides = alts['workspaceSlides']
@@ -225,7 +239,7 @@ def build_lang(loc, articles):
     download=apply_template((ROOT/'templates/download.html').read_text(), loc, raw)
     download_path=prefix+'download/index.html'
     page=loc['pages']
-    shell(page['home']['title'],page['home']['desc'],home,home_path,loc,hero=True,stylesheet='assets/css/product.css')
+    shell(page['home']['title'],page['home']['desc'],home,home_path,loc,stylesheet='assets/css/product.css')
     shell(page['download']['title'],page['download']['desc'],download,download_path,loc)
     return [home_path,download_path,index,updates,build_product(loc, product)]+paths
 groups={}
