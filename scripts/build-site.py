@@ -110,7 +110,7 @@ def load_articles(loc):
     science = folder/'16-density-color-science.md'
     files.remove(science)
     files.insert(files.index(folder/'07-inversion.md') + 1, science)
-    for chapter, predecessor in [('17-remove-color-cast', '08-color'), ('18-negative-to-positive', '06-positive')]:
+    for chapter, predecessor in [('17-remove-color-cast', '08-color'), ('18-negative-to-positive', '06-positive'), ('19-half-frame', '04-strip')]:
         path = folder / (chapter + '.md')
         files.remove(path)
         files.insert(files.index(folder / (predecessor + '.md')) + 1, path)
@@ -158,7 +158,8 @@ def product_features(loc, page, *, on_home):
         if 'relatedPath' in section:
             related = f'<a class="related-guide" href="{esc(section["relatedPath"])}">{esc(section["relatedLabel"])} →</a>'
         actions = f'<div class="actions">{guide}{related}{download}</div>'
-        sections.append(f'<section id="feature-{number}" class="product-feature">'
+        anchor = esc(section.get('anchor', f'feature-{number}'))
+        sections.append(f'<section id="{anchor}" class="product-feature">'
                         f'<div class="product-copy"><{heading}>{esc(section["heading"])}</{heading}>{paragraphs}{actions}</div>'
                         f'{art}</section>')
     return ''.join(sections)
@@ -185,6 +186,8 @@ def build_lang(loc, articles):
         if i: pagination+=f'<a href="{articles[i-1]["slug"]}.html">← {esc(articles[i-1]["title"])}</a>'
         if i+1<len(articles): pagination+=f'<a href="{articles[i+1]["slug"]}.html">{esc(articles[i+1]["title"])} →</a>'
         meta=esc(art['meta'].format(updated=UPDATED)) if a['slug'] not in ('03-raw', '08-color', '17-remove-color-cast', '18-negative-to-positive') else esc(art['rawUpdated'])
+        if a['slug'] == '19-half-frame':
+            meta = esc(art['halfFrameUpdated'])
         body=f'<div class="guide-layout wrap">{side}<article class="article"><span class="eyebrow">{esc(art["eyebrow"])}</span><h1>{esc(a["title"])}</h1><p class="lead">{esc(a["description"])}</p><p class="meta">{meta}</p><div class="prose">{a["body"]}</div><nav class="doc-pagination" aria-label="{esc(art["pagination"])}">{pagination}</nav></article>{article_outline(a,loc)}</div>'
         path=prefix+'guide/'+a['slug']+'.html'
         shell(a['title'],a['description'],body,path,loc,search=True);paths.append(path)
@@ -270,6 +273,8 @@ for rel in rels:
     for lid in LANGS:
         loc_url=DOMAIN+'/'+locales[lid]['prefix']+rel
         lastmod='2026-11-26' if rel in ('film-convert.html','index.html','guide/03-raw.html','guide/08-color.html','guide/17-remove-color-cast.html','guide/18-negative-to-positive.html','guide/index.html') else UPDATED
+        if rel in ('film-convert.html', 'index.html', 'guide/index.html', 'guide/19-half-frame.html'):
+            lastmod = '2026-11-27'
         entries+=f'<url><loc>{loc_url}</loc><lastmod>{lastmod}</lastmod>{links}</url>'
 (ROOT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">'+entries+'</urlset>')
 (ROOT/'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: '+DOMAIN+'/sitemap.xml\n')

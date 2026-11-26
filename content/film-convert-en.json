@@ -53,6 +53,16 @@
       "guideLabel": "Split a strip scan"
     },
     {
+      "heading": "Scan half frames in pairs. Grade each one separately.",
+      "paragraphs": [
+        "A waterfall and a woodland path can share a scan and still need different exposures. Half-frame mode finds an exposure area for each picture and processes its color separately, so you can keep the pair together."
+      ],
+      "alt": "Two half frames on one scan, with separate exposure boxes around the waterfall and woodland path",
+      "guideLabel": "Process a half-frame pair",
+      "guidePath": "guide/19-half-frame.html",
+      "anchor": "half-frame"
+    },
+    {
       "heading": "Invert negatives. Keep slides positive.",
       "paragraphs": [
         "Import color negatives, slides and black-and-white film together, even from different rolls. NextFrame detects the film type and applies the corresponding process."
@@ -61,16 +71,8 @@
       "guidePath": "guide/06-positive.html",
       "guideLabel": "Work with slides and black-and-white film",
       "relatedPath": "guide/18-negative-to-positive.html",
-      "relatedLabel": "See how a negative becomes a positive"
-    },
-    {
-      "heading": "Give each scan its own look",
-      "paragraphs": [
-        "Hold S to choose a color mode. Apply a scan look or bring your own LUT, then hold Z to adjust its strength."
-      ],
-      "alt": "The same film photograph shown with three scan looks",
-      "guidePath": "guide/08-color.html#print-scan-luts-and-manual-levels",
-      "guideLabel": "Set up print and scan LUTs"
+      "relatedLabel": "See how a negative becomes a positive",
+      "anchor": "feature-06"
     },
     {
       "heading": "Grade film with a key and a drag",
@@ -85,13 +87,24 @@
       "relatedLabel": "How to remove a color cast"
     },
     {
+      "heading": "Give each scan its own look",
+      "paragraphs": [
+        "Keep film color true to life or give it your own look. Hold S to choose a color mode, then pick a scan style or load your own LUT. Hold Z to adjust its strength."
+      ],
+      "alt": "The same film photograph shown with three scan looks",
+      "guidePath": "guide/08-color.html#print-scan-luts-and-manual-levels",
+      "guideLabel": "Set up print and scan LUTs",
+      "anchor": "feature-07"
+    },
+    {
       "heading": "Remove dust with infrared or AI",
       "paragraphs": [
         "On a scan with an infrared channel, NextFrame uses that channel to locate dust. For a camera scan or an RGB file, the built-in AI model cleans the frame locally."
       ],
       "alt": "Dust marks on a scan beside the dust removal controls",
       "guidePath": "guide/09-finishing.html",
-      "guideLabel": "Read the dust removal guide"
+      "guideLabel": "Read the dust removal guide",
+      "anchor": "feature-09"
     },
     {
       "heading": "Put the film edge back on an FFF scan",
@@ -100,7 +113,8 @@
       ],
       "alt": "A Hasselblad frame with simulated sprockets and stock-specific film borders",
       "guidePath": "guide/09-finishing.html#simulated-film-base",
-      "guideLabel": "Add a simulated film border"
+      "guideLabel": "Add a simulated film border",
+      "anchor": "feature-10"
     },
     {
       "heading": "Put frames in order and add EXIF",
@@ -109,7 +123,8 @@
       ],
       "alt": "Film Notes location and camera metadata being added to film scans",
       "guidePath": "guide/10-export.html#roll-metadata",
-      "guideLabel": "Organize frames and shooting data"
+      "guideLabel": "Organize frames and shooting data",
+      "anchor": "feature-11"
     },
     {
       "heading": "Make a contact sheet or a Live Photo",
@@ -118,7 +133,8 @@
       ],
       "alt": "A contact sheet showing a full roll of photographs",
       "guidePath": "guide/10-export.html#contact-sheet",
-      "guideLabel": "Export a contact sheet or Live Photo"
+      "guideLabel": "Export a contact sheet or Live Photo",
+      "anchor": "feature-12"
     },
     {
       "heading": "Downloads and support",
@@ -127,7 +143,8 @@
       ],
       "alt": "NextFrame website with download and guide links",
       "guidePath": "guide/01-start.html",
-      "guideLabel": "Read the installation guide"
+      "guideLabel": "Read the installation guide",
+      "anchor": "feature-13"
     }
   ]
 }

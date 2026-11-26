@@ -54,6 +54,16 @@
       "guideLabel": "整条扫描拆帧教程"
     },
     {
+      "heading": "半格模式，两张一起扫，各自校色",
+      "paragraphs": [
+        "左边拍瀑布，右边拍林间小路，两张照片的光线往往不同。半格模式会为左右画格分别设定曝光范围、独立处理颜色，一张扫描件就能保留这对画面。"
+      ],
+      "alt": "同一张半格扫描件上的瀑布和林间小路，左右各有一个曝光框",
+      "guideLabel": "查看半格处理教程",
+      "guidePath": "guide/19-half-frame.html",
+      "anchor": "half-frame"
+    },
+    {
       "heading": "负片反转，正片直出",
       "paragraphs": [
         "NextFrame 可以自动识别胶片类型。彩色负片、反转片、黑白片，不管是不是同一卷，都可以一起导入，按片型处理。"
@@ -62,16 +72,8 @@
       "guidePath": "guide/06-positive.html",
       "guideLabel": "查看正片与黑白片处理方法",
       "relatedPath": "guide/18-negative-to-positive.html",
-      "relatedLabel": "看负片如何转成正片"
-    },
-    {
-      "heading": "个性化扫描风格",
-      "paragraphs": [
-        "胶片的颜色可以标准，也可以个性。长按 S 选择颜色模式，叠加不同扫描风格，也可以载入自己的 LUT。长按 Z 即可调整强度。"
-      ],
-      "alt": "同一幅照片在三种扫描风格下的颜色对照",
-      "guidePath": "guide/08-color.html#lut",
-      "guideLabel": "设置印片与扫描 LUT"
+      "relatedLabel": "看负片如何转成正片",
+      "anchor": "feature-06"
     },
     {
       "heading": "一键式调色",
@@ -86,13 +88,24 @@
       "relatedLabel": "看偏色怎么修复"
     },
     {
+      "heading": "个性化扫描风格",
+      "paragraphs": [
+        "胶片的颜色可以标准，也可以个性。长按 S 选择颜色模式，叠加不同扫描风格，也可以载入自己的 LUT。长按 Z 即可调整强度。"
+      ],
+      "alt": "同一幅照片在三种扫描风格下的颜色对照",
+      "guidePath": "guide/08-color.html#lut",
+      "guideLabel": "设置印片与扫描 LUT",
+      "anchor": "feature-07"
+    },
+    {
       "heading": "红外＋AI 解决灰尘问题",
       "paragraphs": [
         "谁还在一颗一颗点灰尘？带红外通道的扫描件，NextFrame 用红外信息定位并清理灰尘。相机翻拍和 RGB 扫描件，交给自带的本地 AI 除尘模型。"
       ],
       "alt": "扫描细节上的灰尘标记与除尘面板",
       "guidePath": "guide/09-finishing.html",
-      "guideLabel": "查看除尘教程"
+      "guideLabel": "查看除尘教程",
+      "anchor": "feature-09"
     },
     {
       "heading": "让哈苏 FFF 文件有齿孔和边框",
@@ -101,7 +114,8 @@
       ],
       "alt": "FFF 照片的模拟齿孔、边码及胶卷边框选择",
       "guidePath": "guide/09-finishing.html#simulated-film-base",
-      "guideLabel": "添加模拟片基"
+      "guideLabel": "添加模拟片基",
+      "anchor": "feature-10"
     },
     {
       "heading": "胶片排序，一键添加 EXIF 信息",
@@ -110,7 +124,8 @@
       ],
       "alt": "从 Film Notes 导入拍摄地点和胶片 EXIF 信息",
       "guidePath": "guide/10-export.html#roll-metadata",
-      "guideLabel": "整理画格和拍摄信息"
+      "guideLabel": "整理画格和拍摄信息",
+      "anchor": "feature-11"
     },
     {
       "heading": "让胶片更有仪式感",
@@ -119,7 +134,8 @@
       ],
       "alt": "一整卷照片排成的胶片印样",
       "guidePath": "guide/10-export.html#contact-sheet",
-      "guideLabel": "导出印样与 Live Photo"
+      "guideLabel": "导出印样与 Live Photo",
+      "anchor": "feature-12"
     },
     {
       "heading": "官网和支持",
@@ -128,7 +144,8 @@
       ],
       "alt": "NextFrame 官网与下载入口",
       "guidePath": "guide/01-start.html",
-      "guideLabel": "查看安装教程"
+      "guideLabel": "查看安装教程",
+      "anchor": "feature-13"
     }
   ]
 }

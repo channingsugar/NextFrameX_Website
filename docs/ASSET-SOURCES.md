@@ -47,6 +47,6 @@
 
 ## 2026-11-26 · Film Convert 产品介绍
 
-中文配图来自作者提供的「NOV27 12大绝技」成稿。封面对应网页第 01 节，原图 01–12 对应网页第 02–13 节。英文图按相应中文成稿使用 ImageGen 重绘排版，是英文宣传插图。两种语言使用独立的 960 × 1280 WebP；文案另以 HTML 输出，源数据在 content/film-convert-{zh,en}.json。
+中文配图来自作者提供的「NOV27 12大绝技」成稿。按 11 月 27 日定稿排列：封面后顺序使用 NF NOV_01.jpg 至 NF NOV_13.jpg。海报 05 为半格，06 为片型，08 为扫描风格，09 为除尘，12 为印样与 Live Photo，13 为平台和支持。半格教程的 half-frame-exposure.webp 裁自 05 中文原稿下方的双画面。英文图按相应中文成稿使用 ImageGen 重绘排版，是英文宣传插图。两种语言使用独立的 960 × 1280 WebP；文案另以 HTML 输出，源数据在 content/film-convert-{zh,en}.json。
 
 - 偏色修复教程的 `cast-street-pair.webp` 取自现有素材 `assets/imgs/色偏纠正前.png` 和 `色偏纠正后.png` 的相同画面区域，按前后顺序并排；未对素材再调色。
