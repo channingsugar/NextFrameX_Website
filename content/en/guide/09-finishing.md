@@ -55,3 +55,7 @@ Start with a low amount. At 100% view, look at skin, sky, and shadows, then adju
 ## Apply to a batch
 
 Copy settings from a reference photo. On the target, open the paste panel and check only the modules you want to sync. After a batch apply, check photos with different exposure and different subjects.
+
+## Simulated film borders {#simulated-film-base}
+
+If a Hasselblad FFF scan was cropped to the image area, select its frames in the photo list and choose **Simulated Film Base…** from the context menu. Pick the film stock and format, check the starting frame number, then choose **Apply**. When you select several photos, frame numbering follows their order in the list.

@@ -30,6 +30,14 @@ On export, set Dynamic Range to HDR and choose a strength: Auto, Natural, Standa
 
 Check the file on a screen and in software that support HDR. Where HDR is not supported, you see the compatible SDR rendering. An ordinary web screenshot cannot show the full HDR brightness.
 
+## Frame order and EXIF {#roll-metadata}
+
+Put the photos in film-frame order before matching them with the exposures in your Film Notes log. Check the date and location of the first and last frames, then apply the camera, stock and shooting data to the roll.
+
+## Export a contact sheet {#contact-sheet}
+
+Select the photos you want on the sheet. In the export window, choose **Sheet**, set the frame and output formats, and check the estimated sheet count before exporting. To make a Live Photo from a single frame, follow the steps below.
+
 ## LIVE export
 
 1. Open export, set Dynamic Range to SDR, and choose the Live format.

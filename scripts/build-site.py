@@ -44,7 +44,7 @@ def img(path, alt, prefix='', eager=False):
     return f'<img src="{prefix}{path}?v={version(path)}" alt="{esc(alt)}" width="{w}" height="{h}" loading="{"eager" if eager else "lazy"}" decoding="async"'+(' fetchpriority="high"' if eager else '')+'>'
 def render_markdown(source, extra_ups):
     lines=source.splitlines();title=lines[0].removeprefix('# ');desc=next(x for x in lines[1:] if x.strip());body='\n'.join(lines[lines.index(desc)+1:])
-    md=markdown.Markdown(extensions=['tables','fenced_code','toc'],extension_configs={'toc':{'permalink':False}})
+    md=markdown.Markdown(extensions=['tables','fenced_code','attr_list','toc'],extension_configs={'toc':{'permalink':False}})
     rendered=md.convert(body)
     def image_dims(m):
         tag=m.group(0);src=re.search('src="([^"]+)"',tag).group(1);fp=(ROOT/'guide'/src).resolve()
@@ -122,25 +122,30 @@ def export_app_guide(loc, articles):
     bundle = dict(schema=1, language=loc['id'], chapters=chapters, images=images)
     (ROOT/'assets/js'/f'guide-{loc["id"]}.json').write_text(json.dumps(bundle, ensure_ascii=False, separators=(',', ':')))
 
-def build_product(loc):
+def product_features(loc, page, *, on_home):
     lang = loc['id']
-    page = json.loads((ROOT/'content'/f'film-convert-{lang}.json').read_text())
     sections = []
     for index, section in enumerate(page['sections'], 1):
         number = f'{index:02}'
         art = img(f'assets/media/film-convert/{lang}-{number}.webp',
-                  section['alt'], '../' * loc['prefix'].count('/'), eager=index == 1)
-        heading = 'h1' if index == 1 else 'h2'
+                  section['alt'], '../' * loc['prefix'].count('/'), eager=index == 1 and not on_home)
+        heading = 'h3' if on_home else ('h1' if index == 1 else 'h2')
         paragraphs = ''.join(f'<p>{esc(p)}</p>' for p in section['paragraphs'])
-        actions = ''
+        guide = (f'<a class="feature-guide" href="{esc(section["guidePath"])}">'
+                 f'{esc(section["guideLabel"])} <span aria-hidden="true">→</span></a>')
+        download = ''
         if index in (1, len(page['sections'])):
-            actions = (f'<div class="actions"><a class="button" href="download/index.html">{esc(page["download"])}</a>'
-                       f'<a href="guide/index.html">{esc(page["guide"])}</a></div>')
+            download = f'<a class="button" href="download/index.html">{esc(page["download"])}</a>'
+        actions = f'<div class="actions">{guide}{download}</div>'
         sections.append(f'<section id="feature-{number}" class="product-feature">'
                         f'<div class="product-copy"><{heading}>{esc(section["heading"])}</{heading}>{paragraphs}{actions}</div>'
                         f'{art}</section>')
+    return ''.join(sections)
+
+def build_product(loc, page):
+    lang = loc['id']
     path = loc['prefix'] + 'film-convert.html'
-    shell(page['title'], page['description'], '<div class="product-story wrap">' + ''.join(sections) + '</div>',
+    shell(page['title'], page['description'], '<div class="product-story wrap">' + product_features(loc, page, on_home=False) + '</div>',
           path, loc, share_image=f'assets/media/film-convert/{lang}-01.webp', stylesheet='assets/css/product.css')
     return path
 
@@ -175,7 +180,9 @@ def build_lang(loc, articles):
         raise SystemExit(f'Alt text count does not match media manifest for {loc["id"]}')
     home_path=prefix+'index.html'
     asset_prefix='../'*home_path.count('/')
-    raw={'HERO':''.join(f'<div class="hero-slide">{img(item["asset"],alts["hero"][i],asset_prefix,eager=i==0)}</div>' for i,item in enumerate(manifest['hero'])),'HERO_COUNT':str(len(manifest['hero'])).zfill(2),'AUTO':img('assets/media/auto.webp',alts['auto'],asset_prefix),'STRIP':img('assets/media/strip.webp',alts['strip'],asset_prefix),'DOWNLOAD':DOWNLOAD,'SOCIAL':SOCIAL}
+    raw={'HERO':''.join(f'<div class="hero-slide">{img(item["asset"],alts["hero"][i],asset_prefix,eager=i==0)}</div>' for i,item in enumerate(manifest['hero'])),'HERO_COUNT':str(len(manifest['hero'])).zfill(2),'DOWNLOAD':DOWNLOAD,'SOCIAL':SOCIAL}
+    product = json.loads((ROOT/'content'/f'film-convert-{loc["id"]}.json').read_text())
+    raw['PRODUCT_FEATURES'] = product_features(loc, product, on_home=True)
     slides = alts['workspaceSlides']
     raw['WORKSPACE_COUNT'] = f'{len(slides):02}'
     workspace_images = []
@@ -218,9 +225,9 @@ def build_lang(loc, articles):
     download=apply_template((ROOT/'templates/download.html').read_text(), loc, raw)
     download_path=prefix+'download/index.html'
     page=loc['pages']
-    shell(page['home']['title'],page['home']['desc'],home,home_path,loc,hero=True)
+    shell(page['home']['title'],page['home']['desc'],home,home_path,loc,hero=True,stylesheet='assets/css/product.css')
     shell(page['download']['title'],page['download']['desc'],download,download_path,loc)
-    return [home_path,download_path,index,updates,build_product(loc)]+paths
+    return [home_path,download_path,index,updates,build_product(loc, product)]+paths
 groups={}
 for lid in LANGS:
     locales[lid]['id']=lid
