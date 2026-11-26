@@ -10,7 +10,7 @@
         "NextFrame 是为 macOS 和 Windows 设计的独立胶片数字化 App。无需 Lightroom，从负片翻拍到胶片裁切、负片反转、颜色矫正和导出，都能在一处完成。",
         "联机翻拍，扫描件自动裁切，红外＋AI 除尘，多种扫描风格，接入 Codex。"
       ],
-      "alt": "NextFrame 全自动胶片处理工作流封面与黑白街景胶片",
+      "alt": "NextFrame 2.64 全自动胶片工作流封面，下方是三排橙色负片",
       "guidePath": "guide/02-workflows.html",
       "guideLabel": "按素材选择处理流程"
     },
@@ -29,7 +29,7 @@
         "以前处理一卷胶片，光裁切就要重复 36 次。用 NextFrame，导入即可全自动处理。",
         "NextFrame 将自动完成裁切、拉直、识别曝光范围、设定 Dmin、负片反转和填白齿孔。"
       ],
-      "alt": "从橙色负片到正片的裁切、片基取样和反转示意",
+      "alt": "六步全自动处理流程，右侧用同一画格展示角度校正、曝光范围和负片反转结果",
       "guidePath": "guide/03-raw.html",
       "guideLabel": "查看 RAW 自动处理流程"
     },

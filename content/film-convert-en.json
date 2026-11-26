@@ -10,7 +10,7 @@
         "NextFrame is a standalone film digitizing app for macOS and Windows. Convert camera-scanned negatives, crop frames, remove color casts and grade a whole roll without Lightroom.",
         "Tether your camera, split scans, remove dust with infrared or AI, choose a scan look, or hand the roll to Codex."
       ],
-      "alt": "NextFrame automatic film workflow cover with a black-and-white street photograph",
+      "alt": "NextFrame 2.64 Fully Automatic Film Workflow cover with three rows of orange negatives",
       "guidePath": "guide/02-workflows.html",
       "guideLabel": "Find your workflow"
     },
@@ -29,7 +29,7 @@
         "A 36-exposure roll used to mean cropping 36 times. Import it once and let Auto Process work through the frames.",
         "NextFrame crops and straightens each frame, identifies the exposure area, samples the film base for Dmin, inverts the negative and fills the sprocket holes white."
       ],
-      "alt": "Orange negative, exposure area and converted positive in the automatic workflow",
+      "alt": "Six automatic processing steps with the same frame shown during straightening, image-area detection and inversion",
       "guidePath": "guide/03-raw.html",
       "guideLabel": "See the automatic RAW workflow"
     },
