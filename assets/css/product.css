@@ -8,7 +8,7 @@
 .product-copy h1 {font-size:clamp(42px,5.4vw,82px)}
 .product-copy :is(h2,h3) {font-size:clamp(30px,3.7vw,56px)}
 .product-copy p {font-size:clamp(17px,1.6vw,22px);line-height:1.65;margin:.6em 0;color:#414141}
-@media(min-width:761px){.product-story:not(.home-product-story) > .product-feature:nth-child(even){grid-template-areas:"art copy"}}
+@media(min-width:761px){.product-story > .product-feature:nth-child(even){grid-template-areas:"art copy"}}
 @media(max-width:760px){.product-feature{grid-template-areas:"copy" "art";grid-template-columns:minmax(0,1fr);gap:24px}.product-copy{max-width:100%}}
 
 .home-product-story {padding-bottom:0}
